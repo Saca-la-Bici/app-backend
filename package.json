@@ -4,6 +4,7 @@
   "description": "El backend para las aplicaciones moviles de la organizacion Saca la Bici.",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon app.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,8 +25,10 @@
   },
   "homepage": "https://github.com/Saca-la-Bici/app-backend#readme",
   "dependencies": {
+    "compression": "^1.7.4",
     "express": "^4.19.2",
-    "mongoose": "^8.6.0"
+    "mongoose": "^8.6.0",
+    "nodemon": "^3.1.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
