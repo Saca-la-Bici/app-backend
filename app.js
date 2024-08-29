@@ -1,5 +1,6 @@
 // Para usar express en vez de http
 const express = require('express');
+const mongoose = require('mongoose');
 
 // Inicia la app usuando a express
 const app = express();
@@ -20,6 +21,14 @@ app.use(bodyParser.json());
 const compression = require('compression');
 
 app.use(compression());
+
+// Conectar a la base de datos local de MongoDB
+mongoose.connect('mongodb://localhost:27017/Saca_la_Bici')
+.then(() => {
+    console.log('Conectado a la base de datos local de MongoDB');
+}).catch((error) => {
+    console.error('Error al conectar con la base de datos:', error);
+});
 
 // Importar el archivo index de cada módulo
 const actividadesRoutes = require('./modules/actividades/routes/actividadesIndex.routes');
@@ -69,6 +78,4 @@ app.use((request, response) => {
 });
 
 // Para que el servidor este activo
-app.listen(port, () => {
-    console.log(`Se corre en el puerto ${port}`);
-});
+app.listen(port);
