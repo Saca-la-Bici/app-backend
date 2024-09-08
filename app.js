@@ -42,6 +42,7 @@ const preguntasRoutes = require('./modules/preguntasFrecuentes/routes/preguntasI
 const rentaRoutes = require('./modules/renta/routes/rentaIndex.routes');
 const reporteRoutes = require('./modules/reporte/routes/reporteIndex.routes');
 const rodadasRoutes = require('./modules/rodadas/routes/rodadasIndex.routes');
+const sessionRoutes = require('./modules/session/routes/sessionIndex.routes');
 
 // Usar las rutas de los módulos
 app.use('/actividades', actividadesRoutes);
@@ -55,6 +56,7 @@ app.use('/preguntasFrecuentes', preguntasRoutes);
 app.use('/renta', rentaRoutes);
 app.use('/reporte', reporteRoutes);
 app.use('/rodadas', rodadasRoutes);
+app.use('/session', sessionRoutes);
 
 // Middleware para verificar si la sesión está activa
 // function checkSession(req, res, next) {
