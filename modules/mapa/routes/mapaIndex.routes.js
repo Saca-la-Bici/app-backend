@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const registrarRutaRoute = require('./registrarRuta.routes');
+const modificarRutaRoute = require('./modificarRuta.routes');
 
-router.use('/', registrarRutaRoute);
+router.use('/', modificarRutaRoute);
 
 module.exports = router;
