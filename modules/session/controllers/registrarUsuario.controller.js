@@ -12,7 +12,8 @@ exports.registrarUsuario = async (request, response) => {
             edad,
             tipoSangre, 
             correoElectronico, 
-            numeroEmergencia
+            numeroEmergencia,
+            firebaseUID
         } = request.body;
 
         // Buscar el rol Usuario
@@ -32,8 +33,8 @@ exports.registrarUsuario = async (request, response) => {
             edad,
             tipoSangre,
             correoElectronico,
-            numeroEmergencia
-            // firebaseUID: uid, // Descomentar cuando uses Firebase
+            numeroEmergencia,
+            firebaseUID 
         });
 
         await newUser.save();

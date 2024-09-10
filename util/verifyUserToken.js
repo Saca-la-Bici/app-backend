@@ -1,4 +1,4 @@
-const admin = require('firebase-admin');
+const admin = require('./firebase-admin-config');
 
 // Middleware para verificar el idToken
 const verifyUserToken = async (request, response, next) => {

@@ -68,8 +68,13 @@ app.use('/session', sessionRoutes);
 //     next();
 // }
 
-app.get('/', (request, response) => {
-    response.json('¡Bienvenido a Saca la Bici!');
+const verifyToken = require('./util/verifyUserToken');
+
+app.get('/', verifyToken, (request, response) => {
+    response.status(200).json({
+        message: '¡Bienvenido a Saca la Bici!'
+    });
+    console.log(request.userUID)
 });
 
 // Para error 404
