@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get('/', consultarMapaController.getRutas);
 
+router.get('/:id', consultarMapaController.getRuta);
+
 module.exports = router;
