@@ -32,14 +32,6 @@ const rutaSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    lugar: {
-        type: String,
-        required: true
-    },
-    descanso: {
-        type: String,
-        required: false
-    },
     coordenadas: {
         type: [coordenadaSchema],
         required: true
