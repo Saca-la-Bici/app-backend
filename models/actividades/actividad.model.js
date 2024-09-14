@@ -30,50 +30,13 @@ const actividadSchema = new mongoose.Schema ({
     duracion: {
         type: Number, 
         required: true
-    },  
-});
-
-const rodadaSchema = new mongoose.Schema ({
-    informacion: {
-        type: [actividadSchema],
-        required: true
-    }, 
-    ruta: {
-        type: [rutaSchema],
-        required: true
     },
-}, {
-    collection: 'Rodadas'
+    imagen: {
+        type: String,
+        required: false
+    }
 });
 
-const tallerSchema = new mongoose.Schema ({
-    informacion: {
-        type: [actividadSchema],
-        required: true
-    }, 
-    tipo: {
-        type: "Taller",
-        required: true
-    },
-}, {
-    collection: 'Talleres'
-});
+const actividad = mongoose.model('Actividad', actividadSchema);
 
-const eventoSchema = new mongoose.Schema ({
-    informacion: {
-        type: [actividadSchema],
-        required: true
-    }, 
-    tipo: {
-        type: "Evento",
-        required: true
-    },
-}, {
-    collection: 'Eventos'
-});
-
-const rodada = mongoose.model('Actividad', rodadaSchema);
-const taller = mongoose.model('Taller', tallerSchema);
-const evento = mongoose.model('Evento', eventoSchema);
-
-module.exports = Actividad;
+module.exports = actividad;
