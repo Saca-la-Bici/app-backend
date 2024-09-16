@@ -23,7 +23,8 @@ const compression = require('compression');
 app.use(compression());
 
 // Conectar a la base de datos local de MongoDB
-mongoose.connect('mongodb://lec2-3-144-225-207.us-east-2.compute.amazonaws.com:27017/Saca_la_Bici')
+mongoose.connect('mongodb://ec2-3-144-225-207.us-east-2.compute.amazonaws.com:27017')
+
 
 .then(() => {
     console.log('Conectado a la base de datos de MongoDB en AWS EC2');
