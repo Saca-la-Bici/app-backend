@@ -9,6 +9,7 @@ exports.consultarPreguntasFrecuentes = async (req, res) => {
             data: preguntas
         });
     } catch (error) {
+        console.error(error);
         return res.status(500).json({
             code: 500,
             msg: 'Error al intentar consultar las preguntas frecuentes',
