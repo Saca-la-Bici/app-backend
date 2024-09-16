@@ -23,6 +23,7 @@ const compression = require('compression');
 app.use(compression());
 
 // Conectar a la base de datos local de MongoDB
+//mongoose.connect('mongodb://SacalaBiciDeveloper:uY*Gn_rQgiy15744unN1884%24%24@ec2-3-145-117-182.us-east-2.compute.amazonaws.com:28222/?authSource=admin')
 mongoose.connect('mongodb://localhost:27017/Saca_la_Bici')
 .then(() => {
     console.log('Conectado a la base de datos local de MongoDB');
