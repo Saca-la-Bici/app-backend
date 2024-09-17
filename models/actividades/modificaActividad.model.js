@@ -1,4 +1,6 @@
-const { Rodada, Taller, Evento } = require('../../../models/actividades/registraActividad.model.js');
+const Rodada = require('./rodada.model');
+const Taller = require('./taller.model');
+const Evento = require('./evento.model');
 
 async function encontrarEvento(id) {
 
