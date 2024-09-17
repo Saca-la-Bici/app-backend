@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
-const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const announcementSchema = new mongoose.Schema({
-    IDAnuncio: {
-        type: Number,
-        unique: true
-    },
     IDUsuario: {
         type: Number,
         //type: mongoose.SchemaTypes.ObjectId,
         //ref: 'Usuario',
         required: true,
+    },
+    titulo:{
+        type: String,
+        required: true
     },
     contenido: {
         type: String,
@@ -31,14 +30,13 @@ const announcementSchema = new mongoose.Schema({
     }
 });
 
-announcementSchema.plugin(AutoIncrement, {inc_field: 'IDAnuncio'}); // Autoincrementa el IDAnuncio
-
 const Anuncio = mongoose.model('Anuncio', announcementSchema);
 
-async function postAnnouncement(IDUsuario, contenido, imagen){
+async function postAnnouncement(IDUsuario, titulo, contenido, imagen){
     try {
         const announcement = await Anuncio.create({
             IDUsuario: IDUsuario,
+            titulo: titulo,
             contenido: contenido,
             imagen: imagen
         });
@@ -57,6 +55,24 @@ async function getAnnouncements(IDAnuncio){
     }
 }
 
+async function putAnnouncement(IDAnuncio, IDUsuario, titulo, contenido, imagen){
+    try {
+        const announcement = await Anuncio.findById(IDAnuncio);
+        if (announcement) {
+            announcement.IDUsuario = IDUsuario;
+            announcement.titulo = titulo;
+            announcement.contenido = contenido;
+            announcement.imagen = imagen;
+            await announcement.save();
+            return announcement;
+        } else {
+            throw new Error('Anuncio no encontrado');
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
 async function deleteAnnouncement(IDAnuncio){
     try {
         await Anuncio.findByIdAndDelete(IDAnuncio);
@@ -69,5 +85,6 @@ module.exports = {
     Anuncio,
     postAnnouncement,
     getAnnouncements,
+    putAnnouncement,
     deleteAnnouncement
 };
