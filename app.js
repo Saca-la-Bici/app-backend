@@ -1,35 +1,28 @@
-// Para usar express en vez de http
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 
-// Inicia la app usuando a express
 const app = express();
-const port = 7070;
+const port = process.env.PORT || 7070;
 
-// Manipular facil los datos de las peticiones
 const bodyParser = require("body-parser");
 
-// Configura bodyparser
 app.use(
   bodyParser.urlencoded({
     extended: false,
   })
 );
-
 app.use(bodyParser.json());
 
-// USAR JWT (JSON Web Tokens) para autenticar las solicitudes
-
 const compression = require("compression");
-
 app.use(compression());
 
-// Conectar a la base de datos local de MongoDB
+// Conectar a la base de datos usando variables de entorno
 mongoose
-  .connect(
-    "mongodb://SacalaBiciDeveloper:uY*Gn_rQgiy15744unN1884%24%24@ec2-3-145-117-182.us-east-2.compute.amazonaws.com:28222/?authSource=admin"
-  )
-
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("Conectado a la base de datos de MongoDB en AWS EC2");
   })
@@ -51,7 +44,6 @@ const reporteRoutes = require("./modules/reporte/routes/reporteIndex.routes");
 const rodadasRoutes = require("./modules/rodadas/routes/rodadasIndex.routes");
 const sessionRoutes = require("./modules/session/routes/sessionIndex.routes");
 
-// Usar las rutas de los módulos
 app.use("/actividades", actividadesRoutes);
 app.use("/anuncios", anunciosRoutes);
 app.use("/ayuda", ayudaRoutes);
@@ -65,16 +57,6 @@ app.use("/reporte", reporteRoutes);
 app.use("/rodadas", rodadasRoutes);
 app.use("/session", sessionRoutes);
 
-// Middleware para verificar si la sesión está activa
-// function checkSession(req, res, next) {
-//     if (!req.session.username) {
-//         return res.status(401).json({
-//             message: 'No hay sesión activa'
-//         });
-//     }
-//     next();
-// }
-
 const verifyToken = require("./util/verifyUserToken");
 
 app.get("/", verifyToken, (request, response) => {
@@ -84,12 +66,12 @@ app.get("/", verifyToken, (request, response) => {
   console.log(request.userUID);
 });
 
-// Para error 404
 app.use((request, response) => {
   response.status(404).json({
     message: "No se encuentra el endpoint o ruta que estas buscando",
   });
 });
 
-// Para que el servidor este activo
-app.listen(port);
+app.listen(port, () => {
+  console.log(`Servidor escuchando en el puerto ${port}`);
+});
