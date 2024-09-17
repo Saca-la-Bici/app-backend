@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "saca-la-bici-df42f",
+    "private_key_id": "cb0cbf2b18550682a0c528c6f1d81a12007fa62d",
+    "private_key": "-----BEGIN PRIVATE KEY-----MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDNbAfzLfI17nKfEtbj0mbOAHV0uOp+enCOc6DciLBGy3afMyCPYJmhjdQIUBWp9AE/sP5UrtVPxrheAeLS/+BlmQBNtFu5fsuWvJNjVw99apgSeXHrISeCz2VYJ9IZKf+7RgvUHkPt2912/1AMH/RjtgZDyVSGJ/5LmoeXKvRsENA0Ksw96F/OtP8z+DE+znubqbozCwxs62U6V3cEfb99bduCFxBhRcXJ8Q3vg53VJpeKgExxKtOo5uYOCJPHHbHYylAyHGrkhpQ0RFFbXmXbjYork4Pwxp3fri3pwELNw7J1jgtw3On0sojOq4gtqJAxbqIp4z6hjU3mOj/pnGpBAgMBAAECggEAAli+QSxAh2vb6gP1vyXY1XhH3zd65kr7x4TRTPOldTQ/J1PBhsxxtNjBQqm3ivjQnYD7cXg10516NF4NJfU/rlQbHsggAXR4sEDN5jqeYK5mYlT6KizMyL/EcUdd17pqbiHqDK2ef7Ryno4Nb2CwvVrc+MqZ/pZXtKwP6c2B0UzdRVTQ6bltJybNujuLhgXmhPPv2cWQuwwr/QvZBBEv4ytMolCG1enRlFC4DEKqcd/al35c3EUKySw1c9iCUb9IqhrzL+q9gdDA2WZpS6SUi09rgc4rZjSyADmEmnGWuuUdxRE9qeDv0ypUWDOdneHTRt1Ly7JoCHyI7wkjHc1PqQKBgQD9fJN5n0o08KoL1DLH+QWpPWsLLVW7PycfBzduazhnYNSevP4vrVpSyJB+/14pWGzl4RaC86IwD/Gg7hEkIYO1WprT3yDlNo2u/KkI5mQTIe1VNRc2qBmIx3DKVEECz5Vaimy4cIlVK7I/40hzcYoCkRHUgBGT7f6FjgbOPyrw0wKBgQDPdXPnv8i5X4oUh69h5cguLCpZLkHMEWs+Qq63Pu3SogF7l1YIrGa4tzAbQUjGmKmTy0fthRb7Sfi0H4YVSWm+7KZ+w2RaZ6vYZiKukJqEAIis6DwPmypj4evzqxZxS4MlP5YEp+Z9RS/eR7mKTm7a5bHVwiRH6sILSKzlJhRsGwKBgFBmmhRCjPP7vcPgu3aoKr6CZ5h0+bNZlZwG2vMf+RT5Jpdu1KTktDh7uzE86G3uySOk4FIK2s+pzvc/a5ptMuxr354CMNnjEs+E/kx/XxCeezvCiilg6jBzKfhS/wfYNcQxEcjykOy93lzbR1iuk5q6zs/7CxhDra5I3Sm/6WvXAoGAe3VhMYQ/VpnVmVwZ8f+FvnyIAyR1AZVIJfgW83QeoZ/JlBw+ldDLHJffqAiU36LQH+T0fBQc1hRyTfcImzhiFr3MY1myKd7SNGirsQja+z06GPPncj4b3u7+tLaXF3sho5QQmdq1Xs1CrFwwvW7pp5jT2Oq9HpNFQOPSCFg+BQsCgYAw89rq3YdjVdsWCjcWz5e7HZycIYfeE0iOHwXVscUK6srGzAnZPVilmNDSD5JwWxyLoiNo0D7XjZRuIs4jmnJvcWAqfy3lR00HXSGigBNd9QQs7pBns/ucPh812DPYWH14nxNUpljnwRfduIQiwi0hVTkIQkqPaH1NssW5IKL8pA==-----END PRIVATE KEY-----",
+    "client_email": "firebase-adminsdk-4ur0e@saca-la-bici-df42f.iam.gserviceaccount.com",
+    "client_id": "102045898263637715016",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-4ur0e%40saca-la-bici-df42f.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
