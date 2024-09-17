@@ -29,7 +29,7 @@ const rutaSchema = new mongoose.Schema({
         required: true
     },
     nivel: {
-        type: Number,
+        type: String,
         required: true,
     },
     coordenadas: {
