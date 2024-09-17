@@ -5,6 +5,6 @@ const router = express.Router();
 const consultarAnuncioController = require('../controllers/consultarAnuncio.controller');
 
 // Definir la ruta para crear una actividad
-router.get('/:IDAnuncio', consultarAnuncioController.getAnnouncement);
+router.get('/', consultarAnuncioController.getAnnouncements);
 
 module.exports = router;

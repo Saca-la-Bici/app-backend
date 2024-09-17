@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const announcementSchema = new mongoose.Schema({
     IDAnuncio: {
@@ -6,8 +7,9 @@ const announcementSchema = new mongoose.Schema({
         unique: true
     },
     IDUsuario: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Usuario',
+        type: Number,
+        //type: mongoose.SchemaTypes.ObjectId,
+        //ref: 'Usuario',
         required: true,
     },
     contenido: {
@@ -29,6 +31,8 @@ const announcementSchema = new mongoose.Schema({
     }
 });
 
+announcementSchema.plugin(AutoIncrement, {inc_field: 'IDAnuncio'}); // Autoincrementa el IDAnuncio
+
 const Anuncio = mongoose.model('Anuncio', announcementSchema);
 
 async function postAnnouncement(IDUsuario, contenido, imagen){
@@ -44,10 +48,10 @@ async function postAnnouncement(IDUsuario, contenido, imagen){
     }
 }
 
-async function getAnnouncement(IDAnuncio){
+async function getAnnouncements(IDAnuncio){
     try {
-        const announcement = await Anuncio.findById(IDAnuncio);
-        return announcement;
+        const announcements = await Anuncio.find();
+        return announcements;
     } catch (error) {
         throw error;
     }
@@ -64,6 +68,6 @@ async function deleteAnnouncement(IDAnuncio){
 module.exports = {
     Anuncio,
     postAnnouncement,
-    getAnnouncement,
+    getAnnouncements,
     deleteAnnouncement
 };
