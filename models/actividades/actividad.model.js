@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
-const coordenadaSchema = require('../ruta/ruta.model');
+const Schema = mongoose.Schema;
+const Ruta = require('../ruta/ruta.model');
 
-const actividadSchema = new mongoose.Schema ({
+const actividadSchema = new Schema ({
     titulo: {
         type: String, 
         required: true
@@ -14,11 +15,11 @@ const actividadSchema = new mongoose.Schema ({
         type: Number, 
         required: true
     },
-    ubicacion: {
-        type: [coordenadaSchema],
+    ubicacion: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Ruta',
         required: true
-    },
-    // Incluye materiales requeridos para actividad
+    }],
     descripcion: {
         type: String, 
         required: true
@@ -37,6 +38,6 @@ const actividadSchema = new mongoose.Schema ({
     }
 });
 
-const actividad = mongoose.model('Actividad', actividadSchema);
+const Actividad = mongoose.model('Actividad', actividadSchema);
 
-module.exports = actividad;
+module.exports = Actividad;

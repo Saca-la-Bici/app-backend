@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
-const actividadSchema = require('./actividad.model');
+const Schema = mongoose.Schema;
+const Actividad = require('./actividad.model');
 
-const eventoSchema = new mongoose.Schema ({
-    informacion: {
-        type: [actividadSchema],
+const eventoSchema = new Schema ({
+    informacion: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Actividad',
         required: true
-    }
+    }]
 }, {
     collection: 'Eventos'
 });
 
-const evento = mongoose.model('Evento', eventoSchema);
+const Evento = mongoose.model('Evento', eventoSchema);
 
-module.exports = evento;
+module.exports = Evento;
