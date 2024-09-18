@@ -10,8 +10,9 @@ const usuarioSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  edad: {
-    type: Number,
+  fechaNacimiento: {
+    type: Date,
+    immutable: true,
     required: true,
   },
   tipoSangre: {
