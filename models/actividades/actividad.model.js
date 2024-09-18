@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const coordenadaSchema = require('../ruta/ruta.model');
+const {rutaSchema, coordenadaSchema} = require('../ruta/ruta.model');
 
 const actividadSchema = new mongoose.Schema ({
     titulo: {
@@ -37,6 +37,6 @@ const actividadSchema = new mongoose.Schema ({
     }
 });
 
-const actividad = mongoose.model('Actividad', actividadSchema);
+//const actividad = mongoose.model('Actividad', actividadSchema);
 
-module.exports = actividad;
+module.exports = actividadSchema;

@@ -10,7 +10,7 @@ async function encontrarTipo(tipo) {
 
 async function registrarActividad(tipo, data) {
     try {
-        const Modelo = await encontrarTipo(tipo);
+        const { Modelo } = await encontrarTipo(tipo);
         const actividad = await Modelo.create(data);
         await actividad.save();
     } catch (error) {
