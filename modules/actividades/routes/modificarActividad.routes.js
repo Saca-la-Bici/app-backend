@@ -5,6 +5,6 @@ const router = express.Router();
 const modificarActividadController = require('../controllers/modificarActividad.controller');
 
 // Definir la ruta para modificar una actividad
-router.post('/', modificarActividadController.postModificarActividadActividad);
+router.post('/', modificarActividadController.postModificarActividad);
 
 module.exports = router;
