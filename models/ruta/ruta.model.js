@@ -41,5 +41,8 @@ const rutaSchema = new mongoose.Schema({
 });
 
 const Ruta = mongoose.model('Ruta', rutaSchema);
+const Coordenada = mongoose.model('Coordenada', coordenadaSchema);
 
-module.exports = Ruta;
+module.exports = {
+    Ruta,
+    Coordenada};

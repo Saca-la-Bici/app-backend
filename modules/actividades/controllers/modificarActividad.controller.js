@@ -1,4 +1,4 @@
-const { modificarEvento } = requestuire('../../../models/actividades/registraActividad.model.js');
+const { modificarEvento } = require('../../../models/actividades/modificaActividad.model.js');
 
 exports.postModificarActividad = async (req, res) => {
     const { id } = req.params;

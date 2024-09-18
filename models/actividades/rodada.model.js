@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const rutaSchema = require('../ruta/ruta.model');
 const actividadSchema = require('./actividad.model');
+const {rutaSchema, coordenadaSchema} = require('../ruta/ruta.model');
 
 const rodadaSchema = new mongoose.Schema ({
     informacion: {
