@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const preguntasFrecuentesSchema = new mongoose.Schema({
-    IDPregunta: {
+    IdPregunta: {
         type: String, 
         required: true,
         unique: true
