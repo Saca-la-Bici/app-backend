@@ -23,7 +23,7 @@ exports.put_modificarPreguntaFrecuente = async (req,res) => {
         const {Pregunta, Respuesta, Tema, Imagen} = req.body;
 
         try{
-            const PreguntaActualizada = await PreguntaFrecuente.findByIdAndUpdate(IdPregunta,{Pregunta, Respuesta, Tema, Imagen},
+            const PreguntaActualizada = await PreguntaFrecuente.findOneAndUpdate({IdPregunta:IdPregunta},{Pregunta, Respuesta, Tema, Imagen},
                 {new: true})
                 if (!PreguntaActualizada){
                     return res.status(404).json({
