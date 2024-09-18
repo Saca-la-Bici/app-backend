@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 // Importar el controlador que maneja la creación de actividades
-const registrarAnuncioController = require('../controllers/registrarAnuncio.controller');
+const eliminarAnuncioController = require('../controllers/eliminarAnuncio.controller');
 
 // Definir la ruta para crear una actividad
-router.post('/', registrarAnuncioController.postAnnouncement);
+router.delete('/:IDAnuncio', eliminarAnuncioController.deleteAnnouncement);
 
 module.exports = router;
