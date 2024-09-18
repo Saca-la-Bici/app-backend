@@ -4,9 +4,8 @@ const Ruta = require('../ruta/ruta.model');
 const Actividad = require('./actividad.model');
 
 const rodadaSchema = new Schema ({
-    informacion: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Actividad',
+    actividad: [{
+        type: Actividad.schema,
         required: true
     }], 
     ruta: [{
