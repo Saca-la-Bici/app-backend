@@ -18,7 +18,7 @@ exports.get_PreguntaIndividual = async (req, res) => {
     }
 };
 
-exports.modificarPreguntaFrecuente = async (req,res) => {
+exports.put_modificarPreguntaFrecuente = async (req,res) => {
         const {IdPregunta} = req.params;
         const {Pregunta, Respuesta, Tema, Imagen} = req.body;
 
