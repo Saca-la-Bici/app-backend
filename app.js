@@ -19,10 +19,7 @@ app.use(compression());
 
 // Conectar a la base de datos usando variables de entorno
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect('mongodb://localhost:27017/Saca_la_Bici')
   .then(() => {
     console.log("Conectado a la base de datos de MongoDB en AWS EC2");
   })

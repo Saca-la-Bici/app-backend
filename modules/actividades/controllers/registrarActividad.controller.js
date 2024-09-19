@@ -4,15 +4,15 @@ exports.getRegistrarActividad = (request, response) => {
     response.json('Actividad: Esta es la plantilla que deben usar.');
 };
 
-exports.postRegistrarActividad = (request, response) => {
+exports.postRegistrarActividad = async (request, response) => {
     const data = request.body;
     const tipo = request.params.tipo;
 
     try {
-        registrarActividad(tipo, data);
-        res.status(201).json({ message: 'Rodada creada exitosamente.', error });
+        const registro = await registrarActividad(tipo, data);
+        response.status(201).json({ message: 'Rodada creada exitosamente.', error });
     } catch (error) {
-        res.status(500).json({ message: 'Error al crear la rodada', error });
+        response.status(500).json({ message: 'Error al crear la rodada', error });
     }
 
 }
