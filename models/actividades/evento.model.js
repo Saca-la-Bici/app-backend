@@ -7,7 +7,7 @@ const eventoSchema = new mongoose.Schema ({
         required: true
     }
 }, {
-    collection: 'Eventos'
+    collection: 'Evento'
 });
 
 const evento = mongoose.model('Evento', eventoSchema);

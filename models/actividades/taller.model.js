@@ -7,7 +7,7 @@ const tallerSchema = new mongoose.Schema ({
         required: true
     }
 }, {
-    collection: 'Talleres'
+    collection: 'Taller'
 });
 
 const taller = mongoose.model('Taller', tallerSchema);

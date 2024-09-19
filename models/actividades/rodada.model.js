@@ -12,7 +12,7 @@ const rodadaSchema = new mongoose.Schema ({
         required: true
     },
 }, {
-    collection: 'Rodadas'
+    collection: 'Rodada'
 });
 
 const rodada = mongoose.model('Rodada', rodadaSchema);
