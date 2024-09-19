@@ -6,6 +6,6 @@ const registrarActividadController = require('../controllers/registrarActividad.
 
 // Definir la ruta para crear una actividad
 router.get('/', registrarActividadController.getRegistrarActividad);
-router.post('/', registrarActividadController.postRegistrarActividad);
+router.post('/:tipo', registrarActividadController.postRegistrarActividad);
 
 module.exports = router;

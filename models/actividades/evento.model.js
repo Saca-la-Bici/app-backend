@@ -8,7 +8,7 @@ const eventoSchema = new Schema ({
         required: true
     }
 }, {
-    collection: 'Eventos'
+    collection: 'Evento'
 });
 
 const Evento = mongoose.model('Evento', eventoSchema);

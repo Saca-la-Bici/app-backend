@@ -8,7 +8,7 @@ const tallerSchema = new Schema ({
         required: true
     }
 }, {
-    collection: 'Talleres'
+    collection: 'Taller'
 });
 
 const Taller = mongoose.model('Taller', tallerSchema);
