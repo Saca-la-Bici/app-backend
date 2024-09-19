@@ -8,7 +8,7 @@ exports.perfilCompleto = async (request, response) => {
         });
 
         if (!usuario) {
-            return response.status(404).json({
+            return response.status(200).json({
                 perfilRegistrado: false
             });
         }
@@ -19,7 +19,7 @@ exports.perfilCompleto = async (request, response) => {
 
     } catch (error) {
         return response.status(500).json({
-            error: error
+            error: error.message,
         });
     }
 }
