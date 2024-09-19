@@ -3,8 +3,6 @@ const Announcement = require('../../../models/otros/anuncio.model');
 
 exports.postAnnouncement = async (request, response) => {
     const idUsuario = request.body.IDUsuario;
-    console.log("LLEGAMOS AL CONTROLLER")
-    console.log('IDUsuario:', idUsuario);
     const titulo = request.body.titulo;
     const contenido = request.body.contenido;
     const imagen = request.body.imagen;
