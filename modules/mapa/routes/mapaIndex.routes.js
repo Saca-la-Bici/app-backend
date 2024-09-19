@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const consultarRutaRoute = require('./consultarMapa.routes');
+const registrarRutaRoute = require('./registrarRuta.routes');
 
-router.use('/consultarRutas', consultarRutaRoute);
+router.use('/', registrarRutaRoute);
 
 module.exports = router;

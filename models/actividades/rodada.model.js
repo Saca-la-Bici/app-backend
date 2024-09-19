@@ -14,7 +14,7 @@ const rodadaSchema = new Schema ({
         required: true
     }],
 }, {
-    collection: 'Rodadas'
+    collection: 'Rodada'
 });
 
 const Rodada = mongoose.model('Rodada', rodadaSchema);
