@@ -15,6 +15,9 @@ const usuarioSchema = new mongoose.Schema(
     tipoSangre: {
       type: String,
     },
+    imagen: {
+      type: String,
+    },
     correoElectronico: {
       type: String,
       required: true,
@@ -27,6 +30,18 @@ const usuarioSchema = new mongoose.Schema(
       type: Date,
       immutable: true,
       default: Date.now,
+    },
+    kilometrosRecorridos: {
+      type: Number,
+      default: 0,
+    },
+    tiempoEnRecorrido: {
+      type: Number,
+      default: 0.0,
+    },
+    rodadasCompletadas: {
+      type: Number,
+      default: 0,
     },
     firebaseUID: {
       type: String,
