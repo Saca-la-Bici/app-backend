@@ -33,11 +33,6 @@ const announcementSchema = new mongoose.Schema({
 const Anuncio = mongoose.model('Anuncio', announcementSchema);
 
 async function postAnnouncement(IDUsuario, titulo, contenido, imagen){
-    console.log("LLEGAMOS AL MODEL")
-    console.log('IDUsuario:', IDUsuario);
-    console.log('titulo:', titulo);
-    console.log('contenido:', contenido);
-    console.log('imagen:', imagen);
     try {
         const announcement = await Anuncio.create({
             IDUsuario: IDUsuario,
