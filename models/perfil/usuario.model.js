@@ -4,14 +4,18 @@ const usuarioSchema = new mongoose.Schema(
   {
     username: {
       type: String,
+      required: true,
     },
     nombre: {
       type: String,
     },
-    edad: {
-      type: Number,
+    fechaNacimiento: {
+      type: Date,
     },
     tipoSangre: {
+      type: String,
+    },
+    imagen: {
       type: String,
     },
     correoElectronico: {
@@ -27,9 +31,22 @@ const usuarioSchema = new mongoose.Schema(
       immutable: true,
       default: Date.now,
     },
+    kilometrosRecorridos: {
+      type: Number,
+      default: 0,
+    },
+    tiempoEnRecorrido: {
+      type: Number,
+      default: 0.0,
+    },
+    rodadasCompletadas: {
+      type: Number,
+      default: 0,
+    },
     firebaseUID: {
       type: String,
       unique: true,
+      required: true,
     },
   },
   {
