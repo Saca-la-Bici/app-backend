@@ -1,6 +1,6 @@
-const DatosPerfil = require('../../../models/perfil/consultarPerfil.model');
+const DatosPerfil = require('../../../models/perfil/perfil.model');
 
-exports.consultarPerfil = async (req, res) => {
+exports.consultarPerfil = async (request, response) => {
     try{
         const perfil = await DatosPerfil.find();
         return res.status(200).json({
