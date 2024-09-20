@@ -3,7 +3,13 @@ const router = express.Router();
 
 const consultarRutaRoute = require('./consultarMapa.routes');
 const registrarRutaRoute = require('./registrarRuta.routes');
+const modificarRutaRoute = require('./modificarRuta.routes');
+const consultarRutaRoute = require('./consultarMapa.routes');
+
+router.use('/consultarRutas', consultarRutaRoute);
 
 router.use('/', registrarRutaRoute);
-router.use('/consultarRutas', consultarRutaRoute);
+
+router.use('/', modificarRutaRoute);
+
 module.exports = router;
