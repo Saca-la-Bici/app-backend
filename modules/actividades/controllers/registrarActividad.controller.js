@@ -7,12 +7,14 @@ exports.getRegistrarActividad = (request, response) => {
 exports.postRegistrarActividad = async (request, response) => {
     const data = request.body;
     const tipo = request.params.tipo;
+    console.log("El tipo es:", tipo);
+    console.log("Los datos son:", data);
 
     try {
         const registro = await registrarActividad(tipo, data);
-        response.status(201).json({ message: 'Rodada creada exitosamente.', error });
+        response.status(201).json({ message: `${tipo} creada exitosamente.`, registro });
     } catch (error) {
-        response.status(500).json({ message: 'Error al crear la rodada', error });
+        response.status(500).json({ message: `Error al crear la ${tipo}`, error });
     }
 
 }
