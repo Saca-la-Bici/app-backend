@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
-const port = process.env.PORT || 7070;
+const port = process.env.PORT || 8080;
 
 const bodyParser = require("body-parser");
 
