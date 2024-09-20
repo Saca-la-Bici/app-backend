@@ -1,20 +1,22 @@
 const mongoose = require('mongoose');
-const actividadSchema = require('./actividad.model');
-const {rutaSchema, coordenadaSchema} = require('../ruta/ruta.model');
+const Schema = mongoose.Schema;
+const Ruta = require('../ruta/ruta.model');
+const Actividad = require('./actividad.model');
 
-const rodadaSchema = new mongoose.Schema ({
-    informacion: {
-        type: [actividadSchema],
+const rodadaSchema = new Schema ({
+    informacion: [{
+        type: Actividad.schema,
         required: true
-    }, 
-    ruta: {
-        type: [rutaSchema],
+    }], 
+    ruta: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Ruta',
         required: true
-    },
+    }],
 }, {
     collection: 'Rodada'
 });
 
-const rodada = mongoose.model('Rodada', rodadaSchema);
+const Rodada = mongoose.model('Rodada', rodadaSchema);
 
-module.exports = rodada;
+module.exports = Rodada;
