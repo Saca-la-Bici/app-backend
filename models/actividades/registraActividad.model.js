@@ -15,15 +15,21 @@ async function registrarActividad(tipo, data) {
         if (tipo === 'rodada') {
             const rodada = await Rodada.create(data);
             await rodada.save();
+            return rodada;
+
         } else if (tipo === 'taller') {
             console.log("Creando taller");
             const taller = await Taller.create(data);
             console.log("Taller creado");
             await taller.save();
             console.log("Taller guardado");
+            return taller;
+
         } else if (tipo === 'evento') {
             const evento = await Evento.create(data);
             await evento.save();
+            return evento;
+            
         } else {
             throw new Error('Tipo de actividad no válido');
         }
