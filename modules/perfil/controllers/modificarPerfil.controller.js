@@ -9,8 +9,8 @@ exports.putPerfil = async (request, response) => {
     const numeroEmergencia = request.body.numeroEmergencia;
 
     try {
-        const perfil = await Perfil.putPerfil(IDUsuario, Username, nombre, tipoSangre, numeroEmergencia);
-        return response.status(201).json(perfil);
+        const profile = await Perfil.putPerfil(IDUsuario, Username, nombre, tipoSangre, numeroEmergencia);
+        return response.status(201).json(profile);
     } catch (error) {
         return response.status(404).json({ message: 'Error al modificar el perfil', error: error.message });
     }

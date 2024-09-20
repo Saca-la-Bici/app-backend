@@ -14,6 +14,10 @@ const DatosPerfilSchema = new mongoose.Schema(
         type: String, 
         required: true
     },
+    fechaNacimiento: {
+        type: Date,
+        required: false
+    },
     tipoSangre: {
         type: String,
         required: false
@@ -23,6 +27,18 @@ const DatosPerfilSchema = new mongoose.Schema(
         required: true
     },
     numeroEmergencia: {
+        type: Number,
+        required: false
+    },
+    kilometrosRecorridos: {
+        type: Number,
+        required: false
+    },
+    tiempoEnRecorrido: {
+        type: Number,
+        required: false
+    },
+    rodadasCompletadas: {
         type: Number,
         required: false
     },
