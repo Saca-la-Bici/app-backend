@@ -1,19 +1,20 @@
-const DatosPerfil = require('../../../models/perfil/consultarPerfil.model');
+const Perfil = require('../../../models/perfil/perfil.model');
 
-exports.modificarPerfil = async (req, res) => {
-    try{
-        const perfil = await DatosPerfil.find();
-        return res.status(200).json({
-            code: 200,
-            msg: 'Consulta de datos de perfil exitosa',
-            data: datos
-        });
-    } catch(error){
-        console.error(error);
-        return res.status(500).json({
-            code: 500,
-            msg: 'Error al intentar consultar las preguntas frecuentes',
-            data: null
-        });
+
+exports.putPerfil = async (request, response) => {
+    const IDUsuario = request.body.IDUsuario;
+    const Username = request.body.Username;
+    const nombre = request.body.nombre
+    const tipoSangre = request.body.tipoSangre;
+    const numeroEmergencia = request.body.numeroEmergencia;
+
+    try {
+        const perfil = await Perfil.putPerfil(IDUsuario, Username, nombre, tipoSangre, numeroEmergencia);
+        return response.status(201).json(perfil);
+    } catch (error) {
+        return response.status(404).json({ message: 'Error al modificar el perfil', error: error.message });
     }
 }
+
+
+
