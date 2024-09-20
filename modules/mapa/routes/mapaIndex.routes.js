@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const consultarRutaRoute = require('./consultarMapa.routes');
 const registrarRutaRoute = require('./registrarRuta.routes');
 const modificarRutaRoute = require('./modificarRuta.routes');
 const consultarRutaRoute = require('./consultarMapa.routes');
