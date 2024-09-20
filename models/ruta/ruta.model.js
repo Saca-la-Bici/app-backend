@@ -29,7 +29,7 @@ const rutaSchema = new mongoose.Schema({
         required: true
     },
     nivel: {
-        type: String,
+        type: Number,
         required: true,
     },
     coordenadas: {
@@ -41,8 +41,5 @@ const rutaSchema = new mongoose.Schema({
 });
 
 const Ruta = mongoose.model('Ruta', rutaSchema);
-//const Coordenada = mongoose.model('Coordenada', coordenadaSchema);
 
-module.exports = {
-    Ruta,
-    coordenadaSchema};
+module.exports = Ruta;

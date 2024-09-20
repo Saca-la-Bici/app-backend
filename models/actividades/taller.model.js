@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
-const actividadSchema = require('./actividad.model');
+const Schema = mongoose.Schema;
+const Actividad = require('./actividad.model');
 
-const tallerSchema = new mongoose.Schema ({
+const tallerSchema = new Schema ({
     informacion: {
-        type: [actividadSchema],
+        type: Actividad.schema,
         required: true
     }
 }, {
     collection: 'Taller'
 });
 
-const taller = mongoose.model('Taller', tallerSchema);
+const Taller = mongoose.model('Taller', tallerSchema);
 
-module.exports = taller;
+module.exports = Taller;
