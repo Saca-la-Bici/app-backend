@@ -1,8 +1,8 @@
-const DatosPerfil = require('../../../models/perfil/perfil.model');
+const Perfil = require('../../../models/perfil/perfil.model');
 
 exports.consultarPerfil = async (request, response) => {
     try{
-        const perfil = await DatosPerfil.find();
+        const perfil = await Perfil.find();
         return res.status(200).json({
             code: 200,
             msg: 'Consulta de datos de perfil exitosa',

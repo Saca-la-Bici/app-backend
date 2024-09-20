@@ -7,8 +7,11 @@ const router = express.Router();
 // Pongan la ruta que quieren usar y el archivo de la ruta de la funcionalidad
 // EJEMPLO router.use('/registrar', registrarActividadRoute);
 
-const modificarPerfil = require('../controllers/modificarPerfil.controller');
+const modificarPerfilController = require('../controllers/modificarPerfil.controller');
 
-router.get('/', modificarPerfil.modificarPerfil)
+router.put('/', function(req, res){
+    modificarPerfilController.modificarPerfil
+  });
 
 module.exports = router;
+
