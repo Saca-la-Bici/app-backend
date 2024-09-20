@@ -9,4 +9,5 @@ router.use('/consultar', consultarPreguntasRoute);
 router.use('/registrar', registrarPreguntasRoute);  
 router.use('/consultarIndividual', consultarPreguntaIndividualRoute);
 
+
 module.exports = router;
