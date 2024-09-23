@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {rutaSchema, coordenadaSchema} = require('../ruta/ruta.model');
+
 
 const actividadSchema = new mongoose.Schema ({
     titulo: {
@@ -12,7 +12,8 @@ const actividadSchema = new mongoose.Schema ({
     }, 
     personasInscritas: {
         type: Number, 
-        required: true
+        //required: true,
+        default: 0
     },
     ubicacion: {
         type: String,
@@ -34,7 +35,11 @@ const actividadSchema = new mongoose.Schema ({
     imagen: {
         type: String,
         required: false
-    }
+    },
+    usuariosInscritos: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Usuario' // Referencia al modelo de Usuario
+    }]
 });
 
 module.exports = actividadSchema;
