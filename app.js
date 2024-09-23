@@ -19,7 +19,7 @@ app.use(compression());
 
 // Conectar a la base de datos usando variables de entorno
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect('mongodb://localhost:27017/Saca_la_Bici')
   .then(() => {
     console.log("Conectado a la base de datos de MongoDB en AWS EC2");
   })
@@ -56,14 +56,14 @@ app.use("/rodadas", rodadasRoutes);
 app.use("/session", sessionRoutes);
 app.use("/rodadas/iniciar", iniciarRodadaRoutes);
 
-const verifyToken = require("./util/verifyUserToken");
+/* const verifyToken = require("./util/verifyUserToken");
 
 app.get("/", verifyToken, (request, response) => {
   response.status(200).json({
     message: "¡Bienvenido a Saca la Bici!",
   });
   console.log(request.userUID);
-});
+}); */
 
 app.use((request, response) => {
   response.status(404).json({
