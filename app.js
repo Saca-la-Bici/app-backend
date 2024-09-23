@@ -19,7 +19,8 @@ app.use(compression());
 
 // Conectar a la base de datos usando variables de entorno
 mongoose
-  .connect('mongodb://localhost:27017/Saca_la_Bici')
+  //.connect('mongodb://localhost:27017/Saca_la_Bici')
+  .connect("mongodb://127.0.0.1/Maxime") //MaximeDatabase
   .then(() => {
     console.log("Conectado a la base de datos de MongoDB en AWS EC2");
   })
