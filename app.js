@@ -40,6 +40,7 @@ const rentaRoutes = require("./modules/renta/routes/rentaIndex.routes");
 const reporteRoutes = require("./modules/reporte/routes/reporteIndex.routes");
 const rodadasRoutes = require("./modules/rodadas/routes/rodadasIndex.routes");
 const sessionRoutes = require("./modules/session/routes/sessionIndex.routes");
+const iniciarRodadaRoutes = require("./modules/mapa/routes/iniciarRodada.routes");
 
 app.use("/actividades", actividadesRoutes);
 app.use("/anuncios", anunciosRoutes);
@@ -53,6 +54,7 @@ app.use("/renta", rentaRoutes);
 app.use("/reporte", reporteRoutes);
 app.use("/rodadas", rodadasRoutes);
 app.use("/session", sessionRoutes);
+app.use("/rodadas/iniciar", iniciarRodadaRoutes);
 
 const verifyToken = require("./util/verifyUserToken");
 
