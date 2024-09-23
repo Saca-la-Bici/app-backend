@@ -2,7 +2,7 @@ const Ruta = require('../../../models/ruta/ruta.model');
 
 exports.modificarRuta = async (req, res) => {
     try {
-        const rutaId = req.params.id; // Asume que el ID de la ruta se pasa como parámetro en la URL
+        const rutaId = req.params.id.trim(); // Asume que el ID de la ruta se pasa como parámetro en la URL
 
         const rutaActualizada = {
             titulo: req.body.Titulo,
