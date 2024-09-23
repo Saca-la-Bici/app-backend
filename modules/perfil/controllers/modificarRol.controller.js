@@ -1,14 +1,13 @@
-const Usuario = require('../../../models/perfil/usuario.model');
-const Rol = require('../../../models/perfil/rol.model');
+const PoseeRol = require('../../../models/perfil/poseeRol.model');
 
-async function modificarRol(req, res) {
+exports.modificarRol = async (req, res) => {
     const { id } = req.body; // ID del usuario
     const { rolId } = req.body; // ID del rol a asignar
 
     try {
         // Buscar el usuario y el rol
-        const usuario = await Usuario.findById(id);
-        const rol = await Rol.findById(rolId);
+        const usuario = await PoseeRol.findById(id);
+        const rol = await PoseeRol.findById(rolId);
 
         // Validar si el usuario y el rol existen
         if (!usuario) {
@@ -19,7 +18,7 @@ async function modificarRol(req, res) {
         }
 
         // Actualizar el rol del usuario
-        usuario.rolId = rolId;
+        usuario.IDRol = rolId;
         await usuario.save();
 
         // Responder con el usuario actualizado
@@ -29,5 +28,3 @@ async function modificarRol(req, res) {
         return res.status(500).json({ error: 'Error al cambiar el rol: ' + error.message });
     }
 }
-
-module.exports = { modificarRol };
