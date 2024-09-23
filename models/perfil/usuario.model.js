@@ -4,14 +4,19 @@ const usuarioSchema = new mongoose.Schema(
   {
     username: {
       type: String,
+      required: true,
+      unique: true,
     },
     nombre: {
       type: String,
     },
-    edad: {
-      type: Number,
+    fechaNacimiento: {
+      type: Date,
     },
     tipoSangre: {
+      type: String,
+    },
+    imagen: {
       type: String,
     },
     correoElectronico: {
@@ -27,9 +32,22 @@ const usuarioSchema = new mongoose.Schema(
       immutable: true,
       default: Date.now,
     },
+    kilometrosRecorridos: {
+      type: Number,
+      default: 0,
+    },
+    tiempoEnRecorrido: {
+      type: Number,
+      default: 0.0,
+    },
+    rodadasCompletadas: {
+      type: Number,
+      default: 0,
+    },
     firebaseUID: {
       type: String,
       unique: true,
+      required: true,
     },
   },
   {
@@ -39,4 +57,28 @@ const usuarioSchema = new mongoose.Schema(
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
-module.exports = Usuario;
+
+async function putUsuario(IDUsuario, Username, nombre, tipoSangre, numeroEmergencia){
+    try {
+        const usuario = await Usuario.findById(IDUsuario);
+        if (usuario) {
+            usuario.username = Username;
+            usuario.nombre = nombre
+            usuario.tipoSangre = tipoSangre;
+            usuario.numeroEmergencia = numeroEmergencia;
+
+            await usuario.save();
+            return usuario;
+        } else {
+            throw new Error('Usuario no encontrado');
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+module.exports = {
+  Usuario,
+  putUsuario
+};

@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
-const port = process.env.PORT || 7070;
+const port = process.env.PORT || 8080;
 
 const bodyParser = require("body-parser");
 
@@ -19,6 +19,7 @@ app.use(compression());
 
 // Conectar a la base de datos usando variables de entorno
 mongoose
+  //.connect('mongodb://localhost:27017/Saca_la_Bici')
   //.connect('mongodb://localhost:27017/Saca_la_Bici')
   .connect("mongodb://127.0.0.1/Maxime") //MaximeDatabase
   .then(() => {
