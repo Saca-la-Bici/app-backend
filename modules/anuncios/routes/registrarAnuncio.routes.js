@@ -5,6 +5,6 @@ const router = express.Router();
 const registrarAnuncioController = require('../controllers/registrarAnuncio.controller');
 
 // Definir la ruta para crear una actividad
-router.get('/', registrarAnuncioController.getPrueba);
+router.post('/', registrarAnuncioController.postAnnouncement);
 
 module.exports = router;
