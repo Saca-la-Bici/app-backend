@@ -15,7 +15,7 @@ exports.modificarRuta = async (req, res) => {
         };
 
         // Actualiza la ruta existente
-        const rutaModificada = await Ruta.findByIdAndUpdate(rutaId, rutaActualizada, { new: true });
+        const rutaModificada = await Ruta.findByIdAndUpdate(rutaId, rutaActualizada, { new: true, overwrite: true });
 
         if (!rutaModificada) {
             return res.status(404).json({ message: 'Ruta no encontrada' });
