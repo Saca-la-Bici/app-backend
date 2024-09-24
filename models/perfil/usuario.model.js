@@ -59,22 +59,18 @@ const Usuario = mongoose.model("Usuario", usuarioSchema);
 
 
 async function putUsuario(IDUsuario, Username, nombre, tipoSangre, numeroEmergencia){
-    try {
-        const usuario = await Usuario.findById(IDUsuario);
-        if (usuario) {
-            usuario.username = Username;
-            usuario.nombre = nombre
-            usuario.tipoSangre = tipoSangre;
-            usuario.numeroEmergencia = numeroEmergencia;
-
-            await usuario.save();
-            return usuario;
-        } else {
-            throw new Error('Usuario no encontrado');
-        }
-    } catch (error) {
-        throw error;
-    }
+  const usuario = await Usuario.findById(IDUsuario);
+  if (usuario) {
+    usuario.username = Username;
+    usuario.nombre = nombre
+    usuario.tipoSangre = tipoSangre;
+    usuario.numeroEmergencia = numeroEmergencia;
+    
+    await usuario.save();
+    return usuario;
+  } else {
+    throw new Error('Usuario no encontrado');
+   }
 }
 
 
