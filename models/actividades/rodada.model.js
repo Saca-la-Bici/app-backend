@@ -9,7 +9,8 @@ const rodadaSchema = new Schema ({
         required: true
     }, 
     ruta: {
-        type: [Ruta.schema],
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Ruta,
         required: true
     },
 }, {

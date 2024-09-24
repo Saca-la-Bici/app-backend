@@ -4,10 +4,8 @@ const Evento = require('./evento.model');
 
 async function postRodada(data, id) {
     try {
+        data.ruta = id;
         const rodada = await Rodada.create(data);
-
-        let _ruta = Rodada.findById(id);
-        rodada.ruta = _ruta;
 
         await rodada.save();
         return rodada;
