@@ -21,7 +21,8 @@ app.use(compression());
 mongoose
   //.connect('mongodb://localhost:27017/Saca_la_Bici')
   //.connect('mongodb://localhost:27017/Saca_la_Bici')
-  .connect("mongodb://127.0.0.1/Maxime") //MaximeDatabase
+  //.connect("mongodb://127.0.0.1/Maxime") //MaximeDatabase
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Conectado a la base de datos de MongoDB en AWS EC2");
   })

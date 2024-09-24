@@ -5,6 +5,7 @@ const verifyToken = require('../../../util/verifyUserToken');
 
 const registrarUsuarioController = require('../controllers/registrarUsuario.controller');
 
-router.post('/', verifyToken, registrarUsuarioController.registrarUsuario);
+// router.post('/', verifyToken, registrarUsuarioController.registrarUsuario);
+router.post('/', registrarUsuarioController.registrarUsuario);
 
 module.exports = router;
