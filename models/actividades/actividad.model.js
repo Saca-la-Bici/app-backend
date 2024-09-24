@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const foro = require('../foro/foro.model');
 const comentarioSchema = require('../foro/comentario.model');
 
 const actividadSchema = new mongoose.Schema ({
@@ -43,6 +42,12 @@ const actividadSchema = new mongoose.Schema ({
     imagen: {
         type: String,
         required: false
+    },
+    tipo: {
+        type: String,
+        required: true,
+        immutable: true,
+        enum: ['Rodada', 'Taller', 'Evento']
     },
     comentarios: {
         type: [comentarioSchema],
