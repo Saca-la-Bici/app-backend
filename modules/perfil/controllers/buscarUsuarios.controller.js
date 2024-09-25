@@ -1,4 +1,4 @@
-const Usuario = require("../../../models/perfil/usuario.model");
+const { Usuario } = require("../../../models/perfil/usuario.model");
 const PoseeRol = require("../../../models/perfil/poseeRol.model");
 
 exports.searchUsuarios = async (req, res) => {
