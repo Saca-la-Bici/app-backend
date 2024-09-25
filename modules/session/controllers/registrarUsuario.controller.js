@@ -1,4 +1,4 @@
-const Usuario = require("../../../models/perfil/usuario.model");
+const { Usuario } = require("../../../models/perfil/usuario.model");
 const Rol = require("../../../models/perfil/rol.model");
 const PoseeRol = require("../../../models/perfil/poseeRol.model"); // Modelo para la relación entre usuario y rol
 
