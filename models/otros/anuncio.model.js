@@ -54,7 +54,7 @@ async function getAnnouncements(IDAnuncio){
     }
 }
 
-async function putAnnouncement(IDAnuncio, firebaseUID, titulo, contenido, imagen){
+async function patchAnnouncement(IDAnuncio, titulo, contenido, imagen){
     try {
         const announcement = await Anuncio.findById(IDAnuncio);
         if (announcement) {
@@ -83,6 +83,6 @@ module.exports = {
     Anuncio,
     postAnnouncement,
     getAnnouncements,
-    putAnnouncement,
+    patchAnnouncement,
     deleteAnnouncement
 };

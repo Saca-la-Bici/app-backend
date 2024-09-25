@@ -6,6 +6,6 @@ const verifyUserToken = require('../../../util/verifyUserToken');
 const modificarAnuncioController = require('../controllers/modificarAnuncio.controller');
 
 // Definir la ruta para crear una actividad
-router.put('/:IDAnuncio', verifyUserToken, modificarAnuncioController.putAnnouncement);
+router.patch('/:IDAnuncio', verifyUserToken, modificarAnuncioController.patchAnnouncement);
 
 module.exports = router;
