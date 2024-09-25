@@ -54,11 +54,11 @@ async function getAnnouncements(IDAnuncio){
     }
 }
 
-async function putAnnouncement(IDAnuncio, IDUsuario, titulo, contenido, imagen){
+async function putAnnouncement(IDAnuncio, firebaseUID, titulo, contenido, imagen){
     try {
         const announcement = await Anuncio.findById(IDAnuncio);
         if (announcement) {
-            announcement.IDUsuario = IDUsuario;
+            announcement.firebaseUID = firebaseUID;
             announcement.titulo = titulo;
             announcement.contenido = contenido;
             announcement.imagen = imagen;
