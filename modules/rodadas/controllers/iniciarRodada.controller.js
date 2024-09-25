@@ -33,3 +33,16 @@ exports.obtenerUbicacion = (req, res) => {
     // Responder con la ubicación actual del administrador
     res.status(200).json({ ubicacion: ubicacionAdmin });
 };
+
+// Controlador para terminar la rodada
+exports.terminarRodada = (req, res) => {
+    // Tiene que haber una rodada en curso
+    if (!ubicacionAdmin) {
+        return res.status(404).json({ error: 'No hay rodada en curso.' });
+    }
+
+    // Finalizar la rodada
+    ubicacionAdmin = null;
+
+    res.status(200).json({ message: 'Rodada terminada con éxito' });
+};
