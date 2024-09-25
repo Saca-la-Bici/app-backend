@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 const announcementSchema = new mongoose.Schema({
-    IDUsuario: {
-        type: Number,
-        //type: mongoose.SchemaTypes.ObjectId,
-        //ref: 'Usuario',
+    firebaseUID: {
+        type: String,
+        ref: 'Usuario',
         required: true,
     },
     titulo:{
@@ -32,10 +31,10 @@ const announcementSchema = new mongoose.Schema({
 
 const Anuncio = mongoose.model('Anuncio', announcementSchema);
 
-async function postAnnouncement(IDUsuario, titulo, contenido, imagen){
+async function postAnnouncement(firebaseUID, titulo, contenido, imagen){
     try {
         const announcement = await Anuncio.create({
-            IDUsuario: IDUsuario,
+            firebaseUID: firebaseUID,
             titulo: titulo,
             contenido: contenido,
             imagen: imagen
