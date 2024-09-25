@@ -1,33 +1,47 @@
-const Taller = require('../../../models/actividades/taller.model'); // Asegúrate de que esta ruta sea correcta
+const Taller = require('../../../models/actividades/taller.model'); 
+const Rodada = require('../../../models/actividades/rodada.model');
+const Evento = require('../../../models/actividades/evento.model');
 
 exports.inscribirUsuario = async (request, response) => {
-    const { actividadId, usuarioId } = request.body;
+    const { actividadId, usuarioId, tipo } = request.body; //Se debe recibir el 'tipo' en la solicitud
     console.log("ID de la actividad:", actividadId);
     console.log("ID del usuario:", usuarioId);
+    console.log("Tipo de actividad:", tipo);
 
     try {
-        // Buscar el taller por su ID
-        const taller = await Taller.findById(actividadId);
-        console.log("Taller encontrado:", taller);
+        let actividad;
 
-        if (!taller) {
-            return response.status(404).json({ message: 'Taller no encontrado' });
+        // Busca en la colección correspondiente según el tipo
+        if (tipo === 'Taller') {
+            actividad = await Taller.findById(actividadId);
+        } else if (tipo === 'Rodada') {
+            actividad = await Rodada.findById(actividadId);
+        } else if (tipo === 'Evento') {
+            actividad = await Evento.findById(actividadId);
+        } else {
+            return response.status(400).json({ message: 'Tipo de actividad no válido' });
+        }
+
+        console.log("Actividad encontrada:", actividad);
+
+        if (!actividad) {
+            return response.status(404).json({ message: 'Actividad no encontrada' });
         }
 
         // Suponiendo que hay solo un objeto en 'informacion', accede a él directamente
-        const actividad = taller.informacion[0];
+        const actividadInfo = actividad.informacion[0];
 
         // Verificar si el usuario ya está inscrito
-        if (actividad.usuariosInscritos.includes(usuarioId)) {
+        if (actividadInfo.usuariosInscritos.includes(usuarioId)) {
             return response.status(400).json({ message: 'El usuario ya está inscrito en esta actividad' });
         }
 
         // Inscribir al usuario
-        actividad.usuariosInscritos.push(usuarioId);
-        actividad.personasInscritas += 1;
+        actividadInfo.usuariosInscritos.push(usuarioId);
+        actividadInfo.personasInscritas += 1;
 
         // Guardar los cambios en la base de datos
-        await taller.save();
+        await actividad.save();
 
         return response.status(200).json({ message: 'Usuario inscrito exitosamente' });
     } catch (error) {
