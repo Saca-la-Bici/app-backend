@@ -2,8 +2,12 @@ const Usuario = require('../../../models/perfil/usuario.model');
 
 exports.get_Perfil = async (request, response) => {
     try {
-        const { firebaseUID } = request.params; 
-        const perfil = await Usuario.findOne({ firebaseUID });
+        const {
+            firebaseUID
+        } = request.userUID.uid
+        const perfil = await Usuario.findOne({ 
+            firebaseUID 
+        });
         return response.status(200).json({
             code: 200,
             msg: 'Consulta de datos de perfil exitosa',
