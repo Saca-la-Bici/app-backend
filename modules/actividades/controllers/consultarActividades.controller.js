@@ -5,7 +5,7 @@ const { request } = require('express');
 
 const getRodadas = async (request, response) => {
     try {
-        const rodadas = await Rodada.find();
+        const rodadas = await Rodada.find().populate('ruta');
         response.status(200).json(rodadas);
     } catch (error) {
         response.status(500).json({ message: 'Error al obtener las rodadas', error });
