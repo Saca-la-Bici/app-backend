@@ -3,6 +3,6 @@ const router = express.Router();
 
 const modificarRolController = require('../controllers/modificarRol.controller');
 
-router.get('/', modificarRolController.modificarRol);
+router.put('/', modificarRolController.modificarRol);
 
 module.exports = router;
