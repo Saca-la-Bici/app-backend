@@ -58,7 +58,6 @@ async function putAnnouncement(IDAnuncio, firebaseUID, titulo, contenido, imagen
     try {
         const announcement = await Anuncio.findById(IDAnuncio);
         if (announcement) {
-            announcement.firebaseUID = firebaseUID;
             announcement.titulo = titulo;
             announcement.contenido = contenido;
             announcement.imagen = imagen;
