@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 const announcementSchema = new mongoose.Schema({
-    IDUsuario: {
-        type: Number,
-        //type: mongoose.SchemaTypes.ObjectId,
-        //ref: 'Usuario',
+    firebaseUID: {
+        type: String,
+        ref: 'Usuario',
         required: true,
     },
     titulo:{
@@ -32,14 +31,19 @@ const announcementSchema = new mongoose.Schema({
 
 const Anuncio = mongoose.model('Anuncio', announcementSchema);
 
-async function postAnnouncement(IDUsuario, titulo, contenido, imagen){
-    const announcement = await Anuncio.create({
-        IDUsuario: IDUsuario,
-        titulo: titulo,
-        contenido: contenido,
-        imagen: imagen
-    });
-    await announcement.save();
+
+async function postAnnouncement(firebaseUID, titulo, contenido, imagen){
+    try {
+        const announcement = await Anuncio.create({
+            firebaseUID: firebaseUID,
+            titulo: titulo,
+            contenido: contenido,
+            imagen: imagen
+        });
+        await announcement.save();
+    } catch (error) {
+        throw error;
+    }
 }
 
 async function getAnnouncements(){
@@ -47,17 +51,20 @@ async function getAnnouncements(){
     return announcements;
 }
 
-async function putAnnouncement(IDAnuncio, IDUsuario, titulo, contenido, imagen){
-    const announcement = await Anuncio.findById(IDAnuncio);
-    if (announcement) {
-        announcement.IDUsuario = IDUsuario;
-        announcement.titulo = titulo;
-        announcement.contenido = contenido;
-        announcement.imagen = imagen;
-        await announcement.save();
-        return announcement;
-    } else {
-        throw new Error('Anuncio no encontrado');
+async function patchAnnouncement(IDAnuncio, titulo, contenido, imagen){
+    try {
+        const announcement = await Anuncio.findById(IDAnuncio);
+        if (announcement) {
+            announcement.titulo = titulo;
+            announcement.contenido = contenido;
+            announcement.imagen = imagen;
+            await announcement.save();
+            return announcement;
+        } else {
+            throw new Error('Anuncio no encontrado');
+        }
+    } catch (error) {
+        throw error;
     }
 }
 
@@ -69,6 +76,6 @@ module.exports = {
     Anuncio,
     postAnnouncement,
     getAnnouncements,
-    putAnnouncement,
+    patchAnnouncement,
     deleteAnnouncement
 };
