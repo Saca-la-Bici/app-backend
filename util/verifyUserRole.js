@@ -28,6 +28,7 @@ const verifyUserRole = async (request, response, next) => {
         // Pasar al siguiente middleware 
         next();
     } catch (error) {
+        console.log(error);
         return response.status(500).json({
             error: error.message,
         });
