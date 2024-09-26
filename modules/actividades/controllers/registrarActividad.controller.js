@@ -9,9 +9,6 @@ exports.postRodada = async (request, response) => {
     const data = request.body;
     const {id} = request.query;
 
-    console.log("Los datos son:", data);
-    console.log("El id de la ruta es:", id);
-
     try {
         const registro = await postRodada(data, id);
         response.status(201).json({ message: `Rodada creada exitosamente.`, registro });
@@ -22,7 +19,6 @@ exports.postRodada = async (request, response) => {
 
 exports.postTaller = async (request, response) => {
     const data = request.body;
-    console.log("Los datos son:", data);
 
     try {
         const registro = await postTaller(data);
@@ -34,7 +30,6 @@ exports.postTaller = async (request, response) => {
 
 exports.postEvento = async (request, response) => {
     const data = request.body;
-    console.log("Los datos son:", data);
 
     try {
         const registro = await postEvento(data);
