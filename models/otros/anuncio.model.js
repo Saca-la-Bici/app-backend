@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 const announcementSchema = new mongoose.Schema({
-    IDUsuario: {
-        type: Number,
-        //type: mongoose.SchemaTypes.ObjectId,
-        //ref: 'Usuario',
+    firebaseUID: {
+        type: String,
+        ref: 'Usuario',
         required: true,
     },
     titulo:{
@@ -32,10 +31,11 @@ const announcementSchema = new mongoose.Schema({
 
 const Anuncio = mongoose.model('Anuncio', announcementSchema);
 
-async function postAnnouncement(IDUsuario, titulo, contenido, imagen){
+
+async function postAnnouncement(firebaseUID, titulo, contenido, imagen){
     try {
         const announcement = await Anuncio.create({
-            IDUsuario: IDUsuario,
+            firebaseUID: firebaseUID,
             titulo: titulo,
             contenido: contenido,
             imagen: imagen
@@ -46,20 +46,15 @@ async function postAnnouncement(IDUsuario, titulo, contenido, imagen){
     }
 }
 
-async function getAnnouncements(IDAnuncio){
-    try {
-        const announcements = await Anuncio.find();
-        return announcements;
-    } catch (error) {
-        throw error;
-    }
+async function getAnnouncements(){
+    const announcements = await Anuncio.find();
+    return announcements;
 }
 
-async function putAnnouncement(IDAnuncio, IDUsuario, titulo, contenido, imagen){
+async function patchAnnouncement(IDAnuncio, titulo, contenido, imagen){
     try {
         const announcement = await Anuncio.findById(IDAnuncio);
         if (announcement) {
-            announcement.IDUsuario = IDUsuario;
             announcement.titulo = titulo;
             announcement.contenido = contenido;
             announcement.imagen = imagen;
@@ -74,17 +69,13 @@ async function putAnnouncement(IDAnuncio, IDUsuario, titulo, contenido, imagen){
 }
 
 async function deleteAnnouncement(IDAnuncio){
-    try {
-        await Anuncio.findByIdAndDelete(IDAnuncio);
-    } catch (error) {
-        throw error;
-    }
+    await Anuncio.findByIdAndDelete(IDAnuncio);
 }
 
 module.exports = {
     Anuncio,
     postAnnouncement,
     getAnnouncements,
-    putAnnouncement,
+    patchAnnouncement,
     deleteAnnouncement
 };
