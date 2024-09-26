@@ -18,7 +18,7 @@ const actividadSchema = new mongoose.Schema ({
     }, 
     personasInscritas: {
         type: Number, 
-        required: true
+        default: 0
     },
     ubicacion: {
         type: String,
