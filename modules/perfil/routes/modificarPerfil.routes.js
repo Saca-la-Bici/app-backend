@@ -9,9 +9,7 @@ const router = express.Router();
 
 const modificarPerfilController = require('../controllers/modificarPerfil.controller');
 
-router.put('/', function(req, res){
-    modificarPerfilController.modificarPerfil
-  });
+router.put('/', modificarPerfilController.putPerfil);
 
 module.exports = router;
 
