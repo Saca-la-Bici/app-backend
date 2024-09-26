@@ -1,5 +1,4 @@
 const { 
-    registrarActividad,
     postRodada,
     postTaller,
     postEvento
