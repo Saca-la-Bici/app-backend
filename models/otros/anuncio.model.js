@@ -31,6 +31,7 @@ const announcementSchema = new mongoose.Schema({
 
 const Anuncio = mongoose.model('Anuncio', announcementSchema);
 
+
 async function postAnnouncement(firebaseUID, titulo, contenido, imagen){
     try {
         const announcement = await Anuncio.create({
@@ -45,13 +46,9 @@ async function postAnnouncement(firebaseUID, titulo, contenido, imagen){
     }
 }
 
-async function getAnnouncements(IDAnuncio){
-    try {
-        const announcements = await Anuncio.find();
-        return announcements;
-    } catch (error) {
-        throw error;
-    }
+async function getAnnouncements(){
+    const announcements = await Anuncio.find();
+    return announcements;
 }
 
 async function patchAnnouncement(IDAnuncio, titulo, contenido, imagen){
@@ -72,11 +69,7 @@ async function patchAnnouncement(IDAnuncio, titulo, contenido, imagen){
 }
 
 async function deleteAnnouncement(IDAnuncio){
-    try {
-        await Anuncio.findByIdAndDelete(IDAnuncio);
-    } catch (error) {
-        throw error;
-    }
+    await Anuncio.findByIdAndDelete(IDAnuncio);
 }
 
 module.exports = {

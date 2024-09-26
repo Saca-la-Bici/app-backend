@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
-const port = process.env.PORT || 7070;
+const port = process.env.PORT || 8080;
 
 const bodyParser = require("body-parser");
 
@@ -19,10 +19,7 @@ app.use(compression());
 
 // Conectar a la base de datos usando variables de entorno
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Conectado a la base de datos de MongoDB en AWS EC2");
   })
