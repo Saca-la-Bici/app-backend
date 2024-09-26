@@ -33,17 +33,13 @@ const Anuncio = mongoose.model('Anuncio', announcementSchema);
 
 
 async function postAnnouncement(firebaseUID, titulo, contenido, imagen){
-    try {
-        const announcement = await Anuncio.create({
-            firebaseUID: firebaseUID,
-            titulo: titulo,
-            contenido: contenido,
-            imagen: imagen
-        });
-        await announcement.save();
-    } catch (error) {
-        throw error;
-    }
+    const announcement = await Anuncio.create({
+        firebaseUID: firebaseUID,
+        titulo: titulo,
+        contenido: contenido,
+        imagen: imagen
+    });
+    await announcement.save();
 }
 
 async function getAnnouncements(){
@@ -52,19 +48,15 @@ async function getAnnouncements(){
 }
 
 async function patchAnnouncement(IDAnuncio, titulo, contenido, imagen){
-    try {
-        const announcement = await Anuncio.findById(IDAnuncio);
-        if (announcement) {
-            announcement.titulo = titulo;
-            announcement.contenido = contenido;
-            announcement.imagen = imagen;
-            await announcement.save();
-            return announcement;
-        } else {
-            throw new Error('Anuncio no encontrado');
-        }
-    } catch (error) {
-        throw error;
+    const announcement = await Anuncio.findById(IDAnuncio);
+    if (announcement) {
+        announcement.titulo = titulo;
+        announcement.contenido = contenido;
+        announcement.imagen = imagen;
+        await announcement.save();
+        return announcement;
+    } else {
+        throw new Error('Anuncio no encontrado');
     }
 }
 
