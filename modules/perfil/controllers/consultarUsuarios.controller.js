@@ -1,13 +1,14 @@
 const PoseeRol = require("../../../models/perfil/poseeRol.model");
 
 exports.getUsuarios = async (req, res) => {
-  const { page, limit, roles } = req.query;
+  const { page, limit, roles, firebaseUID  } = req.query;
 
   try {
     // Verificar que los valores de page y limit sean números válidos
     const pageInt = parseInt(page);
     const limitInt = parseInt(limit);
 
+    // Verificar que los valores de page y limit sean números válidos
     if (isNaN(pageInt) || isNaN(limitInt) || pageInt < 1 || limitInt < 1) {
       return res
         .status(400)
@@ -32,7 +33,10 @@ exports.getUsuarios = async (req, res) => {
         match: { nombre: { $in: rolesArray } }, // Filtrar por el nombre del Rol
         select: "nombre" // Traer solo el campo nombre
       })
-      .populate("IDUsuario") // Traer la información del usuario
+      .populate({
+        path: "IDUsuario",
+        match: { firebaseUID: { $ne: firebaseUID } }, // Excluir por firebaseUID
+      })
       .sort({ _id: 1 })
       .skip((pageInt - 1) * limitInt) // Saltar los documentos de las páginas anteriores
       .limit(limitInt); // Limitar el número de documentos devueltos
