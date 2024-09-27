@@ -1,24 +1,19 @@
 const Usuario = require('../../../models/perfil/usuario.model');
 
 exports.get_Perfil = async (request, response) => {
+    console.log("Entramos al controller")
     try {
-        const {
-            firebaseUID
-        } = request.userUID.uid
-        const perfil = await Usuario.findOne({ 
-            firebaseUID 
-        });
-        return response.status(200).json({
-            code: 200,
-            msg: 'Consulta de datos de perfil exitosa',
-            data: perfil
-        });
+        const { firebaseUID } = request.params; 
+        let perfil = await Usuario.findOne({ firebaseUID });
+        perfil.fechaNacimiento = perfil.fechaNacimiento.toString()
+        perfil.fechaRegistro = perfil.fechaRegistro.toString()
+        return response.status(200).json(
+            perfil
+        );
     } catch (error) {
         console.error(error);
         return response.status(500).json({
-            code: 500,
-            msg: 'Error al intentar consultar el perfil',
-            data: null
+            data :null
         });
     }
 };
