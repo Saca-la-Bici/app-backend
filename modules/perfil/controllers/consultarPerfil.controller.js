@@ -1,7 +1,6 @@
 const Usuario = require('../../../models/perfil/usuario.model');
 
 exports.get_Perfil = async (request, response) => {
-    console.log("Entramos al controller")
     try {
         const { firebaseUID } = request.params; 
         let perfil = await Usuario.findOne({ firebaseUID });
