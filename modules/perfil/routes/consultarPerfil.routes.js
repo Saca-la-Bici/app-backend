@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-// Importen aquí los archivos de ruta del módulo
-// EJEMPLO: const registrarActividadRoute = require('./registrarActividad.routes');
+// Importar el controlador que maneja la creación de actividades
+const consultarPerfilController = require("../controllers/consultarPerfil.controller");
 
-// Pongan la ruta que quieren usar y el archivo de la ruta de la funcionalidad
-// EJEMPLO router.use('/registrar', registrarActividadRoute);
+const verifyToken = require("../../../util/verifyUserToken");
 
-// const consultarPerfil = require('../controllers/consultarPerfil.controller');
-
-// router.get('/', consultarPerfil.consultarPerfil)
+// Definir la ruta para crear una actividad
+router.get("/", verifyToken, consultarPerfilController.get_Perfil);
 
 module.exports = router;

@@ -2,40 +2,55 @@ const Rodada = require('./rodada.model');
 const Taller = require('./taller.model');
 const Evento = require('./evento.model');
 
-async function encontrarTipo(tipo) {
-    if (tipo === 'rodada') return Rodada;
-    if (tipo === 'taller') return {model: Taller};
-    if (tipo === 'evento') return Evento;
-    throw new Error('Tipo de actividad no válido');
-}
-
-async function registrarActividad(tipo, data) {
-    try {
-        console.log("El tipo es: ", tipo);
-        if (tipo === 'rodada') {
-            const rodada = await Rodada.create(data);
-            await rodada.save();
-            return rodada;
-
-        } else if (tipo === 'taller') {
-            console.log("Creando taller");
-            const taller = await Taller.create(data);
-            console.log("Taller creado");
-            await taller.save();
-            console.log("Taller guardado");
-            return taller;
-
-        } else if (tipo === 'evento') {
-            const evento = await Evento.create(data);
-            await evento.save();
-            return evento;
-            
-        } else {
-            throw new Error('Tipo de actividad no válido');
-        }
-    } catch (error) {
-        throw(error);
+async function postRodada(data, id) {
+    data.ruta = id;
+    if (Array.isArray(data.informacion)) {
+        data.informacion = data.informacion.map(info => {
+            if (info.fecha) {
+                const fecha = new Date(info.fecha);
+                info.fecha = fecha.toISOString();
+            }
+            return info;
+        });
     }
+    const rodada = await Rodada.create(data);
+
+    await rodada.save();
+    return rodada;
 }
 
-module.exports = { registrarActividad };
+async function postTaller(data) {
+    if (Array.isArray(data.informacion)) {
+        data.informacion = data.informacion.map(info => {
+            if (info.fecha) {
+                const fecha = new Date(info.fecha);
+                info.fecha = fecha.toISOString();
+            }
+            return info;
+        });
+    }
+    const taller = await Taller.create(data);
+    await taller.save();
+    return taller;
+}
+
+async function postEvento(data) {
+    if (Array.isArray(data.informacion)) {
+        data.informacion = data.informacion.map(info => {
+            if (info.fecha) {
+                const fecha = new Date(info.fecha);
+                info.fecha = fecha.toISOString(); // Convierte a ISO 8601
+            }
+            return info;
+        });
+    }
+    const evento = await Evento.create(data);
+    await evento.save();
+    return evento;
+}
+
+module.exports = { 
+    postRodada,
+    postTaller,
+    postEvento
+};
