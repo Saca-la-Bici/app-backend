@@ -13,7 +13,7 @@ const usuarioSchema = new mongoose.Schema(
     },
     fechaNacimiento: {
       type: Date,
-      required: true
+      required: false
     },
     tipoSangre: {
       type: String,
