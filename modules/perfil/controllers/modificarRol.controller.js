@@ -3,8 +3,8 @@ const PoseeRol = require('../../../models/perfil/poseeRol.model');
 
 exports.patchRole = async (req, res) => {
     const id = req.params.id;
-    const rolId = req.body.rolId; // Asegúrate de que `rolId` esté correctamente estructurado
-
+    const rolId = req.body.rolId; 
+    
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({ error: 'ID de usuario no válido' });
     }
