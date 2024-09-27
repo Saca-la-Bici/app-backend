@@ -5,6 +5,6 @@ const router = express.Router();
 const consultarMedallasController = require("../controllers/consultarMedallas.controller");
 
 // Definir la ruta para crear una medalla
-router.get("/", consultarMedallasController.getMedallas);
+router.get("/", consultarMedallasController.consultarMedallas);
 
 module.exports = router;
