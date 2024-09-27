@@ -5,7 +5,9 @@ const Taller = require('../../../models/actividades/taller.model');
 const getRodadas = async (request, response) => {
     try {
         const rodadas = await Rodada.find().populate('ruta');
-        response.status(200).json(rodadas);
+        response.status(200).json({
+            rodadas: rodadas,
+            rol: request.rol});
     } catch (error) {
         response.status(500).json({ message: 'Error al obtener las rodadas', error });
     }
@@ -14,7 +16,10 @@ const getRodadas = async (request, response) => {
 const getEventos = async (request, response) => {
     try {
         const eventos = await Evento.find();
-        response.status(200).json(eventos);
+        response.status(200).json({
+            eventos: eventos,
+            rol: request.rol
+        });
     } catch (error) {
         response.status(500).json({ message: 'Error al obtener los eventos', error });
     }
@@ -23,7 +28,10 @@ const getEventos = async (request, response) => {
 const getTalleres = async (request, response) => {
     try {
         const talleres = await Taller.find();
-        response.status(200).json(talleres);
+        response.status(200).json({
+            talleres: talleres, 
+            rol: request.rol
+        });
     } catch (error) {
         response.status(500).json({ message: 'Error al obtener los talleres', error });
     }
