@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const verifyUserToken = require('../../../util/verifyUserToken');
 const { getAnnouncements } = require('../controllers/consultarAnuncio.controller');
-const getImage = require('../../../util/getImage');
-const getImageMiddleware = require('../../../util/tempImage');
+const getImageFolder = require('../../../util/getImageFolder');
 
 
 /* Define la ruta para obtener anuncios con URLs de imágenes
@@ -11,7 +10,7 @@ router.get('/', verifyUserToken, getAnnouncements, getImage, (req, res) => {
     res.status(200).json({ announcements: req.announcements });
 });
 */
-router.get('/', verifyUserToken, getAnnouncements, getImageMiddleware('Announcements'), (req, res) => {
+router.get('/', verifyUserToken, getAnnouncements, getImageFolder('Announcements'), (req, res) => {
     res.status(200).json({ announcements: req.announcements });
 });
 

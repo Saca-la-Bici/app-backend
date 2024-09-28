@@ -1,6 +1,5 @@
 const Announcement = require('../../../models/otros/anuncio.model');
 const AWS = require('aws-sdk');
-const getImage = require('../../../util/getImage');
 
 AWS.config.update({
     signatureVersion: 'v4',
