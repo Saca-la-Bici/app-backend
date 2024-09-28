@@ -74,7 +74,7 @@ exports.postAnnouncement = [
                     var base64data = new Buffer(data, 'binary');
                     const params = {
                         Bucket: process.env.AWS_BUCKET,
-                        Key: "Announcements/" + request.files[0].filename,
+                        Key: "announcements/" + request.files[0].filename,
                         Body: base64data
                 };
 
