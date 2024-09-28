@@ -18,11 +18,13 @@ const compression = require("compression");
 app.use(compression());
 
 // Conectar a la base de datos usando variables de entorno
-mongoose.connect('mongodb://localhost:27017/Saca_la_Bici')
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log('Conectado a la base de datos local de MongoDB');
-  }).catch((error) => {
-    console.error('Error al conectar con la base de datos:', error);
+    console.log("Conectado a la base de datos de MongoDB en AWS EC2");
+  })
+  .catch((error) => {
+    console.error("Error al conectar con la base de datos:", error);
   });
 
 // Importar el archivo index de cada módulo

@@ -9,7 +9,7 @@ exports.getAnnouncements = async (request, response) => {
         }
         return response.status(200).json({
             anuncio: anuncio, 
-            rol: request.rol
+            permisos: request.permisos
         });
     } catch (error) {
         return response.status(404).json({ message: 'Anuncio no encontrado', error: error.message });
