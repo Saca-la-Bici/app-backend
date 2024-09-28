@@ -7,7 +7,8 @@ const getRodadas = async (request, response) => {
         const rodadas = await Rodada.find().populate('ruta');
         response.status(200).json({
             rodadas: rodadas,
-            rol: request.rol});
+            permisos: request.permisos
+            });
     } catch (error) {
         response.status(500).json({ message: 'Error al obtener las rodadas', error });
     }
@@ -18,7 +19,7 @@ const getEventos = async (request, response) => {
         const eventos = await Evento.find();
         response.status(200).json({
             eventos: eventos,
-            rol: request.rol
+            permisos: request.permisos
         });
     } catch (error) {
         response.status(500).json({ message: 'Error al obtener los eventos', error });
@@ -30,7 +31,7 @@ const getTalleres = async (request, response) => {
         const talleres = await Taller.find();
         response.status(200).json({
             talleres: talleres, 
-            rol: request.rol
+            permisos: request.permisos
         });
     } catch (error) {
         response.status(500).json({ message: 'Error al obtener los talleres', error });
