@@ -1,32 +1,32 @@
 const AWS = require('aws-sdk');
+AWS.config.update({ region: 'us-east-2' });
 const s3 = new AWS.S3();
 const bucketName = process.env.AWS_BUCKET;
 
 const getImageFolder = (folderName) => {
     return async (req, res, next) => {
-        const announcements = req.announcements; // Suponiendo que los anuncios vienen en req.announcements
+        const Json = req[folderName];
 
-        if (!announcements || !Array.isArray(announcements)) {
-            return res.status(400).json({ message: 'Invalid announcements data' });
+        if (!Json || !Array.isArray(Json)) {
+            return res.status(400).json({ message: 'Invalid request data' });
         }
 
         try {
-            const updatedAnnouncements = await Promise.all(announcements.map(async (announcement) => {
-                if (announcement.imagen) {
+            const updatedJson = await Promise.all(Json.map(async (folder) => {
+                if (folder.imagen) {
                     const imageParams = {
                         Bucket: bucketName,
-                        Key: `${folderName}/${announcement.imagen}`,
+                        Key: `${folderName}/${folder.imagen}`,
                         Expires: 60 * 60 // Tiempo de expiración del URL en segundos (e.g., 1 hora)
                     };
-                    announcement.imagen = s3.getSignedUrl('getObject', imageParams);
+                    folder.imagen = s3.getSignedUrl('getObject', imageParams);
                 } else {
-                    announcement.imagen = null;
+                    folder.imagen = null;
                 }
-                return announcement;
+                return folder;
             }));
 
-            req.announcements = updatedAnnouncements;
-            next();
+            return res.status(200).json(updatedJson);
         } catch (error) {
             console.error('Error fetching image from S3:', error);
             res.status(500).json({ message: 'Error fetching image from S3', error: error.message });

@@ -10,9 +10,7 @@ router.get('/', verifyUserToken, getAnnouncements, getImage, (req, res) => {
     res.status(200).json({ announcements: req.announcements });
 });
 */
-router.get('/', verifyUserToken, getAnnouncements, getImageFolder('Announcements'), (req, res) => {
-    res.status(200).json({ announcements: req.announcements });
-});
+router.get('/', verifyUserToken, getAnnouncements, getImageFolder('announcements'));
 
 // Define the route for getting an image with middleware
 //router.get('/:IDAnuncio', verifyUserToken, getImage, getAnnouncementsController.getAnnouncement);
