@@ -19,16 +19,12 @@ async function encontrarEvento(id) {
 }
 
 async function modificarEvento(id, data) {
-    try {
-        // Checa el tipo de modelo (Rodada, Taller, or Evento)
-        const { model } = await encontrarEvento(id);
+    // Checa el tipo de modelo (Rodada, Taller, Evento)
+    const { model } = await encontrarEvento(id);
 
-        // Actualización del evento
-        const updatedEvent = await model.findByIdAndUpdate(id, data, { new: true });
-        return updatedEvent;
-    } catch (error) {
-        throw error;
-    }
+    // Actualización del evento
+    const updatedEvent = await model.findByIdAndUpdate(id, data, { new: true });
+    return updatedEvent;
 }
 
 module.exports = { modificarEvento };

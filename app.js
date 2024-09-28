@@ -55,12 +55,18 @@ app.use("/rodadas", rodadasRoutes);
 app.use("/session", sessionRoutes);
 
 const verifyToken = require("./util/verifyUserToken");
+const verifyUserRole = require("./util/verifyUserRole");
 
 app.get("/", verifyToken, (request, response) => {
   response.status(200).json({
     message: "¡Bienvenido a Saca la Bici!",
   });
-  console.log(request.userUID);
+});
+
+app.get("/getRole", verifyToken, verifyUserRole, (request, response) => {
+  response.status(200).json({
+    rol: request.rol
+  });
 });
 
 app.use((request, response) => {
