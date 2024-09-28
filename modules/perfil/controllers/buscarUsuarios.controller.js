@@ -2,7 +2,7 @@ const { Usuario } = require("../../../models/perfil/usuario.model");
 const PoseeRol = require("../../../models/perfil/poseeRol.model");
 
 exports.searchUsuarios = async (req, res) => {
-  const { query } = req.query; // Recibe el criterio de búsqueda desde la URL, por ejemplo: ?query=john.doe
+  const { query, firebaseUID } = req.query; // Recibe el criterio de búsqueda desde la URL, por ejemplo: ?query=john.doe
 
   try {
     // Consultar los usuarios cuyo username o correo coincidan con el criterio
@@ -11,6 +11,7 @@ exports.searchUsuarios = async (req, res) => {
         { username: { $regex: query, $options: "i" } }, // Búsqueda por username (case-insensitive)
         { correoElectronico: { $regex: query, $options: "i" } }, // Búsqueda por correo electrónico
       ],
+      firebaseUID: { $ne: firebaseUID }, // Excluir al usuario con el mismo firebaseUID
     });
 
     // Obtener los roles relacionados para cada usuario encontrado
