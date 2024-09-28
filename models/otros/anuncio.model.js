@@ -72,10 +72,16 @@ async function deleteAnnouncement(IDAnuncio){
     await Anuncio.findByIdAndDelete(IDAnuncio);
 }
 
+async function getImagen(IDAnuncio){
+    const announcement = await Anuncio.findById(IDAnuncio);
+    return announcement.imagen;
+}
+
 module.exports = {
     Anuncio,
     postAnnouncement,
     getAnnouncements,
     patchAnnouncement,
-    deleteAnnouncement
+    deleteAnnouncement,
+    getImagen
 };
