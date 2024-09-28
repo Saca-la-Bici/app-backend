@@ -13,7 +13,7 @@ const usuarioSchema = new mongoose.Schema(
     },
     fechaNacimiento: {
       type: Date,
-      required: true
+      required: false
     },
     tipoSangre: {
       type: String,
@@ -82,6 +82,8 @@ const Usuario = mongoose.model("Usuario", usuarioSchema);
 */
 
 
-module.exports =  { 
-  Usuario 
+module.exports = {
+  
+  Usuario
+
 };

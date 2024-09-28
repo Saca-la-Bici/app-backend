@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 const announcementSchema = new mongoose.Schema({
-    IDUsuario: {
-        type: Number,
-        //type: mongoose.SchemaTypes.ObjectId,
-        //ref: 'Usuario',
+    firebaseUID: {
+        type: String,
+        ref: 'Usuario',
         required: true,
     },
     titulo:{
@@ -32,9 +31,10 @@ const announcementSchema = new mongoose.Schema({
 
 const Anuncio = mongoose.model('Anuncio', announcementSchema);
 
-async function postAnnouncement(IDUsuario, titulo, contenido, imagen){
+
+async function postAnnouncement(firebaseUID, titulo, contenido, imagen){
     const announcement = await Anuncio.create({
-        IDUsuario: IDUsuario,
+        firebaseUID: firebaseUID,
         titulo: titulo,
         contenido: contenido,
         imagen: imagen
@@ -47,10 +47,9 @@ async function getAnnouncements(){
     return announcements;
 }
 
-async function putAnnouncement(IDAnuncio, IDUsuario, titulo, contenido, imagen){
+async function patchAnnouncement(IDAnuncio, titulo, contenido, imagen){
     const announcement = await Anuncio.findById(IDAnuncio);
     if (announcement) {
-        announcement.IDUsuario = IDUsuario;
         announcement.titulo = titulo;
         announcement.contenido = contenido;
         announcement.imagen = imagen;
@@ -69,6 +68,6 @@ module.exports = {
     Anuncio,
     postAnnouncement,
     getAnnouncements,
-    putAnnouncement,
+    patchAnnouncement,
     deleteAnnouncement
 };
