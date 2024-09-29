@@ -1,6 +1,6 @@
 const PreguntaFrecuente = require("../../../models/otros/preguntasFrecuentes.model");
 
-exports.registrarPreguntaFrecuente = async (req, res) => {
+exports.post_registrarPreguntaFrecuente = async (req, res) => {
   try {
     const { IdPregunta, Pregunta, Respuesta, Tema, Imagen } = req.body;
     const nuevaPregunta = new PreguntaFrecuente({
