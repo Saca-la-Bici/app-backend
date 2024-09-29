@@ -12,7 +12,7 @@ exports.postAnnouncement = async (request, response) => {
     const contenido = request.body.contenido;
     const imagen = request.body.imagen;
     try {
-        await Announcement.postAnnouncement(firebaseUID, titulo, contenido, imagen);
+        const announcement = await Announcement.postAnnouncement(firebaseUID, titulo, contenido, imagen);
 
         // Obtener todos los tokens de FCM de los usuarios
         const usuarios = await Usuario.find({
@@ -28,7 +28,9 @@ exports.postAnnouncement = async (request, response) => {
         const cuerpoNotificacion = contenido;
 
         // Enviar la notificación
-        await sendNotification(tokens, tituloNotificacion, cuerpoNotificacion);
+        await sendNotification(tokens, tituloNotificacion, cuerpoNotificacion, {
+            anuncioID: announcement._id.toString(),
+        });
 
         return response.status(201).json({ message: 'Anuncio creado correctamente' });
     } catch (error) {
