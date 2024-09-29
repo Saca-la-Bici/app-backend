@@ -5,9 +5,9 @@ const registrarActividadRoute = require('./registrarActividad.routes');
 const modificarActividadRoute = require('./modificarActividad.routes');
 const consultarActividadesRoute = require('./consultarActividades.routes');
 
-router.use('/consultar', consultarActividadesRoute);
+// Importar y usar las rutas en el enrutador principal del módulo
 router.use('/registrar', registrarActividadRoute);
 router.use('/modificar', modificarActividadRoute);
-
+router.use('/consultar', consultarActividadesRoute);
 
 module.exports = router;
