@@ -56,6 +56,11 @@ const usuarioSchema = new mongoose.Schema(
       unique: true,
       required: true
     },
+    fcmTokens: {
+      type: [String],
+      default: [], 
+      required: false
+    }
   },
   {
     collection: "Usuario",
