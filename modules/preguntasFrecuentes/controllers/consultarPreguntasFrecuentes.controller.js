@@ -1,6 +1,6 @@
 const PreguntaFrecuente = require('../../../models/otros/preguntasFrecuentes.model');
 
-exports.consultarPreguntasFrecuentes = async (req, res) => {
+exports.get_PreguntasFrecuentes = async (req, res) => {
     try {
         const preguntas = await PreguntaFrecuente.find();
         return res.status(200).json({

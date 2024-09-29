@@ -3,6 +3,6 @@ const router = express.Router();
 
 const consultarPreguntas = require('../controllers/consultarPreguntasFrecuentes.controller');
 
-router.get('/', consultarPreguntas.consultarPreguntasFrecuentes);
+router.get('/', consultarPreguntas.get_PreguntasFrecuentes);
 
 module.exports = router;
