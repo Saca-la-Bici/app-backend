@@ -4,7 +4,7 @@ const Taller = require('../../../models/actividades/taller.model');
 
 const getRodadas = async (request, response) => {
     try {
-        const rodadas = await Rodada.find().populate('ruta');
+        const rodadas = await Rodada.find({ "informacion.estado": true }).populate('ruta');
         response.status(200).json({
             rodadas: rodadas,
             permisos: request.permisos
@@ -16,7 +16,7 @@ const getRodadas = async (request, response) => {
 
 const getEventos = async (request, response) => {
     try {
-        const eventos = await Evento.find();
+        const eventos = await Evento.find({ "informacion.estado": true });
         response.status(200).json({
             eventos: eventos,
             permisos: request.permisos
@@ -28,7 +28,7 @@ const getEventos = async (request, response) => {
 
 const getTalleres = async (request, response) => {
     try {
-        const talleres = await Taller.find();
+        const talleres = await Taller.find({ "informacion.estado": true });
         response.status(200).json({
             talleres: talleres, 
             permisos: request.permisos
