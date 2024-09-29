@@ -1,4 +1,6 @@
-const Usuario = require('../../../models/perfil/usuario.model');
+const {
+    Usuario
+} = require('../../../models/perfil/usuario.model');
 
 exports.perfilCompleto = async (request, response) => {
 
