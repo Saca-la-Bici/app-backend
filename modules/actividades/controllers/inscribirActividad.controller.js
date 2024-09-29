@@ -22,7 +22,7 @@ exports.inscribirUsuario = async (request, response) => {
             return response.status(400).json({ message: 'Tipo de actividad no válido' });
         }
 
-        console.log("Actividad encontrada:", actividad);
+        //console.log("Actividad encontrada:", actividad);
 
         if (!actividad) {
             return response.status(404).json({ message: 'Actividad no encontrada' });
