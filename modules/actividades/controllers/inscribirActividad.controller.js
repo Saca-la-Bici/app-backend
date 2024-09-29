@@ -4,9 +4,9 @@ const Evento = require('../../../models/actividades/evento.model');
 
 exports.inscribirUsuario = async (request, response) => {
     const { actividadId, usuarioId, tipo } = request.body; //Se debe recibir el 'tipo' en la solicitud
-    console.log("ID de la actividad:", actividadId);
-    console.log("ID del usuario:", usuarioId);
-    console.log("Tipo de actividad:", tipo);
+    //console.log("ID de la actividad:", actividadId);
+    //console.log("ID del usuario:", usuarioId);
+    //console.log("Tipo de actividad:", tipo);
 
     try {
         let actividad;
