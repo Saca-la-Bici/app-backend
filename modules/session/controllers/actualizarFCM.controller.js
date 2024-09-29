@@ -14,6 +14,15 @@ exports.actualizarFCM = async (request, response) => {
     }
 
     try {
+        // Eliminar el token de cualquier otra cuenta que lo tenga registrado
+        await Usuario.updateMany({
+            fcmTokens: fcmToken
+        }, {
+            $pull: {
+                fcmTokens: fcmToken
+            }
+        });
+        
         // Buscar al usuario por UID
         const user = await Usuario.findOne({
             firebaseUID: request.userUID.uid
