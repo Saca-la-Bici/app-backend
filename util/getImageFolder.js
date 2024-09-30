@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk');
+AWS.config.update({ region: process.env.AWS_REGION });
 const s3 = new AWS.S3();
 const bucketName = process.env.AWS_BUCKET;
 
@@ -16,7 +17,6 @@ const getImageFolder = (folderName) => {
                     const imageParams = {
                         Bucket: bucketName,
                         Key: `${folderName}/${folder.imagen}`,
-                        region: process.env.AWS_REGION,
                         Expires: 60 * 60 // Tiempo de expiración del URL en segundos (e.g., 1 hora)
                     };
                     folder.imagen = s3.getSignedUrl('getObject', imageParams);
