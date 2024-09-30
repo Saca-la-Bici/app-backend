@@ -6,6 +6,7 @@ exports.get_Perfil = async (request, response) => {
         let perfil = await Usuario.findOne({ firebaseUID });
         perfil.fechaNacimiento = perfil.fechaNacimiento.toString()
         perfil.fechaRegistro = perfil.fechaRegistro.toString()
+        console.log("Return Perfil", perfil)
         return response.status(200).json(
             perfil
         );
