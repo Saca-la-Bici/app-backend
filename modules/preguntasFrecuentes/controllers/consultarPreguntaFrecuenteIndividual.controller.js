@@ -9,10 +9,10 @@ exports.get_PreguntaIndividual = async (req, res) => {
             msg: 'Consulta de pregunta frecuente exitosa',
             data: pregunta
         });
-    } catch (error) {
+    } catch (err) {
         return res.status(500).json({
             code: 500,
-            msg: 'Error de lectura, vuelva a intentarlo más tarde',
+            msg: 'Error de lectura, vuelva a intentarlo más tarde: ', err,
             data: null
         });
     }
