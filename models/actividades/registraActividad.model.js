@@ -2,8 +2,7 @@ const Rodada = require('./rodada.model');
 const Taller = require('./taller.model');
 const Evento = require('./evento.model');
 
-async function postRodada(data, id) {
-    data.ruta = id;
+async function postRodada(data) {
     if (Array.isArray(data.informacion)) {
         data.informacion = data.informacion.map(info => {
             if (info.fecha) {
