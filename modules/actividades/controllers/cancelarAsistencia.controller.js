@@ -3,7 +3,11 @@ const Rodada = require('../../../models/actividades/rodada.model');
 const Evento = require('../../../models/actividades/evento.model');
 
 exports.cancelarAsistencia = async (request, response) => {
-    const { actividadId, usuarioId, tipo } = request.body; // Se debe recibir el 'tipo' en la solicitud
+    
+    const actividadId = request.body.actividadId; 
+    const tipo = request.body.tipo;
+    const firebaseUID = request.userUID.uid; 
+    // Se debe recibir el 'tipo' en la solicitud
     // console.log("ID de la actividad:", actividadId);
     // console.log("ID del usuario:", usuarioId);
     // console.log("Tipo de actividad:", tipo);
@@ -32,7 +36,7 @@ exports.cancelarAsistencia = async (request, response) => {
         const actividadInfo = actividad.informacion[0];
 
         // Verificar si el usuario está inscrito
-        const usuarioIndex = actividadInfo.usuariosInscritos.indexOf(usuarioId);
+        const usuarioIndex = actividadInfo.usuariosInscritos.indexOf(firebaseUID);
         if (usuarioIndex === -1) {
             return response.status(400).json({ message: 'El usuario no está inscrito en esta actividad' });
         }
