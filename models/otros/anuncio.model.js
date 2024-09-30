@@ -42,6 +42,7 @@ async function postAnnouncement(firebaseUID, titulo, contenido, imagen){
         imagen: imagen
     });
     await announcement.save();
+    return announcement;
 }
 
 async function getAnnouncements(){
