@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const comentarioSchema = require('../foro/comentario.model');
+const Foro = require('../foro/foro.model');
 
 const actividadSchema = new mongoose.Schema ({
     titulo: {
@@ -49,10 +49,23 @@ const actividadSchema = new mongoose.Schema ({
         immutable: true,
         enum: ['Rodada', 'Taller', 'Evento']
     },
-    comentarios: {
-        type: [comentarioSchema],
-        default: []
-    },
+    foro: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Foro'
+    }
+});
+
+// Middleware para crear un foro vacío antes de guardar la actividad
+actividadSchema.pre('save', async function(next) {
+    if (this.isNew) {
+        try {
+            const foro = await Foro.create({});
+            this.foro = foro._id;
+        } catch (error) {
+            return next(error);
+        }
+    }
+    next();
 });
 
 module.exports = actividadSchema;
