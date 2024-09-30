@@ -6,10 +6,9 @@ const {
 
 exports.postRodada = async (request, response) => {
     const data = request.body;
-    const {id} = request.query;
 
     try {
-        const registro = await postRodada(data, id);
+        const registro = await postRodada(data);
         response.status(201).json({ message: `Rodada creada exitosamente.`, registro });
     } catch (error) {
         response.status(500).json({ message: `Error al crear la rodada`, error });
