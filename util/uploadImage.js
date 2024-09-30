@@ -31,7 +31,7 @@ const upload = multer({ storage: storage });
 const uploadToS3 = (request, res, next) => {
     if (!request.file) {
         console.error('No file uploaded');
-        return next(new Error('No file uploaded'));
+        return next();
     }
     console.log(request.file)
     const folder = request.body.folder + '/';
