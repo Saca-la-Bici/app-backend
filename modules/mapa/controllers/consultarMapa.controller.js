@@ -1,6 +1,7 @@
 const Ruta = require('../../../models/ruta/ruta.model');
 
 exports.getRutas = async (req, res) => {
+    console.log(req.permisos);
     try {
         const rutas = await Ruta.find({});
         
