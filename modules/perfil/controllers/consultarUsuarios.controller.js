@@ -1,7 +1,10 @@
 const PoseeRol = require("../../../models/perfil/poseeRol.model");
 
 exports.getUsuarios = async (req, res) => {
-  const { page, limit, roles, firebaseUID  } = req.query;
+  const { page, limit, roles } = req.query;
+
+  // Obtener el firebaseUID del usuario autenticado
+  const firebaseUID = req.userUID.uid;
 
   try {
     // Verificar que los valores de page y limit sean números válidos
@@ -50,6 +53,7 @@ exports.getUsuarios = async (req, res) => {
           username: ur.IDUsuario.username,
           nombre: ur.IDUsuario.nombre,
           correoElectronico: ur.IDUsuario.correoElectronico,
+          imagenPerfil: ur.IDUsuario.imagen,
         },
         rol: {
           id: ur.IDRol._id,
