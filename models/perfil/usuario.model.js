@@ -56,6 +56,11 @@ const usuarioSchema = new mongoose.Schema(
       unique: true,
       required: true
     },
+    fcmTokens: {
+      type: [String],
+      default: [], 
+      required: false
+    }
   },
   {
     collection: "Usuario",
@@ -82,6 +87,8 @@ const Usuario = mongoose.model("Usuario", usuarioSchema);
 */
 
 
-module.exports =  { 
-  Usuario 
+module.exports = {
+  
+  Usuario
+
 };
