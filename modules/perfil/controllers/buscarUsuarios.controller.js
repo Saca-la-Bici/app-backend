@@ -2,7 +2,10 @@ const { Usuario } = require("../../../models/perfil/usuario.model");
 const PoseeRol = require("../../../models/perfil/poseeRol.model");
 
 exports.searchUsuarios = async (req, res) => {
-  const { query, firebaseUID } = req.query; // Recibe el criterio de búsqueda desde la URL, por ejemplo: ?query=john.doe
+  const { query } = req.query; // Recibe el criterio de búsqueda desde la URL, por ejemplo: ?query=john.doe
+
+  // Obtener el firebaseUID del usuario autenticado
+  const firebaseUID = req.userUID.uid;
 
   try {
     // Consultar los usuarios cuyo username o correo coincidan con el criterio
