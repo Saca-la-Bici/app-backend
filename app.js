@@ -75,6 +75,6 @@ app.use((request, response) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Servidor escuchando en el puerto ${port}`);
-});
+app.listen(port, '0.0.0.0', () => {
+  console.log('Server running on all network interfaces');
+  });
