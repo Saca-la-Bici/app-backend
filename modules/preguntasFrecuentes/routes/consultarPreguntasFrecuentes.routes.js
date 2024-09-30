@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const consultarPreguntas = require('../controllers/consultarPreguntasFrecuentes.controller');
+const verifyUserToken = require('../../../util/verifyUserToken');
+const verifyUserPermissions = require('../../../util/verifyUserPermissions');
+const { consultarPreguntasFrecuentes } = require('../controllers/consultarPreguntasFrecuentes.controller');
 
-router.get('/', consultarPreguntas.consultarPreguntasFrecuentes);
+router.get('/', verifyUserToken, verifyUserPermissions, consultarPreguntasFrecuentes);
 
 module.exports = router;
