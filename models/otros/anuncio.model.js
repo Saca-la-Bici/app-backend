@@ -27,7 +27,10 @@ const announcementSchema = new mongoose.Schema({
             return new Date(Date.now() + 2 * 24 * 60 * 60 * 1000); // 2 días después de la fecha actual
         }
     }
+},{
+    collection:"Anuncio",
 });
+
 
 const Anuncio = mongoose.model('Anuncio', announcementSchema);
 
