@@ -2,9 +2,9 @@ const PreguntaFrecuente = require("../../../models/otros/preguntasFrecuentes.mod
 
 exports.registrarPreguntaFrecuente = async (req, res) => {
   try {
-    const { IDPregunta, Pregunta, Respuesta, Tema, Imagen } = req.body;
+    const { IdPregunta, Pregunta, Respuesta, Tema, Imagen } = req.body;
     const nuevaPregunta = new PreguntaFrecuente({
-      IDPregunta,
+      IdPregunta,
       Pregunta,
       Respuesta,
       Tema,
