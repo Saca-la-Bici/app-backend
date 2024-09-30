@@ -1,35 +1,45 @@
 const PoseeRol = require("../../../models/perfil/poseeRol.model");
 
 exports.getUsuarios = async (req, res) => {
-  const { page, limit } = req.query;
+  const { page, limit, roles, firebaseUID  } = req.query;
 
   try {
     // Verificar que los valores de page y limit sean números válidos
     const pageInt = parseInt(page);
     const limitInt = parseInt(limit);
 
+    // Verificar que los valores de page y limit sean números válidos
     if (isNaN(pageInt) || isNaN(limitInt) || pageInt < 1 || limitInt < 1) {
       return res
         .status(400)
         .json({ message: "Parámetros de paginación inválidos" });
     }
 
+    // Roles permitidos para filtrar
+    const rolesArray = roles ? roles.split(",") : ["Administrador", "Staff", "Usuario"];
+
     // Contar el total de documentos para la paginación
-    const totalUsuarios = await PoseeRol.countDocuments();
+    const totalUsuarios = await PoseeRol.countDocuments({});
 
     // Si no hay usuarios, devolver mensaje de error
     if (totalUsuarios === 0) {
       return res.status(404).json({ message: "No se encontraron usuarios." });
     }
 
-    // Consultar los usuarios con roles, aplicando paginación
-    const usuariosConRoles = await PoseeRol.find({})
+    // Consultar los usuarios con roles, aplicando paginación y filtros de roles
+    const usuariosConRoles = await PoseeRol.find()
+      .populate({
+        path: "IDRol",
+        match: { nombre: { $in: rolesArray } }, // Filtrar por el nombre del Rol
+        select: "nombre" // Traer solo el campo nombre
+      })
+      .populate({
+        path: "IDUsuario",
+        match: { firebaseUID: { $ne: firebaseUID } }, // Excluir por firebaseUID
+      })
       .sort({ _id: 1 })
       .skip((pageInt - 1) * limitInt) // Saltar los documentos de las páginas anteriores
-      .limit(limitInt) // Limitar el número de documentos devueltos
-      //   .populate("IDUsuario", "username nombre correoElectronico") // Solo trae estos campos del Usuario
-      .populate("IDRol", "nombre") // Solo trae el nombre del Rol
-      .populate("IDUsuario");
+      .limit(limitInt); // Limitar el número de documentos devueltos
 
     // Filtrar y mapear los resultados
     const result = usuariosConRoles
