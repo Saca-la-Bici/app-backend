@@ -3,10 +3,24 @@ const Rodada = require('../../../models/actividades/rodada.model');
 const Evento = require('../../../models/actividades/evento.model');
 
 exports.inscribirUsuario = async (request, response) => {
-    const { actividadId, usuarioId, tipo } = request.body; //Se debe recibir el 'tipo' en la solicitud
+
+    
+    const actividadId = request.body.actividadId; 
+    const tipo = request.body.tipo;
+    const firebaseUID = request.userUID.uid; 
+    //Se debe recibir el 'tipo' en la solicitud
     //console.log("ID de la actividad:", actividadId);
     //console.log("ID del usuario:", usuarioId);
     //console.log("Tipo de actividad:", tipo);
+
+    console.log("Solicitud de inscripción recibida");
+    console.log("ID de la actividad:", actividadId);
+    console.log("ID del usuario:", usuarioId);
+    console.log("Tipo de actividad:", tipo);
+
+    
+
+    usuarioId
 
     try {
         let actividad;
@@ -37,7 +51,7 @@ exports.inscribirUsuario = async (request, response) => {
         }
 
         // Inscribir al usuario
-        actividadInfo.usuariosInscritos.push(usuarioId);
+        actividadInfo.usuariosInscritos.push(firebaseUID);
         actividadInfo.personasInscritas += 1;
 
         // Guardar los cambios en la base de datos
