@@ -3,8 +3,8 @@ const router = express.Router();
 
 const verifyUserToken = require('../../../util/verifyUserToken');
 const verifyUserPermissions = require('../../../util/verifyUserPermissions');
-const { registrarPreguntaFrecuente } = require('../controllers/registrarPreguntaFrecuente.controller')
+const { patchRole } = require('../controllers/modificarRol.controller');
 
-router.post('/', verifyUserToken, verifyUserPermissions, registrarPreguntaFrecuente);
+router.patch('/:id', verifyUserToken, verifyUserPermissions, patchRole);
 
 module.exports = router;
