@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 // const verifyUserToken = require('../../../util/verifyUserToken');
 
-const publicarComentario = require('../controllers/publicarComentario.controller');
+const publicarComentarioController = require('../controllers/publicarComentario.controller');
 
-router.post('/', publicarComentario.publicarComentario);
+router.post('/', publicarComentarioController.publicarComentario);
 
 module.exports = router;
