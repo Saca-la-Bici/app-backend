@@ -18,14 +18,12 @@ const compression = require("compression");
 app.use(compression());
 
 // Conectar a la base de datos usando variables de entorno
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("Conectado a la base de datos de MongoDB en AWS EC2");
-  })
-  .catch((error) => {
-    console.error("Error al conectar con la base de datos:", error);
-  });
+mongoose.connect('mongodb://localhost:27017/Saca_la_Bici')
+.then(() => {
+    console.log('Conectado a la base de datos local de MongoDB');
+}).catch((error) => {
+    console.error('Error al conectar con la base de datos:', error);
+});
 
 // Importar el archivo index de cada módulo
 const actividadesRoutes = require("./modules/actividades/routes/actividadesIndex.routes");
@@ -57,7 +55,7 @@ app.use("/session", sessionRoutes);
 const verifyToken = require("./util/verifyUserToken");
 const verifyUserRole = require("./util/verifyUserRole");
 
-app.get("/", verifyToken, (request, response) => {
+app.get("/",  (request, response) => {
   response.status(200).json({
     message: "¡Bienvenido a Saca la Bici!",
   });

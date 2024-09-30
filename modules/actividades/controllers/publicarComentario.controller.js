@@ -14,7 +14,7 @@ exports.publicarComentario = async (req, res) => {
 
         const nuevoComentario = new Comentario({
             username, 
-            fotoPerfil,
+            //fotoPerfil,
             contenido
         });
         await nuevoComentario.save();
