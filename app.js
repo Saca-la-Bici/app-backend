@@ -19,7 +19,7 @@ app.use(compression());
 
 // Conectar a la base de datos usando variables de entorno
 mongoose
-  .connect("mongodb://SacalaBiciDeveloper:uY*Gn_rQgiy15744unN1884%24%24@ec2-18-220-205-53.us-east-2.compute.amazonaws.com:28222/?authSource=admin")
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Conectado a la base de datos de MongoDB en AWS EC2");
   })
@@ -75,6 +75,6 @@ app.use((request, response) => {
   });
 });
 
-app.listen(3000, '0.0.0.0', () => {
+app.listen(port, '0.0.0.0', () => {
   console.log('Server running on all network interfaces');
   });
