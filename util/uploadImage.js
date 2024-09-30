@@ -33,7 +33,6 @@ const uploadToS3 = (request, res, next) => {
         console.error('No file uploaded');
         return next();
     }
-    console.log(request.file)
     const folder = request.body.folder + '/';
     fs.readFile(path.join(__dirname, '.././bucket', request.file.filename), (err, data) => {
 
