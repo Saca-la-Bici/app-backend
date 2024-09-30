@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 const comentarioSchema = new Schema({
     username: {
         type: String,
-        ref: "Usuario",
+        //ref: "Usuario",
         required: true
     },
     fotoPerfil: {
         type: String,
-        ref: "Usuario",
+        //ref: "Usuario",
         required: false
     },
     contenido: {
@@ -35,6 +35,9 @@ const comentarioSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Comentario'
     }]
-})
+}, {
+    collection: 'Comentario',
+}
+)
 
 module.exports = comentarioSchema;
