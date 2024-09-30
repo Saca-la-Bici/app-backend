@@ -69,7 +69,7 @@ app.get(
   verifyUserPermissions,
   (request, response) => {
     response.status(200).json({
-      rol: request.rol,
+      permisos: request.permisos,
     });
   }
 );
