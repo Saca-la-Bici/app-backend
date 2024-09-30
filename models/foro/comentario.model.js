@@ -35,9 +35,6 @@ const comentarioSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Comentario'
     }]
-}, {
-    collection: 'Comentario',
-}
-)
+})
 
 module.exports = comentarioSchema;
