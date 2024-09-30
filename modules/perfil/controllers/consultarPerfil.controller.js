@@ -2,7 +2,7 @@ const {Usuario} = require('../../../models/perfil/usuario.model');
 
 exports.get_Perfil = async (request, response) => {
     try {
-        const { firebaseUID } = request.params; 
+        const firebaseUID = request.userUID.uid;
         let perfil = await Usuario.findOne({ firebaseUID });
         perfil.fechaNacimiento = perfil.fechaNacimiento.toString()
         perfil.fechaRegistro = perfil.fechaRegistro.toString()
