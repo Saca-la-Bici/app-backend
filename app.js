@@ -63,11 +63,16 @@ app.get("/", verifyToken, (request, response) => {
   });
 });
 
-app.get("/getPermissions", verifyToken, verifyUserPermissions, (request, response) => {
-  response.status(200).json({
-    rol: request.rol
-  });
-});
+app.get(
+  "/getPermissions",
+  verifyToken,
+  verifyUserPermissions,
+  (request, response) => {
+    response.status(200).json({
+      permisos: request.permisos,
+    });
+  }
+);
 
 app.use((request, response) => {
   response.status(404).json({
