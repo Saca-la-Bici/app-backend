@@ -1,4 +1,4 @@
-const Rodada = require('../models/rodada.model'); // Asegúrate de que el path sea correcto
+const Rodada = require('../../../models/actividades/rodada.model');
 
 // Controlador para actualizar la ubicación de una rodada
 exports.actualizarUbicacion = async (req, res) => {
