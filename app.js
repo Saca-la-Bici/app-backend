@@ -19,7 +19,7 @@ app.use(compression());
 
 // Conectar a la base de datos usando variables de entorno
 mongoose
-  .connect('mongodb://localhost:27017/Saca_la_Bici')
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Conectado a la base de datos de MongoDB en AWS EC2");
   })
@@ -40,7 +40,6 @@ const rentaRoutes = require("./modules/renta/routes/rentaIndex.routes");
 const reporteRoutes = require("./modules/reporte/routes/reporteIndex.routes");
 const rodadasRoutes = require("./modules/rodadas/routes/rodadasIndex.routes");
 const sessionRoutes = require("./modules/session/routes/sessionIndex.routes");
-const iniciarRodadaRoutes = require("./modules/mapa/routes/iniciarRodada.routes");
 
 app.use("/actividades", actividadesRoutes);
 app.use("/anuncios", anunciosRoutes);
@@ -54,16 +53,21 @@ app.use("/renta", rentaRoutes);
 app.use("/reporte", reporteRoutes);
 app.use("/rodadas", rodadasRoutes);
 app.use("/session", sessionRoutes);
-app.use("/rodadas/iniciar", iniciarRodadaRoutes);
 
-/* const verifyToken = require("./util/verifyUserToken");
+const verifyToken = require("./util/verifyUserToken");
+const verifyUserPermissions = require("./util/verifyUserPermissions");
 
 app.get("/", verifyToken, (request, response) => {
   response.status(200).json({
     message: "¡Bienvenido a Saca la Bici!",
   });
-  console.log(request.userUID);
-}); */
+});
+
+app.get("/getPermissions", verifyToken, verifyUserPermissions, (request, response) => {
+  response.status(200).json({
+    rol: request.rol
+  });
+});
 
 app.use((request, response) => {
   response.status(404).json({
