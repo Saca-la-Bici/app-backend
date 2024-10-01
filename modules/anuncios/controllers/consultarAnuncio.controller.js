@@ -11,7 +11,8 @@ exports.getAnnouncements = async (request, response, next) => {
             });
         }
         request.announcements = announcements;
-        announcements.imagen = await getImageFolder(request, 'announcements');
+        const folder = 'announcements';
+        announcements.imagen = await getImageFolder(request, folder);
         return response.status(200).json({
             announcements: announcements,
             permisos: request.permisos

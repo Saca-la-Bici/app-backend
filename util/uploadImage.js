@@ -28,12 +28,12 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Middleware function
-const uploadToS3 = (request, res, next) => {
+const uploadToS3 = (folder) => (request, res, next) => {
     if (!request.file) {
         console.error('No file uploaded');
         return next();
     }
-    const folder = request.body.folder + '/';
+
     fs.readFile(path.join(__dirname, '.././bucket', request.file.filename), (err, data) => {
 
         if (err) throw err;

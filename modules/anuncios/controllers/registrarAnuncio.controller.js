@@ -4,9 +4,11 @@ const { Usuario } = require('../../../models/perfil/usuario.model');
 
 const sendNotification = require('../../../util/sendNotification');
 
+const folder = 'announcements/';
+
 exports.postAnnouncement = [
     upload.single('file'),
-    uploadToS3,
+    uploadToS3(folder),
     async (request, response) => {
         const firebaseUID = request.userUID.uid;
         const titulo = request.body.titulo;
