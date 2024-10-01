@@ -18,7 +18,7 @@ const verifyUserToken = async (request, response, next) => {
         // Guardar el uid de Firebase del usuario en request.user
         request.userUID = {
             uid: decodedToken.uid
-        }; 
+        };
 
         // Pasar al siguiente middleware 
         next();
