@@ -11,8 +11,8 @@ exports.postAnnouncement = [
     uploadToS3(folder),
     async (request, response) => {
         const firebaseUID = request.userUID.uid;
-        const titulo = request.body.titulo;
-        const contenido = request.body.contenido;
+        const titulo = request.body.titulo.replace(/^"|"$/g, '');
+        const contenido = request.body.contenido.replace(/^"|"$/g, '');
         const imagen = request.file ? request.file.filename : null;
 
         try {
