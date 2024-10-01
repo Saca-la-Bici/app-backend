@@ -1,18 +1,5 @@
 const mongoose = require("mongoose");
 
-const ubicacionSchema = new mongoose.Schema({
-
-  latitud: {
-    type: Number,
-    required: true
-  },
-
-  longitud: {
-    type: Number,
-    required: true
-  },
-})
-
 const usuarioSchema = new mongoose.Schema(
   {
     username: {
@@ -61,10 +48,6 @@ const usuarioSchema = new mongoose.Schema(
       type: String,
       unique: true,
       required: true,
-    },
-
-    ubicacion: {
-      type: [ubicacionSchema]
     },
   },
   {
