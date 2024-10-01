@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const verifyUserToken = require('../../../util/verifyUserToken');
+const verifyUserPermissions = require('../../../util/verifyUserPermissions');
+const iniciarRodadaController = require('../controllers/iniciarRodada.controller');
 
-// Importar el controlador que maneja la Funcionalidad que quieres
-// EJEMPLO: const registrarAnuncioController = require('../controllers/registrarAnuncio.controller');
-
-// Definir la ruta para la funcionalidad y la funcion del controlador
-// EJEMPLO: router.get('/', registrarActividadController.getPrueba);
+// Ruta para actualizar la ubicación de una rodada existente
+router.put('/:idRodada', verifyUserToken,verifyUserPermissions, iniciarRodadaController.actualizarUbicacion);
 
 module.exports = router;
