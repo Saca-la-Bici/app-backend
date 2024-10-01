@@ -15,6 +15,7 @@ exports.putAnnouncement = [
         try {
             const imagenVieja = await Announcement.getImagen(IDAnuncio)
             const anuncio = await Announcement.putAnnouncement(IDAnuncio, titulo, contenido, imagenNueva);
+            console.log(folder, imagenVieja)
             deleteImage(folder, imagenVieja);
             return response.status(201).json(anuncio);
         } catch (error) {
