@@ -20,8 +20,6 @@ exports.inscribirUsuario = async (request, response) => {
 
     
 
-    usuarioId
-
     try {
         let actividad;
 
