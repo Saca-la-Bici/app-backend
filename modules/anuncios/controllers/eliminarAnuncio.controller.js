@@ -3,7 +3,7 @@ const deleteImage = require('../../../util/deleteImage')
 
 exports.deleteAnnouncement = async (request, response) => {
     const IDAnuncio = request.params.IDAnuncio
-    const folder = "announcements"
+    const folder = "announcements/"
     try {
         const imagen = await Announcement.getImagen(IDAnuncio)
         const anuncio = await Announcement.deleteAnnouncement(IDAnuncio);
