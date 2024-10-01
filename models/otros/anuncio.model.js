@@ -31,6 +31,7 @@ const announcementSchema = new mongoose.Schema({
     collection: "Anuncio",
 });
 
+
 const Anuncio = mongoose.model('Anuncio', announcementSchema);
 
 
@@ -42,6 +43,7 @@ async function postAnnouncement(firebaseUID, titulo, contenido, imagen){
         imagen: imagen
     });
     await announcement.save();
+    return announcement;
 }
 
 async function getAnnouncements(){
@@ -50,15 +52,19 @@ async function getAnnouncements(){
 }
 
 async function patchAnnouncement(IDAnuncio, titulo, contenido, imagen){
-    const announcement = await Anuncio.findById(IDAnuncio);
-    if (announcement) {
-        announcement.titulo = titulo;
-        announcement.contenido = contenido;
-        announcement.imagen = imagen;
-        await announcement.save();
-        return announcement;
-    } else {
-        throw new Error('Anuncio no encontrado');
+    try {
+        const announcement = await Anuncio.findById(IDAnuncio);
+        if (announcement) {
+            announcement.titulo = titulo;
+            announcement.contenido = contenido;
+            announcement.imagen = imagen;
+            await announcement.save();
+            return announcement;
+        } else {
+            throw new Error('Anuncio no encontrado');
+        }
+    } catch (error) {
+        throw error;
     }
 }
 
@@ -66,10 +72,16 @@ async function deleteAnnouncement(IDAnuncio){
     await Anuncio.findByIdAndDelete(IDAnuncio);
 }
 
+async function getImagen(IDAnuncio){
+    const announcement = await Anuncio.findById(IDAnuncio);
+    return announcement.imagen;
+}
+
 module.exports = {
     Anuncio,
     postAnnouncement,
     getAnnouncements,
     patchAnnouncement,
-    deleteAnnouncement
+    deleteAnnouncement,
+    getImagen
 };

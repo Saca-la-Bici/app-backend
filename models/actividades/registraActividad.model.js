@@ -2,16 +2,10 @@ const Rodada = require('./rodada.model');
 const Taller = require('./taller.model');
 const Evento = require('./evento.model');
 
-async function postRodada(data, id) {
-    data.ruta = id;
-    if (Array.isArray(data.informacion)) {
-        data.informacion = data.informacion.map(info => {
-            if (info.fecha) {
-                const fecha = new Date(info.fecha);
-                info.fecha = fecha.toISOString();
-            }
-            return info;
-        });
+async function postRodada(data) {
+    if (data.informacion.fecha) {
+        const fecha = new Date(data.informacion.fecha + "T00:00:00-06:00");
+        data.informacion.fecha = fecha.toISOString();
     }
     const rodada = await Rodada.create(data);
 
@@ -20,29 +14,20 @@ async function postRodada(data, id) {
 }
 
 async function postTaller(data) {
-    if (Array.isArray(data.informacion)) {
-        data.informacion = data.informacion.map(info => {
-            if (info.fecha) {
-                const fecha = new Date(info.fecha);
-                info.fecha = fecha.toISOString();
-            }
-            return info;
-        });
+    if (data.informacion.fecha) {
+        const fecha = new Date(data.informacion.fecha + "T00:00:00-06:00");
+        data.informacion.fecha = fecha.toISOString();
     }
+
     const taller = await Taller.create(data);
     await taller.save();
     return taller;
 }
 
 async function postEvento(data) {
-    if (Array.isArray(data.informacion)) {
-        data.informacion = data.informacion.map(info => {
-            if (info.fecha) {
-                const fecha = new Date(info.fecha);
-                info.fecha = fecha.toISOString(); // Convierte a ISO 8601
-            }
-            return info;
-        });
+    if (data.informacion.fecha) {
+        const fecha = new Date(data.informacion.fecha + "T00:00:00-06:00");
+        data.informacion.fecha = fecha.toISOString();
     }
     const evento = await Evento.create(data);
     await evento.save();
