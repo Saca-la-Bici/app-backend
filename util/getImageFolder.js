@@ -14,7 +14,7 @@ async function getImageFolder(request, folderName) {
             if (folder.imagen) {
                 const imageParams = {
                     Bucket: process.env.AWS_BUCKET,
-                    Key: `${folderName}/${folder.imagen}`,
+                    Key: `${folderName}${folder.imagen}`,
                     Expires: 60 * 60 // URL expiration time in seconds (e.g., 1 hour)
                 };
                 folder.imagen = s3.getSignedUrl('getObject', imageParams);
