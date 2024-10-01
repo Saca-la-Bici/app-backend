@@ -1,8 +1,6 @@
 const Announcement = require('../../../models/otros/anuncio.model');
 const { upload, uploadToS3 } = require('../../../util/uploadImage');
-const {
-    Usuario
-} = require('../../../models/perfil/usuario.model');
+const { Usuario } = require('../../../models/perfil/usuario.model');
 
 const sendNotification = require('../../../util/sendNotification');
 

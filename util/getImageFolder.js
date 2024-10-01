@@ -3,9 +3,8 @@ AWS.config.update({ region: process.env.AWS_REGION });
 const s3 = new AWS.S3();
 const bucketName = process.env.AWS_BUCKET;
 
-async function getImageFolder(req, folderName) {
-    const Json = req[folderName];
-    console.log(req);
+async function getImageFolder(request, folderName) {
+    const Json = request[folderName];
 
     if (!Json || !Array.isArray(Json)) {
         throw new Error('Invalid request data');

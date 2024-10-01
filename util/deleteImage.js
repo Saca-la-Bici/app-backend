@@ -20,7 +20,7 @@ const deleteImage = (folder, filename) => {
         if (err) {
             console.error('Error deleting image from S3:', err);
         } else {
-            console.log('Image deleted successfully:', data);
+            console.log('Image deleted successfully');
         }
     });
 };
