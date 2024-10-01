@@ -3,6 +3,7 @@ AWS.config.update({ region: process.env.AWS_REGION });
 const s3 = new AWS.S3();
 
 async function getImageFolder(request, folderName) {
+    folderName = folderName.slice(0, -1);
     const Json = request[folderName];
 
     if (!Json || !Array.isArray(Json)) {
