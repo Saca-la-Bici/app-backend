@@ -15,17 +15,17 @@ exports.modificarPreguntaFrecuente = async (req, res) => {
         // Si no se encuentra la pregunta a actualizar, se envía un mensaje de error
         if (!PreguntaActualizada){
             return res.status(404).json({
-                message: 'No se encontró pregunta que actualizar'
+                msg: 'No se encontró pregunta que actualizar'
             });
         }
 
         // Se envía un mensaje de éxito si la pregunta fue modificada
         res.status(200).json({
-            message: "La pregunta fue modificada con éxito"
+            msg: "La pregunta fue modificada con éxito"
         })
 
     } catch(err){
         // Se envía un mensaje de error si no se pudo actualizar la pregunta
-        return res.status(500).json({message : "No se pudo actualizar la pregunta, inténtelo más tarde ", err})
+        return res.status(500).json({msg : "No se pudo actualizar la pregunta, inténtelo más tarde ", err})
     }
 }
