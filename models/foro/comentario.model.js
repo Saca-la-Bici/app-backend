@@ -31,10 +31,11 @@ const comentarioSchema = new Schema({
         type: Number,
         default: 0
     },
-    respuestas: [{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Comentario'
-    }]
+    respuestaDe: {
+        type: Schema.Types.ObjectId,
+        ref: 'Comentario',
+        default: null
+    }
 })
 
 module.exports = comentarioSchema;
