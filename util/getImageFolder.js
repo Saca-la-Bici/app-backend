@@ -4,7 +4,6 @@ const s3 = new AWS.S3();
 
 async function getImageFolder(request, folderName) {
     folderName = folderName.slice(0, -1);
-    console.log(folderName);
     const Json = request[folderName];
 
     if (!Json || !Array.isArray(Json)) {
