@@ -1,19 +1,18 @@
-// const Perfil = require('../../../models/perfil/perfil.model');
+const {Usuario} = require('../../../models/perfil/usuario.model');
 
-// exports.consultarPerfil = async (request, response) => {
-//     try{
-//         const perfil = await Perfil.find();
-//         return res.status(200).json({
-//             code: 200,
-//             msg: 'Consulta de datos de perfil exitosa',
-//             data: datos
-//         });
-//     } catch(error){
-//         console.error(error);
-//         return res.status(500).json({
-//             code: 500,
-//             msg: 'Error al intentar consultar las preguntas frecuentes',
-//             data: null
-//         });
-//     }
-// }
+exports.get_Perfil = async (request, response) => {
+    try {
+        const firebaseUID = request.userUID.uid;
+        let perfil = await Usuario.findOne({ firebaseUID });
+        perfil.fechaNacimiento = perfil.fechaNacimiento.toString()
+        perfil.fechaRegistro = perfil.fechaRegistro.toString()
+        return response.status(200).json(
+            perfil
+        );
+    } catch (error) {
+        console.error(error);
+        return response.status(500).json({
+            data :null
+        });
+    }
+};
