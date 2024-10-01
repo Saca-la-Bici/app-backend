@@ -54,7 +54,7 @@ async function getAnnouncements(){
     return announcements;
 }
 
-async function patchAnnouncement(IDAnuncio, titulo, contenido, imagen){
+async function putAnnouncement(IDAnuncio, titulo, contenido, imagen){
     try {
         const announcement = await Anuncio.findById(IDAnuncio);
         if (announcement) {
@@ -84,7 +84,7 @@ module.exports = {
     Anuncio,
     postAnnouncement,
     getAnnouncements,
-    patchAnnouncement,
+    putAnnouncement,
     deleteAnnouncement,
     getImagen
 };
