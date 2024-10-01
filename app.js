@@ -2,9 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 
-const AWS = require("aws-sdk");
-const multer = require("multer");
-
 const app = express();
 const port = process.env.PORT || 8080;
 
