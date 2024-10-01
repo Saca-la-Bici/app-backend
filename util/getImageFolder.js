@@ -1,7 +1,6 @@
 const AWS = require('aws-sdk');
 AWS.config.update({ region: process.env.AWS_REGION });
 const s3 = new AWS.S3();
-const bucketName = process.env.AWS_BUCKET;
 
 async function getImageFolder(request, folderName) {
     const Json = request[folderName];
@@ -14,7 +13,7 @@ async function getImageFolder(request, folderName) {
         const updatedJson = await Promise.all(Json.map(async (folder) => {
             if (folder.imagen) {
                 const imageParams = {
-                    Bucket: bucketName,
+                    Bucket: process.env.AWS_BUCKET,
                     Key: `${folderName}/${folder.imagen}`,
                     Expires: 60 * 60 // URL expiration time in seconds (e.g., 1 hour)
                 };
