@@ -1,4 +1,6 @@
-const Usuario = require('../../../models/perfil/usuario.model');
+const {
+    Usuario
+} = require('../../../models/perfil/usuario.model');
 
 exports.getUserEmail = async (request, response) => { 
     const username = request.query.username;

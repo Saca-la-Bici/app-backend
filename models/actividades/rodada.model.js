@@ -22,15 +22,16 @@ const rodadaSchema = new Schema ({
         type: [actividadSchema],
         required: true
     }, 
-    ruta: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Ruta',
+    ruta: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Ruta,
         required: true
-    }],
+    },
     ubicacion: {
       type: [ubicacionSchema]
-  },
-}, {
+    },
+  }, 
+  {
     collection: 'Rodada'
 });
 
