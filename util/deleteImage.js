@@ -13,9 +13,10 @@ const s3 = new AWS.S3();
 const deleteImage = (folder, filename) => {
     const params = {
         Bucket: process.env.AWS_BUCKET,
-        Key: `${folder}/${filename}`,
+        Key: `${folder}${filename}`,
     };
 
+    console.log(params.Key)
     s3.deleteObject(params, function(err, data) {
         if (err) {
             console.error('Error deleting image from S3:', err);
