@@ -22,14 +22,14 @@ const rodadaSchema = new Schema ({
         type: [actividadSchema],
         required: true
     }, 
-    ubicacion: {
-        type: [ubicacionSchema]
-    },
     ruta: [{
         type: Schema.Types.ObjectId,
         ref: 'Ruta',
         required: true
     }],
+    ubicacion: {
+      type: [ubicacionSchema]
+  },
 }, {
     collection: 'Rodada'
 });
