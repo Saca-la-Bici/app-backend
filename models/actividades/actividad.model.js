@@ -53,6 +53,8 @@ const actividadSchema = new mongoose.Schema ({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Foro'
     }
+}, {
+    _id: false
 });
 
 // Middleware para crear un foro vacío antes de guardar la actividad
