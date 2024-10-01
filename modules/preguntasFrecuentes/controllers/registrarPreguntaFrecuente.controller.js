@@ -2,9 +2,9 @@ const PreguntaFrecuente = require("../../../models/otros/preguntasFrecuentes.mod
 
 exports.registrarPreguntaFrecuente = async (req, res) => {
   try {
-    const { IDPregunta, Pregunta, Respuesta, Tema, Imagen } = req.body;
+    const { IdPregunta, Pregunta, Respuesta, Tema, Imagen } = req.body;
     const nuevaPregunta = new PreguntaFrecuente({
-      IDPregunta,
+      IdPregunta,
       Pregunta,
       Respuesta,
       Tema,
@@ -14,7 +14,7 @@ exports.registrarPreguntaFrecuente = async (req, res) => {
     return res.status(200).json({
       code: 200,
       msg: "La pregunta ha sido registrada con éxito",
-      data: nuevaPregunta,
+      data: [nuevaPregunta],
     });
   } catch (error) {
     console.error(error);

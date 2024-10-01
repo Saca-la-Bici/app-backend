@@ -1,5 +1,10 @@
 const Announcement = require('../../../models/otros/anuncio.model');
 const { upload, uploadToS3 } = require('../../../util/uploadImage');
+const {
+    Usuario
+} = require('../../../models/perfil/usuario.model');
+
+const sendNotification = require('../../../util/sendNotification');
 
 exports.postAnnouncement = [
     upload.single('file'),
@@ -11,7 +16,26 @@ exports.postAnnouncement = [
         const imagen = request.file ? request.file.filename : null;
 
         try {
-            await Announcement.postAnnouncement(firebaseUID, titulo, contenido, imagen);
+            const announcement = await Announcement.postAnnouncement(firebaseUID, titulo, contenido, imagen);
+
+        // Obtener todos los tokens de FCM de los usuarios
+        const usuarios = await Usuario.find({
+            fcmTokens: {
+                $exists: true,
+                $ne: []
+            }
+        });
+        const tokens = usuarios.reduce((acc, usuario) => acc.concat(usuario.fcmTokens), []);
+
+        // Definir el contenido de la notificación
+        const tituloNotificacion = titulo;
+        const cuerpoNotificacion = contenido;
+
+        // Enviar la notificación
+        await sendNotification(tokens, tituloNotificacion, cuerpoNotificacion, {
+            anuncioID: announcement._id.toString(),
+        });
+
             return response.status(201).json({ message: 'Anuncio creado exitosamente' });
 
         } catch (error) {
