@@ -4,7 +4,7 @@ const deleteImage = require('../../../util/deleteImage');
 
 const folder = 'announcements/';
 
-exports.putAnnouncement = [
+exports.patchAnnouncement = [
     upload.single('file'),
     uploadToS3(folder),
     async (request, response) => {
@@ -14,7 +14,7 @@ exports.putAnnouncement = [
         const imagenNueva = request.file ? request.file.filename : null;
         try {
             const imagenVieja = await Announcement.getImagen(IDAnuncio)
-            const anuncio = await Announcement.putAnnouncement(IDAnuncio, titulo, contenido, imagenNueva);
+            const anuncio = await Announcement.patchAnnouncement(IDAnuncio, titulo, contenido, imagenNueva);
             console.log(folder, imagenVieja)
             deleteImage(folder, imagenVieja);
             return response.status(201).json(anuncio);
