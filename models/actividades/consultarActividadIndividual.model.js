@@ -18,13 +18,11 @@ async function encontrarEvento(id) {
     throw new Error('No se encontró ninguna actividad con este ID.');
 }
 
-async function modificarEvento(id, data) {
-    // Checa el tipo de modelo (Rodada, Taller, Evento)
+async function consultarActividadIndividual(id) {
     const { model } = await encontrarEvento(id);
 
-    // Actualización del evento
-    const updatedEvent = await model.findByIdAndUpdate(id, data, { new: true });
-    return updatedEvent;
+    const actividad = await model.findById(id);
+    return actividad;
 }
 
-module.exports = { modificarEvento };
+module.exports = { consultarActividadIndividual };

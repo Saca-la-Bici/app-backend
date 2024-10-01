@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/Saca-la-Bici/app-backend#readme",
   "dependencies": {
-    "body-parser": "^1.20.3",
+    "body-parser": ">=1.20.3",
     "compression": "^1.7.4",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",

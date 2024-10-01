@@ -27,8 +27,8 @@ const announcementSchema = new mongoose.Schema({
             return new Date(Date.now() + 2 * 24 * 60 * 60 * 1000); // 2 días después de la fecha actual
         }
     }
-},{
-    collection:"Anuncio",
+}, {
+    collection: "Anuncio",
 });
 
 
@@ -36,17 +36,14 @@ const Anuncio = mongoose.model('Anuncio', announcementSchema);
 
 
 async function postAnnouncement(firebaseUID, titulo, contenido, imagen){
-    try {
-        const announcement = await Anuncio.create({
-            firebaseUID: firebaseUID,
-            titulo: titulo,
-            contenido: contenido,
-            imagen: imagen
-        });
-        await announcement.save();
-    } catch (error) {
-        throw error;
-    }
+    const announcement = await Anuncio.create({
+        firebaseUID: firebaseUID,
+        titulo: titulo,
+        contenido: contenido,
+        imagen: imagen
+    });
+    await announcement.save();
+    return announcement;
 }
 
 async function getAnnouncements(){
