@@ -70,25 +70,30 @@ const usuarioSchema = new mongoose.Schema(
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
 
-/*async function putUsuario(IDUsuario, Username, nombre, tipoSangre, numeroEmergencia){
-  const usuario = await Usuario.findById(IDUsuario);
-  if (usuario) {
-    usuario.username = Username;
-    usuario.nombre = nombre
-    usuario.tipoSangre = tipoSangre;
-    usuario.numeroEmergencia = numeroEmergencia;
-    
-    await usuario.save();
-    return usuario;
-  } else {
-    throw new Error('Usuario no encontrado');
-   }
+async function patchPerfil(firebaseUID, Username, nombre, tipoSangre, numeroEmergencia){
+  try{
+    const usuario = await Usuario.findOne({firebaseUID: firebaseUID})
+    if (usuario) {
+      usuario.username = Username;
+      usuario.nombre = nombre
+      usuario.tipoSangre = tipoSangre;
+      usuario.numeroEmergencia = numeroEmergencia;
+      
+      await usuario.save();
+      return usuario;
+    } else {
+      throw new Error('Usuario no encontrado');
+     }
+  }catch (error) {
+    throw error;
+  }
 }
-*/
+
 
 
 module.exports = {
   
-  Usuario
+  Usuario,
+  patchPerfil
 
 };
