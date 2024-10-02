@@ -52,7 +52,13 @@ async function publicarComentario(username, fotoPerfil, contenido){
     return nuevoComentario;
 }
 
+async function eliminarComentario(idComentario){
+    const comentario = await Comentario.findByIdAndDelete(idComentario);
+    return comentario;
+}
+
 module.exports = {
     Comentario,
-    publicarComentario
+    publicarComentario,
+    eliminarComentario
 };

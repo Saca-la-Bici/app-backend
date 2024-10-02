@@ -5,8 +5,13 @@ exports.eliminarComentario = async (request, response) => {
    
     try {
         const comentario = await Comentario.eliminarComentario(idComentario);
-        return response.status(204).json(comentario);
+        
+        if (!comentario) {
+            return response.status(404).json({ message: 'Comentario no encontrado' });
+        }
+        
+        return response.status(200).json({ message: 'Comentario eliminado correctamente' });
     } catch (error) {
-        return response.status(404).json({ message: 'Error al eliminar el comentario', error: error.message });
+        return response.status(500).json({ message: 'Error al eliminar el comentario', error: error.message });
     }
-}
+};
