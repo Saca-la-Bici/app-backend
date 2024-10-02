@@ -9,9 +9,9 @@ const {
     uploadToS3
 } = require('../../../util/uploadImage');
 
-const folderEventos = 'actividades/eventos/';
-const folderRodadas = 'actividades/rodadas/';
-const folderTalleres = 'actividades/talleres/';
+const folderEventos = 'activities/eventos/';
+const folderRodadas = 'activities/rodadas/';
+const folderTalleres = 'activities/talleres/';
 
 exports.postRodada = [
     upload.single('file'),
