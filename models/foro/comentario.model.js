@@ -38,4 +38,14 @@ const comentarioSchema = new Schema({
     }
 })
 
-module.exports = comentarioSchema;
+const Comentario = mongoose.model('Comentario', comentarioSchema);
+
+async function eliminarComentario(idComentario) {
+    const comentario = await Comentario.findByIdAndDelete(idComentario);
+    return comentario;
+}
+
+module.exports = {
+    Comentario,
+    eliminarComentario
+}
