@@ -45,7 +45,7 @@ const uploadToS3 = (folder) => (request, res, next) => {
         Body: base64data,
       };
 
-      s3.upload(params, function (s3Err, data) {
+      s3.upload(params, function (s3Err) {
         if (s3Err) throw s3Err;
 
         fs.unlink(

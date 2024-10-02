@@ -3,6 +3,7 @@ AWS.config.update({ region: process.env.AWS_REGION });
 const s3 = new AWS.S3();
 
 async function getImageFolder(request, folderName) {
+  folderName = folderName.slice(0, -1);
   const Json = request[folderName];
 
   if (!Json || !Array.isArray(Json)) {
@@ -15,7 +16,7 @@ async function getImageFolder(request, folderName) {
         if (folder.imagen) {
           const imageParams = {
             Bucket: process.env.AWS_BUCKET,
-            Key: `${folderName}${folder.imagen}`,
+            Key: `${folderName}/${folder.imagen}`,
             Expires: 60 * 60, // URL expiration time in seconds (e.g., 1 hour)
           };
           folder.imagen = s3.getSignedUrl("getObject", imageParams);
