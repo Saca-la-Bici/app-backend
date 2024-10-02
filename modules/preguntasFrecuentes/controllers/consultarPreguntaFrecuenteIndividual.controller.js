@@ -7,7 +7,7 @@ exports.get_PreguntaIndividual = async (req, res) => {
         return res.status(200).json({
             code: 200,
             msg: 'Consulta de pregunta frecuente exitosa',
-            data: pregunta
+            data: [pregunta]
         });
     } catch (err) {
         return res.status(500).json({
