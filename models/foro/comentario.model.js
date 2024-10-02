@@ -21,11 +21,11 @@ const comentarioSchema = new Schema({
     fechaCreacion: {
         type: Date,
         immutable: true,
-        default:() => Date.now()
+        default: Date.now
     },
     fechaModificacion: {
         type: Date,
-        default:() => Date.now()
+        default: Date.now
     },
     likes: {
         type: Number,
@@ -36,16 +36,23 @@ const comentarioSchema = new Schema({
         ref: 'Comentario',
         default: null
     }
-})
+}, {
+    collection: 'Comentario'
+});
 
 const Comentario = mongoose.model('Comentario', comentarioSchema);
 
-async function eliminarComentario(idComentario) {
-    const comentario = await Comentario.findByIdAndDelete(idComentario);
-    return comentario;
+async function publicarComentario(username, fotoPerfil, contenido){
+    const nuevoComentario = await Comentario.create({
+        username: username,
+        fotoPerfil: fotoPerfil,
+        contenido: contenido
+    });
+    await nuevoComentario.save();
+    return nuevoComentario;
 }
 
 module.exports = {
     Comentario,
-    eliminarComentario
-}
+    publicarComentario
+};
