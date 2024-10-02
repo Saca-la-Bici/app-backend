@@ -1,31 +1,28 @@
-const Usuario = require("../../../models/perfil/usuario.model");
-
-exports.patchPerfil = [
-  async (request, response) => {
-    const firebaseUID = request.userUID.uid;
-    const username = request.body.username;
-    const nombre = request.body.nombre;
-    const tipoSangre = request.body.tipoSangre;
-    const numeroEmergencia = request.body.numeroEmergencia;
-
-    try {
-      const profile = await Usuario.patchPerfil(
-        firebaseUID,
-        username,
-        nombre,
-        tipoSangre,
-        numeroEmergencia
-      );
-      return response.status(201).json(profile);
-    } catch (error) {
-      return response
-        .status(404)
-        .json({ message: "Error al modificar perfil", error: error.message });
-    }
-  },
-];
 const { Usuario } = require("../../../models/perfil/usuario.model");
 const { upload, uploadToS3 } = require("../../../util/uploadImage");
+
+// Controlador para modificar el perfil (actualizar datos sin imagen)
+exports.patchPerfil = async (request, response) => {
+  const firebaseUID = request.userUID.uid;
+  const { username, nombre, tipoSangre, numeroEmergencia } = request.body;
+
+  try {
+    const profile = await Usuario.patchPerfil(
+      firebaseUID,
+      username,
+      nombre,
+      tipoSangre,
+      numeroEmergencia
+    );
+    return response
+      .status(200)
+      .json({ message: "Perfil actualizado exitosamente", profile });
+  } catch (error) {
+    return response
+      .status(500)
+      .json({ message: "Error al modificar perfil", error: error.message });
+  }
+};
 
 // Carpeta en S3 donde se guardarán las imágenes de perfil
 const folder = "profile/";
@@ -35,14 +32,9 @@ exports.put_modificarPerfil = [
   upload.single("file"), // Permite cargar un solo archivo desde el cliente
   uploadToS3(folder), // Sube el archivo a S3
   async (request, response) => {
-    const IDUsuario = request.body.IDUsuario;
-    const Username = request.body.Username;
-    const nombre = request.body.nombre;
-    const tipoSangre = request.body.tipoSangre;
-    const numeroEmergencia = request.body.numeroEmergencia;
+    const { IDUsuario, Username, nombre, tipoSangre, numeroEmergencia } =
+      request.body;
     const imagen = request.file ? request.file.filename : null; // La URL de la imagen en S3
-
-    console.log(imagen);
 
     try {
       // Buscar el usuario en la base de datos
@@ -64,7 +56,7 @@ exports.put_modificarPerfil = [
       await usuario.save();
 
       return response
-        .status(201)
+        .status(200)
         .json({ message: "Perfil modificado exitosamente", usuario });
     } catch (error) {
       console.error("Error al modificar el perfil:", error);
