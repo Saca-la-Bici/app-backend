@@ -18,6 +18,15 @@ const getRodadas = async (request, response) => {
 const getEventos = async (request, response) => {
     try {
         const eventos = await Evento.find({ "informacion.estado": true });
+        
+
+
+        
+        console.log(eventos);
+        
+        
+        
+        
         response.status(200).json({
             eventos: eventos,
             permisos: request.permisos
