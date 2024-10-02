@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const verifyUserToken = require('../../../util/verifyUserToken');
 
 // Importen aquí los archivos de ruta del módulo
 // EJEMPLO: const registrarActividadRoute = require('./registrarActividad.routes');
@@ -9,7 +10,6 @@ const router = express.Router();
 
 const modificarPerfilController = require('../controllers/modificarPerfil.controller');
 
-router.put('/', modificarPerfilController.put_modificarPerfil);
+router.patch('/', verifyUserToken, modificarPerfilController.patchPerfil);
 
 module.exports = router;
-
