@@ -6,8 +6,8 @@ exports.inscribirUsuario = async (request, response) => {
 
     
     const actividadId = request.body.actividadId; 
-    const tipo = request.body.tipo;
-    const firebaseUID = request.userUID.uid; 
+    let tipo = request.body.tipo;
+    let firebaseUID = request.userUID.uid; 
     //Se debe recibir el 'tipo' en la solicitud
     //console.log("ID de la actividad:", actividadId);
     //console.log("ID del usuario:", usuarioId);
@@ -15,7 +15,7 @@ exports.inscribirUsuario = async (request, response) => {
 
     console.log("Solicitud de inscripción recibida");
     console.log("ID de la actividad:", actividadId);
-    console.log("ID del usuario:", usuarioId);
+    console.log("ID del usuario:", firebaseUID);
     console.log("Tipo de actividad:", tipo);
 
     
@@ -44,7 +44,7 @@ exports.inscribirUsuario = async (request, response) => {
         const actividadInfo = actividad.informacion[0];
 
         // Verificar si el usuario ya está inscrito
-        if (actividadInfo.usuariosInscritos.includes(usuarioId)) {
+        if (actividadInfo.usuariosInscritos.includes(firebaseUID)) {
             return response.status(400).json({ message: 'El usuario ya está inscrito en esta actividad' });
         }
 
