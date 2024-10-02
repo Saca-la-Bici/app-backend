@@ -2,8 +2,8 @@ const PreguntaFrecuente = require('../../../models/otros/preguntasFrecuentes.mod
 
 exports.get_PreguntaIndividual = async (req, res) => {
     try {
-        const { IDPregunta } = req.params; // Obtenemos el ID de la URL
-        const pregunta = await PreguntaFrecuente.findOne({ IDPregunta }); // Busca una pregunta por su IDPregunta
+        const { IdPregunta } = req.params; // Obtenemos el ID de la URL
+        const pregunta = await PreguntaFrecuente.findOne({ IdPregunta }); // Busca una pregunta por su IDPregunta
         return res.status(200).json({
             code: 200,
             msg: 'Consulta de pregunta frecuente exitosa',
