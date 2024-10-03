@@ -3,6 +3,20 @@ const Schema = mongoose.Schema;
 const Ruta = require('../ruta/ruta.model');
 const actividadSchema = require('./actividad.model');
 
+const ubicacionSchema = new mongoose.Schema({
+
+    latitud: {
+      type: Number,
+      required: true
+    },
+  
+    longitud: {
+      type: Number,
+      required: true
+    },
+  })
+  
+
 const rodadaSchema = new Schema ({
     informacion: {
         type: [actividadSchema],
@@ -13,7 +27,12 @@ const rodadaSchema = new Schema ({
         ref: Ruta,
         required: true
     },
-}, {
+    ubicacion: {
+      type: [ubicacionSchema],
+      default: [{ latitud: 0, longitud: 0 }]
+    },
+  }, 
+  {
     collection: 'Rodada'
 });
 

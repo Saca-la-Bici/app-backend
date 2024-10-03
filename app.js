@@ -61,11 +61,16 @@ app.get("/",  (request, response) => {
   });
 });
 
-app.get("/getPermissions", verifyToken, verifyUserPermissions, (request, response) => {
-  response.status(200).json({
-    rol: request.rol
-  });
-});
+app.get(
+  "/getPermissions",
+  verifyToken,
+  verifyUserPermissions,
+  (request, response) => {
+    response.status(200).json({
+      permisos: request.permisos,
+    });
+  }
+);
 
 app.use((request, response) => {
   response.status(404).json({
@@ -73,6 +78,6 @@ app.use((request, response) => {
   });
 });
 
-app.listen(port, '0.0.0.0', () => {
-  console.log('Server running on all network interfaces');
-  });
+app.listen(port, () => {
+  console.log(`Servidor escuchando en el puerto ${port}`);
+});

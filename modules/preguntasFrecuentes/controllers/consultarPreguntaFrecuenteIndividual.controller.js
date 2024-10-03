@@ -2,12 +2,21 @@ const PreguntaFrecuente = require('../../../models/otros/preguntasFrecuentes.mod
 
 exports.get_PreguntaIndividual = async (req, res) => {
     try {
-        const { IDPregunta } = req.params; // Obtenemos el ID de la URL
-        const pregunta = await PreguntaFrecuente.findOne({ IDPregunta }); // Busca una pregunta por su IDPregunta
+        const { IdPregunta } = req.params; // Obtenemos el ID de la URL
+        if (isNaN(IdPregunta)){
+            return res.status(400).json({
+                message: "Identificador de la pregunta no es un identificador",
+                data: null
+            })
+        }
+        const pregunta = await PreguntaFrecuente.findOne({ IdPregunta }); // Busca una pregunta por su IDPregunta
+        if (!pregunta){
+            return res.status(404).json({ mensaje: "Pregunta no encontrada", data:null})
+        }
         return res.status(200).json({
             code: 200,
             msg: 'Consulta de pregunta frecuente exitosa',
-            data: pregunta
+            data: [pregunta]
         });
     } catch (err) {
         return res.status(500).json({

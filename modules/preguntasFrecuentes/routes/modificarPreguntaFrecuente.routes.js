@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
+
 const verifyUserToken = require('../../../util/verifyUserToken');
 const verifyUserPermissions = require('../../../util/verifyUserPermissions');
-const consultarAnuncioController = require('../controllers/consultarAnuncio.controller');
+const { modificarPreguntaFrecuente } = require('../controllers/modificarPreguntaFrecuente.controller');
 
-
-router.get('/', verifyUserToken, verifyUserPermissions, consultarAnuncioController.getAnnouncements);
-
-
+router.put('/:IdPregunta', verifyUserToken, verifyUserPermissions, modificarPreguntaFrecuente);
 
 module.exports = router;
