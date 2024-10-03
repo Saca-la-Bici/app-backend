@@ -21,6 +21,13 @@ exports.postRodada = [
 
         data.informacion.imagen = request.file ? request.file.filename : null;
 
+        data.informacion.titulo = data.informacion.titulo.replace(/^"|"$/g, "");
+        data.informacion.fecha = data.informacion.fecha.replace(/^"|"$/g, "");
+        data.informacion.hora = data.informacion.hora.replace(/^"|"$/g, "");
+        data.informacion.duracion = data.informacion.duracion.replace(/^"|"$/g, "");
+        data.informacion.ubicacion = data.informacion.ubicacion.replace(/^"|"$/g, "");
+        data.informacion.descripcion = data.informacion.descripcion.replace(/^"|"$/g, "");
+        data.informacion.tipo = data.informacion.tipo.replace(/^"|"$/g, "");
         try {
             const registro = await postRodada(data);
             response.status(201).json({
@@ -41,8 +48,17 @@ exports.postTaller = [
     uploadToS3(folderTalleres),
     async (request, response) => {
         const data = request.body;
-
+    
         data.informacion.imagen = request.file ? request.file.filename : null;
+
+        data.informacion.titulo = data.informacion.titulo.replace(/^"|"$/g, "");
+        data.informacion.fecha = data.informacion.fecha.replace(/^"|"$/g, "");
+        data.informacion.hora = data.informacion.hora.replace(/^"|"$/g, "");
+        data.informacion.duracion = data.informacion.duracion.replace(/^"|"$/g, "");
+        data.informacion.ubicacion = data.informacion.ubicacion.replace(/^"|"$/g, "");
+        data.informacion.descripcion = data.informacion.descripcion.replace(/^"|"$/g, "");
+        data.informacion.tipo = data.informacion.tipo.replace(/^"|"$/g, "");
+        data.ruta = data.ruta.replace(/^"|"$/g, "");
 
         try {
             const registro = await postTaller(data);
@@ -66,6 +82,14 @@ exports.postEvento = [
         const data = request.body;
 
         data.informacion.imagen = request.file ? request.file.filename : null;
+
+        data.informacion.titulo = data.informacion.titulo.replace(/^"|"$/g, "");
+        data.informacion.fecha = data.informacion.fecha.replace(/^"|"$/g, "");
+        data.informacion.hora = data.informacion.hora.replace(/^"|"$/g, "");
+        data.informacion.duracion = data.informacion.duracion.replace(/^"|"$/g, "");
+        data.informacion.ubicacion = data.informacion.ubicacion.replace(/^"|"$/g, "");
+        data.informacion.descripcion = data.informacion.descripcion.replace(/^"|"$/g, "");
+        data.informacion.tipo = data.informacion.tipo.replace(/^"|"$/g, "");
 
         try {
             const registro = await postEvento(data);
