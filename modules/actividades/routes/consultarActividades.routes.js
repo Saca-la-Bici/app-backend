@@ -8,6 +8,6 @@ const { getRodadas, getEventos, getTalleres, getActividad } = require('../contro
 router.get('/rodadas', verifyUserToken, verifyUserPermissions, getRodadas);
 router.get('/eventos', verifyUserToken, verifyUserPermissions, getEventos);
 router.get('/talleres', verifyUserToken, verifyUserPermissions, getTalleres);
-router.get('/', getActividad);
+router.get('/', verifyUserToken, verifyUserPermissions, getActividad);
 
 module.exports = router;

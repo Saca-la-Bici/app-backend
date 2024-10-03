@@ -14,7 +14,7 @@ exports.registrarPreguntaFrecuente = async (req, res) => {
     return res.status(200).json({
       code: 200,
       msg: "La pregunta ha sido registrada con éxito",
-      data: nuevaPregunta,
+      data: [nuevaPregunta],
     });
   } catch (error) {
     console.error(error);
