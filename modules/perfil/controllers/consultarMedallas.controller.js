@@ -1,6 +1,6 @@
 const Medalla = require('../../../models/medallas/medalla.model');
 
-exports.getMedallas = async (req, res) => {
+exports.consultarMedallas = async (req, res) => {
     try {
         const medallas = await Medalla.find();
         return res.status(200).json({
