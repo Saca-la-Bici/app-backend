@@ -30,7 +30,12 @@ exports.get_PreguntaIndividual = async (req, res) => {
 exports.put_modificarPreguntaFrecuente = async (req,res) => {
         const {IdPregunta} = req.params;
         const {Pregunta, Respuesta, Tema, Imagen} = req.body;
-
+        if (isNaN(IdPregunta)){
+            return res.status(400).json({
+                message: "Identificador de la pregunta no es un identificador",
+                data: null
+            })
+        }
         try{
             const PreguntaActualizada = await PreguntaFrecuente.findOneAndUpdate({IdPregunta:IdPregunta},{Pregunta, Respuesta, Tema, Imagen},
                 {new: true})
