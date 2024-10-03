@@ -28,6 +28,8 @@ exports.postRodada = [
         data.informacion.ubicacion = data.informacion.ubicacion.replace(/^"|"$/g, "");
         data.informacion.descripcion = data.informacion.descripcion.replace(/^"|"$/g, "");
         data.informacion.tipo = data.informacion.tipo.replace(/^"|"$/g, "");
+        data.ruta = data.ruta.replace(/^"|"$/g, "");
+        
         try {
             const registro = await postRodada(data);
             response.status(201).json({
@@ -58,7 +60,6 @@ exports.postTaller = [
         data.informacion.ubicacion = data.informacion.ubicacion.replace(/^"|"$/g, "");
         data.informacion.descripcion = data.informacion.descripcion.replace(/^"|"$/g, "");
         data.informacion.tipo = data.informacion.tipo.replace(/^"|"$/g, "");
-        data.ruta = data.ruta.replace(/^"|"$/g, "");
 
         try {
             const registro = await postTaller(data);
