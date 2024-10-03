@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-// Importar el controlador que maneja la creación de medallas
-const consultarMedallasController = require("../controllers/consultarMedallas.controller");
+
+const verifyUserToken = require('../../../util/verifyUserToken');
+const verifyUserPermissions = require('../../../util/verifyUserPermissions');
+const { consultarMedallas } = require("../controllers/consultarMedallas.controller");
+
 
 // Definir la ruta para crear una medalla
-router.get("/", consultarMedallasController.consultarMedallas);
+router.get("/", verifyUserToken, verifyUserPermissions, consultarMedallas);
 
 module.exports = router;
