@@ -40,16 +40,6 @@ const comentarioSchema = new Schema({
 
 const Comentario = mongoose.model('Comentario', comentarioSchema);
 
-async function publicarComentario(username, fotoPerfil, contenido){
-    const nuevoComentario = await Comentario.create({
-        username: username,
-        fotoPerfil: fotoPerfil,
-        contenido: contenido
-    });
-    await nuevoComentario.save();
-    return nuevoComentario;
-}
-
 async function eliminarComentario(idComentario){
     const comentario = await Comentario.findByIdAndDelete(idComentario);
     return comentario;
@@ -57,6 +47,5 @@ async function eliminarComentario(idComentario){
 
 module.exports = {
     Comentario,
-    publicarComentario,
     eliminarComentario
 };
