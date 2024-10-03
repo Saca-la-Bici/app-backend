@@ -1,6 +1,6 @@
 const { modificarEvento } = require('../../../models/actividades/modificaActividad.model.js');
 
-exports.postModificarActividad = async (request, response) => {
+exports.patchModificarActividad = async (request, response) => {
     const { id } = request.params;
     const data = request.body;
 
