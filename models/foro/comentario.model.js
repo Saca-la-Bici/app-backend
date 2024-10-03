@@ -4,12 +4,10 @@ const Schema = mongoose.Schema;
 const comentarioSchema = new Schema({
     username: {
         type: String,
-        ref: "Usuario",
         required: true
     },
     fotoPerfil: {
         type: String,
-        ref: "Usuario",
         required: false
     },
     contenido: {

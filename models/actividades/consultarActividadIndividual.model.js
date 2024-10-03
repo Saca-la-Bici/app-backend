@@ -21,7 +21,12 @@ async function encontrarEvento(id) {
 async function consultarActividadIndividual(id) {
     const { model } = await encontrarEvento(id);
 
-    const actividad = await model.findById(id);
+    let actividad;
+    if (model === Rodada) {
+        actividad = await model.findById(id).populate('ruta');
+    } else {
+        actividad = await model.findById(id);
+    }
     return actividad;
 }
 
