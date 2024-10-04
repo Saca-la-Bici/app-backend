@@ -71,8 +71,10 @@ const Usuario = mongoose.model("Usuario", usuarioSchema);
 
 
 async function patchPerfil(firebaseUID, Username, nombre, tipoSangre, numeroEmergencia){
+  console.log("hola")
   try{
     const usuario = await Usuario.findOne({firebaseUID: firebaseUID})
+    console.log(usuario)
     if (usuario) {
       usuario.username = Username;
       usuario.nombre = nombre
