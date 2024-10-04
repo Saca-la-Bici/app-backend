@@ -1,5 +1,6 @@
 const { Usuario } = require("../../../models/perfil/usuario.model");
 const PoseeRol = require("../../../models/perfil/poseeRol.model");
+const getUserImage = require("../../../util/getUserImage");
 
 exports.searchUsuarios = async (req, res) => {
   const { query, roles } = req.query; // Obtener los parámetros de búsqueda y roles
@@ -30,26 +31,33 @@ exports.searchUsuarios = async (req, res) => {
       });
 
     // Filtrar y estructurar la respuesta
-    const result = usuariosConRoles
-      .filter((ur) => ur.IDUsuario && ur.IDRol) // Filtrar registros válidos
-      .map((ur) => ({
-        usuario: {
-          id: ur.IDUsuario._id,
-          username: ur.IDUsuario.username,
-          nombre: ur.IDUsuario.nombre,
-          correoElectronico: ur.IDUsuario.correoElectronico,
-          imagenPerfil: ur.IDUsuario.imagen,
-        },
-        rol: {
-          id: ur.IDRol._id,
-          nombreRol: ur.IDRol.nombre,
-        },
-      }));
+    const result = await Promise.all(
+      usuariosConRoles.map(async (ur) => {
+        const imagenPerfil = ur.IDUsuario.imagen
+          ? await getUserImage(ur.IDUsuario._id, ur.IDUsuario.imagen)
+          : null;
+        return {
+          usuario: {
+            id: ur.IDUsuario._id,
+            username: ur.IDUsuario.username,
+            nombre: ur.IDUsuario.nombre,
+            correoElectronico: ur.IDUsuario.correoElectronico,
+            imagenPerfil: imagenPerfil || null,
+          },
+          rol: {
+            id: ur.IDRol._id,
+            nombreRol: ur.IDRol.nombre,
+          },
+        };
+      })
+    );
 
     // Enviar la respuesta con los usuarios y roles
     res.status(200).json({ usuarios: result });
   } catch (error) {
     // En caso de error, responder con un mensaje de error
-    res.status(500).json({ message: "Error al buscar los usuarios", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error al buscar los usuarios", error: error.message });
   }
 };
