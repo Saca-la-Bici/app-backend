@@ -96,16 +96,43 @@ const getTalleres = async (request, response) => {
 
 const getActividad = async (request, response) => {
     const id = request.query.id;
-    console.log("ID: ", id);
+
     try {
         const actividad = await consultarActividadIndividual(id);
+
+        if (!actividad || !actividad.informacion || actividad.informacion.length === 0) {
+            throw new Error('No se encontraron detalles de la actividad');
+        }
+
+        const tipoActividad = actividad.informacion[0].tipo;
+
+        const folderMapping = {
+            'Rodada': 'rodadas/',
+            'Evento': 'eventos/',
+            'Taller': 'talleres/',
+        };
+
+        const folder = folderMapping[tipoActividad];
+        if (!folder) {
+            throw new Error(`Tipo de actividad desconocido: ${tipoActividad}`);
+        }
+
+        const requestData = { [folder.slice(0, -1)]: [actividad.informacion[0]] };
+
+        const informacionImagen = await getImageFolder(requestData, folder);
+
+        actividad.informacion[0].imagenUrl = informacionImagen[0].imagen;
+
         response.status(200).json({
-            actividad: actividad, 
+            actividad: actividad,
             permisos: request.permisos
         });
     } catch (error) {
-        return response.status(500).json({ message: 'Error al obtener la actividad', error });
+        response.status(500).json({ 
+            message: 'Error al obtener la actividad', 
+            error: error.message || error 
+        });
     }
-}
+};
 
 module.exports = { getRodadas, getEventos, getTalleres, getActividad };
