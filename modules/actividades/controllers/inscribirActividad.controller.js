@@ -8,10 +8,6 @@ exports.inscribirUsuario = async (request, response) => {
     let tipo = request.body.tipo;
     let firebaseUID = request.userUID.uid; 
 
-    console.log("Solicitud de inscripción recibida");
-    console.log("ID de la actividad:", actividadId);
-    console.log("ID del usuario:", firebaseUID);
-    console.log("Tipo de actividad:", tipo);
 
     // Verificar si el ID es válido
     if (!mongoose.Types.ObjectId.isValid(actividadId)) {
@@ -33,7 +29,6 @@ exports.inscribirUsuario = async (request, response) => {
         }
 
         if (!actividad) {
-            console.log("Actividad no encontrada");
             return response.status(404).json({ message: 'Actividad no encontrada' });
         }
 
