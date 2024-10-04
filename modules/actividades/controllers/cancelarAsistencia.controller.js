@@ -5,13 +5,9 @@ const Evento = require('../../../models/actividades/evento.model');
 exports.cancelarAsistencia = async (request, response) => {
     
     const actividadId = request.body.actividadId; 
-    const tipo = request.body.tipo;
-    const firebaseUID = request.userUID.uid; 
-    // Se debe recibir el 'tipo' en la solicitud
-    // console.log("ID de la actividad:", actividadId);
-    // console.log("ID del usuario:", usuarioId);
-    // console.log("Tipo de actividad:", tipo);
-
+    let tipo = request.body.tipo;
+    let firebaseUID = request.userUID.uid; 
+    
     try {
         let actividad;
 
@@ -26,24 +22,28 @@ exports.cancelarAsistencia = async (request, response) => {
             return response.status(400).json({ message: 'Tipo de actividad no válido' });
         }
 
-        //console.log("Actividad encontrada:", actividad);
-
         if (!actividad) {
             return response.status(404).json({ message: 'Actividad no encontrada' });
         }
 
-        // Suponiendo que hay solo un objeto en 'informacion', accede a él directamente
-        const actividadInfo = actividad.informacion[0];
+        let usuarioEncontrado = false;
 
-        // Verificar si el usuario está inscrito
-        const usuarioIndex = actividadInfo.usuariosInscritos.indexOf(firebaseUID);
-        if (usuarioIndex === -1) {
-            return response.status(400).json({ message: 'El usuario no está inscrito en esta actividad' });
+        // Iterar sobre todos los elementos en 'informacion'
+        for (let actividadInfo of actividad.informacion) {
+            // Verificar si el usuario está inscrito
+            const usuarioIndex = actividadInfo.usuariosInscritos.indexOf(firebaseUID);
+            if (usuarioIndex !== -1) {
+                // Cancelar la asistencia del usuario
+                actividadInfo.usuariosInscritos.splice(usuarioIndex, 1);
+                actividadInfo.personasInscritas -= 1;
+                usuarioEncontrado = true;
+                break;  // Detener la iteración si se encuentra el usuario
+            }
         }
 
-        // Cancelar la asistencia del usuario
-        actividadInfo.usuariosInscritos.splice(usuarioIndex, 1);
-        actividadInfo.personasInscritas -= 1;
+        if (!usuarioEncontrado) {
+            return response.status(400).json({ message: 'El usuario no está inscrito en esta actividad' });
+        }
 
         // Guardar los cambios en la base de datos
         await actividad.save();
