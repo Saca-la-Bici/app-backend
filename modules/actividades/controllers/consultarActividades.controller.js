@@ -19,13 +19,6 @@ const getEventos = async (request, response) => {
     try {
         const eventos = await Evento.find({ "informacion.estado": true });
         
-
-
-        
-        console.log(eventos);
-        
-        
-        
         
         response.status(200).json({
             eventos: eventos,
@@ -50,7 +43,6 @@ const getTalleres = async (request, response) => {
 
 const getActividad = async (request, response) => {
     const id = request.query.id;
-    console.log("ID: ", id);
     try {
         const actividad = await consultarActividadIndividual(id);
         response.status(200).json({

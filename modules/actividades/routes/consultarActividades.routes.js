@@ -10,9 +10,6 @@ router.get('/eventos', verifyUserToken, verifyUserPermissions, getEventos);
 router.get('/talleres', verifyUserToken, verifyUserPermissions, getTalleres);
 router.get('/', verifyUserToken, verifyUserPermissions, getActividad);
 
-// router.get('/rodadas', verifyUserToken, getRodadas);
-// router.get('/eventos', verifyUserToken, getEventos);
-// router.get('/talleres', verifyUserToken, getTalleres);
-// router.get('/', verifyUserToken, getActividad);
+
 
 module.exports = router;
