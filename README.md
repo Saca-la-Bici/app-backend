@@ -13,13 +13,13 @@ En este repositorio se concentra el back-end de la aplicación, así haciendo po
 
 ## Instalación
 1. Clonar el repositorio:
-  Para esto, se debe utilizar el commando {git clone https://github.com/Saca-la-Bici/app-backend.git} dentro de una terminal del sistema.
+  Para esto, se debe utilizar el comando {git clone https://github.com/Saca-la-Bici/app-backend.git} dentro de una terminal del sistema.
 2. Instalar dependencias:
   Dentro del proyecto recién clonado, debemos abrir una terminal, ahí ejecutaremos el comando {npm install} , que leerá las dependencias y las instalará.
   Se recomienda utilizar un servidor dedicado para instalar dentro de él el código.
 
 ## Uso
-  En la terminal donde se instalaron las dependencias, ejecutar el commando {npm start}, que iniciará con la ejecución del proyecto.
+  En la terminal donde se instalaron las dependencias, ejecutar el comando {npm start}, que iniciará con la ejecución del proyecto.
 
 ## Características
 - Acceso a anuncios provenientes de la organización Saca la Bici
