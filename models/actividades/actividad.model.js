@@ -52,7 +52,11 @@ const actividadSchema = new mongoose.Schema ({
     foro: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Foro'
-    }
+    },
+    usuariosInscritos: [{
+        type: String,
+        ref: 'Usuario' // Referencia al modelo de Usuario
+    }]
 });
 
 // Middleware para crear un foro vacío antes de guardar la actividad
@@ -66,6 +70,7 @@ actividadSchema.pre('save', async function(next) {
         }
     }
     next();
+    
 });
 
-module.exports = actividadSchema;
+module.exports = actividadSchema

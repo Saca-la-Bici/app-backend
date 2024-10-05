@@ -53,6 +53,7 @@ const getEventos = async (request, response) => {
             evento.informacion = informacionImagen[index];
         });
 
+
         response.status(200).json({
             eventos: eventos,
             permisos: request.permisos
