@@ -2,16 +2,16 @@ const Ruta = require('../../../models/ruta/ruta.model');
 
 exports.modificarRuta = async (req, res) => {
     try {
-        const rutaId = req.params.id.trim(); // Asume que el ID de la ruta se pasa como parámetro en la URL
+        const rutaId = req.params.id; // Asume que el ID de la ruta se pasa como parámetro en la URL
 
         const rutaActualizada = {
-            titulo: req.body.titulo,  // Asegúrate de usar las mismas propiedades que envías en el body
-            distancia: req.body.distancia,
-            tiempo: req.body.tiempo,
-            nivel: req.body.nivel,
-            lugar: req.body.lugar,
-            descanso: req.body.descanso,
-            coordenadas: req.body.coordenadas,
+            titulo: req.body.Titulo,
+            distancia: req.body.Distancia,
+            tiempo: req.body.Tiempo,
+            nivel: req.body.Nivel,
+            lugar: req.body.Lugar,
+            descanso: req.body.Descanso,
+            coordenadas: req.body.Coordenadas,
         };
 
         // Actualiza la ruta existente
