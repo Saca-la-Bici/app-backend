@@ -49,7 +49,6 @@ app.use("/preguntasFrecuentes", preguntasRoutes);
 app.use("/reporte", reporteRoutes);
 app.use("/rodadas", rodadasRoutes);
 app.use("/session", sessionRoutes);
-app.use("/", sessionRoutes);
 
 const verifyToken = require("./util/verifyUserToken");
 const verifyUserPermissions = require("./util/verifyUserPermissions");
