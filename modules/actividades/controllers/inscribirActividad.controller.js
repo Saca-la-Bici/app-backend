@@ -52,7 +52,7 @@ exports.inscribirUsuario = async (request, response) => {
         // Guardar los cambios en la base de datos
         await actividad.save();
 
-        return response.status(200).json({ message: 'Usuario inscrito exitosamente' });
+        return response.status(200).json({ message: 'Tu inscripción ha sido confirmada. ¡Nos vemos pronto!' });
     } catch (error) {
         console.error("Error al inscribir usuario:", error);
         return response.status(500).json({ message: 'Error al inscribir al usuario', error });
