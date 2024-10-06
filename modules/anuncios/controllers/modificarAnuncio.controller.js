@@ -20,7 +20,6 @@ exports.patchAnnouncement = [
         contenido,
         imagenNueva
       );
-      console.log(folder, imagenVieja);
       deleteImage(folder, imagenVieja);
       return response.status(201).json(anuncio);
     } catch (error) {

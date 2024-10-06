@@ -70,10 +70,11 @@ const usuarioSchema = new mongoose.Schema(
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
 
-async function patchPerfil(firebaseUID, Username, nombre, tipoSangre, numeroEmergencia){
+async function patchPerfil(firebaseUID, imagen, Username, nombre, tipoSangre, numeroEmergencia){
   try{
     const usuario = await Usuario.findOne({firebaseUID: firebaseUID})
     if (usuario) {
+      usuario.imagen = imagen;
       usuario.username = Username;
       usuario.nombre = nombre
       usuario.tipoSangre = tipoSangre;
@@ -90,10 +91,16 @@ async function patchPerfil(firebaseUID, Username, nombre, tipoSangre, numeroEmer
 }
 
 
+async function getImagen(firebaseUID){
+  const perfil = await Usuario.findOne({firebaseUID: firebaseUID});
+  return perfil.imagen;
+}
+
 
 module.exports = {
   
   Usuario,
-  patchPerfil
+  patchPerfil,
+  getImagen
 
 };
