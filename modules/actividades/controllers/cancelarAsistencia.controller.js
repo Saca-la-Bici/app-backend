@@ -48,7 +48,7 @@ exports.cancelarAsistencia = async (request, response) => {
         // Guardar los cambios en la base de datos
         await actividad.save();
 
-        return response.status(200).json({ message: 'Asistencia cancelada exitosamente' });
+        return response.status(200).json({ message: 'Tu participación ha sido cancelada exitosamente.' });
     } catch (error) {
         console.error("Error al cancelar la asistencia del usuario:", error);
         return response.status(500).json({ message: 'Error al cancelar la asistencia', error });
