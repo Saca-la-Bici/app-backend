@@ -9,19 +9,30 @@ exports.patchAnnouncement = [
   uploadToS3(folder),
   async (request, response) => {
     const IDAnuncio = request.params.IDAnuncio;
-    const titulo = request.body.titulo;
-    const contenido = request.body.contenido;
+    const titulo = request.body.titulo.replace(/^"|"$/g, "");
+    const contenido = request.body.contenido.replace(/^"|"$/g, "");
     const imagenNueva = request.file ? request.file.filename : null;
+    const imagenVieja = await Announcement.getImagen(IDAnuncio);
+    var anuncio;
     try {
-      const imagenVieja = await Announcement.getImagen(IDAnuncio);
-      const anuncio = await Announcement.patchAnnouncement(
-        IDAnuncio,
-        titulo,
-        contenido,
-        imagenNueva
-      );
-      console.log(folder, imagenVieja);
-      deleteImage(folder, imagenVieja);
+        if(imagenNueva === null) {
+                anuncio = await Announcement.patchAnnouncement(
+                IDAnuncio,
+                titulo,
+                contenido,
+                imagenVieja
+              );
+        }
+        else{
+            anuncio = await Announcement.patchAnnouncement(
+              IDAnuncio,
+              titulo,
+              contenido,
+              imagenNueva
+            );
+            console.log(folder, imagenVieja);
+            deleteImage(folder, imagenVieja);
+        }
       return response.status(201).json(anuncio);
     } catch (error) {
       return response
