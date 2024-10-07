@@ -69,7 +69,6 @@ const usuarioSchema = new mongoose.Schema(
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
-
 async function patchPerfil(firebaseUID, imagen, Username, nombre, tipoSangre, numeroEmergencia){
   try{
     const usuario = await Usuario.findOne({firebaseUID: firebaseUID})
@@ -79,9 +78,9 @@ async function patchPerfil(firebaseUID, imagen, Username, nombre, tipoSangre, nu
       usuario.nombre = nombre
       usuario.tipoSangre = tipoSangre;
       usuario.numeroEmergencia = numeroEmergencia;
-      
       await usuario.save();
       return usuario;
+    
     } else {
       throw new Error('Usuario no encontrado');
      }
