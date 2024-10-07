@@ -4,16 +4,19 @@ const deleteImage = require("../../../util/deleteImage");
 
 const folder = "profile/";
 
-// Controlador para modificar el perfil (actualizar datos sin imagen)
+// Controlador para modificar el perfil
 exports.patchPerfil = [
   upload.single("file"),
   uploadToS3(folder),
   async (request, response) => {
 
     const firebaseUID = request.userUID.uid;
-    const { username, nombre, tipoSangre, numeroEmergencia } = request.body;
+    const username = request.body.username
+    const {nombre, tipoSangre, numeroEmergencia } = request.body;
     const imagenNueva = request.file ? request.file.filename : null;
     console.log(imagenNueva)
+    console.log(username, nombre, tipoSangre)
+    console.log("caca")
 
     try {
       const oldImage = await Usuario.getImagen(firebaseUID);
