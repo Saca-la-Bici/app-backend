@@ -18,7 +18,13 @@ exports.patchPerfil = [
     const imagenNueva = request.file ? request.file.filename : null;
 
     try {
-      const oldImage = await Usuario.getImagen(firebaseUID);
+      var oldImage = null
+      if(imagenNueva != null){
+        oldImage = await Usuario.getImagen(firebaseUID);
+      }
+      if(!imagenNueva){
+        imagenNueva = await Usuario.getImagen(firebaseUID);
+      }
       const profile = await Usuario.patchPerfil(
         firebaseUID,
         imagenNueva,
@@ -27,7 +33,9 @@ exports.patchPerfil = [
         tipoSangre,
         numeroEmergencia
       );
-      deleteImage(folder, oldImage);
+      if(oldImage){
+        deleteImage(folder, oldImage);
+      }
 
       return response
         .status(200)
