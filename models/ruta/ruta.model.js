@@ -37,7 +37,7 @@ const rutaSchema = new mongoose.Schema({
         required: true
     },
     estatus: {
-        type: int32,
+        type: Int,
         required: true
     },
 }, {
