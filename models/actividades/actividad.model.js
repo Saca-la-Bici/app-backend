@@ -5,7 +5,7 @@ const actividadSchema = new mongoose.Schema ({
     titulo: {
         type: String,
         minLength: 4,
-        maxLength: 50, 
+        maxLength: 51, 
         required: true
     }, 
     fecha: {
@@ -22,13 +22,13 @@ const actividadSchema = new mongoose.Schema ({
     },
     ubicacion: {
         type: String,
-        maxLength: 150, 
+        maxLength: 151, 
         required: true
     },
     descripcion: {
         type: String, 
         minLength: 4,
-        maxLength: 450,
+        maxLength: 451,
         required: true
     }, 
     estado: {
