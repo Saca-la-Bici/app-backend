@@ -11,12 +11,11 @@ exports.patchPerfil = [
   async (request, response) => {
 
     const firebaseUID = request.userUID.uid;
-    const username = request.body.username
-    const {nombre, tipoSangre, numeroEmergencia } = request.body;
+    const username = request.body.username.replace(/^"|"$/g, "");
+    const nombre = request.body.nombre.replace(/^"|"$/g, "");
+    const tipoSangre = request.body.tipoSangre.replace(/^"|"$/g, "");
+    const numeroEmergencia = request.body.numeroEmergencia.replace(/^"|"$/g, "");
     const imagenNueva = request.file ? request.file.filename : null;
-    console.log(imagenNueva)
-    console.log(username, nombre, tipoSangre)
-    console.log("caca")
 
     try {
       const oldImage = await Usuario.getImagen(firebaseUID);
