@@ -15,16 +15,17 @@ exports.patchPerfil = [
     const nombre = request.body.nombre.replace(/^"|"$/g, "");
     const tipoSangre = request.body.tipoSangre.replace(/^"|"$/g, "");
     const numeroEmergencia = request.body.numeroEmergencia.replace(/^"|"$/g, "");
-    const imagenNueva = request.file ? request.file.filename : null;
-
+    var imagenNueva = request.file ? request.file.filename : null;
+    var oldImage = null
     try {
-      var oldImage = null
-      if(imagenNueva != null){
-        oldImage = await Usuario.getImagen(firebaseUID);
-      }
+      
       if(!imagenNueva){
         imagenNueva = await Usuario.getImagen(firebaseUID);
       }
+      else if(imagenNueva != null){
+        oldImage = await Usuario.getImagen(firebaseUID);
+      }
+
       const profile = await Usuario.patchPerfil(
         firebaseUID,
         imagenNueva,
@@ -33,6 +34,7 @@ exports.patchPerfil = [
         tipoSangre,
         numeroEmergencia
       );
+
       if(oldImage){
         deleteImage(folder, oldImage);
       }
