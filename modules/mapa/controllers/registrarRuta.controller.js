@@ -12,6 +12,7 @@ exports.postRuta = async (req, res) => {
             tiempo: req.body.tiempo,
             nivel: req.body.nivel,
             coordenadas: req.body.coordenadas,  // Verifica si las coordenadas se reciben correctamente
+            estatus: 1,
         });
 
         console.log('Nueva ruta creada:', nuevaRuta);
