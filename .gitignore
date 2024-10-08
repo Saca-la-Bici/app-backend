@@ -1,5 +1,3 @@
-login-app.json
-
 # Logs
 logs
 *.log
@@ -139,4 +137,4 @@ dist
 
 # Firebase Service SDK
 /util/firebase-adminsdk.json
-/util/login-app.json
+util/login-app.json
