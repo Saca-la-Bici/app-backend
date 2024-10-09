@@ -16,13 +16,8 @@ exports.get_ActividadesInscritas = async (request, response) => {
             Evento.find({ "informacion.usuariosInscritos": firebaseUID }),
             Taller.find({ "informacion.usuariosInscritos": firebaseUID })
         ]);
-        console.log('Rodadas:', rodadas);
-        console.log('Eventos:', eventos);
-        console.log('Talleres:', talleres);
-
         // Agregar las actividades encontradas al arreglo ActividadesUser
         ActividadesUser.push(...rodadas, ...eventos, ...talleres);
-        console.log(ActividadesUser)
         // Responder con las actividades encontradas
         return response.status(200).json({
             actividadesInscritas: ActividadesUser,
