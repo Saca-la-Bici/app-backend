@@ -95,11 +95,15 @@ async function getImagen(firebaseUID){
   return perfil.imagen;
 }
 
+async function deleteUser(firebaseUID){
+  await Usuario.findOneAndDelete({firebaseUID: firebaseUID});
+}
 
 module.exports = {
   
   Usuario,
   patchPerfil,
-  getImagen
+  getImagen,
+  deleteUser
 
 };
