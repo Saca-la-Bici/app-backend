@@ -9,9 +9,13 @@ const getImageFolder = require('../../../util/getImageFolder');
 
 const getRodadas = async (request, response) => {
     try {
+        const fechaConsulta = new Date(); // Fecha de consulta actual
+        fechaConsulta.setUTCHours(0, 0, 0, 0)
+
         const rodadas = await Rodada.find({
-            "informacion.estado": true
-        }).populate('ruta');
+            "informacion.estado": true,
+            "informacion.fecha": { $gte: fechaConsulta }
+        }).sort({ "informacion.fecha": 1 }).populate('ruta'); // Ordenar por fecha ascendente
 
         request.rodadas = rodadas.map(rodada => rodada.informacion).flat();
 
@@ -36,12 +40,15 @@ const getRodadas = async (request, response) => {
     }
 };
 
-
 const getEventos = async (request, response) => {
     try {
+        const fechaConsulta = new Date(); // Fecha de consulta actual
+        fechaConsulta.setUTCHours(0, 0, 0, 0)
+
         const eventos = await Evento.find({
-            "informacion.estado": true
-        });
+            "informacion.estado": true,
+            "informacion.fecha": { $gte: fechaConsulta }
+        }).sort({ "informacion.fecha": 1 }); // Ordenar por fecha ascendente
 
         request.eventos = eventos.map(evento => evento.informacion).flat();
 
@@ -52,7 +59,6 @@ const getEventos = async (request, response) => {
         eventos.forEach((evento, index) => {
             evento.informacion = informacionImagen[index];
         });
-
 
         response.status(200).json({
             eventos: eventos,
@@ -69,9 +75,13 @@ const getEventos = async (request, response) => {
 
 const getTalleres = async (request, response) => {
     try {
+        const fechaConsulta = new Date(); // Fecha de consulta actual
+        fechaConsulta.setUTCHours(0, 0, 0, 0)
+    
         const talleres = await Taller.find({
-            "informacion.estado": true
-        });
+            "informacion.estado": true,
+            "informacion.fecha": { $gte: fechaConsulta }
+        }).sort({ "informacion.fecha": 1 }); // Ordenar por fecha ascendente
 
         request.talleres = talleres.map(taller => taller.informacion).flat();
 
@@ -93,7 +103,7 @@ const getTalleres = async (request, response) => {
             error
         });
     }
-}
+};
 
 const getActividad = async (request, response) => {
     const id = request.query.id;
