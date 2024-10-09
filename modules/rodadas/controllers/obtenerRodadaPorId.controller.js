@@ -32,3 +32,7 @@ const getRodadaByActividadId = async (idActividad) => {
         };
     }
 };
+
+module.exports = {
+    getRodadaByActividadId
+};
