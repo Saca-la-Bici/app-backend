@@ -15,7 +15,7 @@ exports.eliminarRuta = async (req, res) => {
             return res.status(404).json({ message: 'Ruta no encontrada' });
         }
 
-        res.status(200).json({ message: 'Ruta eliminada correctamente', ruta: rutaEliminada });
+        res.status(200).json({rutaEliminada });
     } catch (error) {
         console.error('Error al eliminar la ruta:', error);
         res.status(500).json({
