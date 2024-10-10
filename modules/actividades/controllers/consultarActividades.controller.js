@@ -1,3 +1,4 @@
+const moment = require('moment-timezone');
 const Rodada = require('../../../models/actividades/rodada.model');
 const Evento = require('../../../models/actividades/evento.model');
 const Taller = require('../../../models/actividades/taller.model');
@@ -9,8 +10,7 @@ const getImageFolder = require('../../../util/getImageFolder');
 
 const getRodadas = async (request, response) => {
     try {
-        const fechaConsulta = new Date(); // Fecha de consulta actual
-        fechaConsulta.setUTCHours(0, 0, 0, 0)
+        const fechaConsulta = getFechaConsulta();
 
         const rodadas = await Rodada.find({
             "informacion.estado": true,
@@ -42,9 +42,7 @@ const getRodadas = async (request, response) => {
 
 const getEventos = async (request, response) => {
     try {
-        const fechaConsulta = new Date(); // Fecha de consulta actual
-        fechaConsulta.setUTCHours(0, 0, 0, 0)
-
+        const fechaConsulta = getFechaConsulta();
         const eventos = await Evento.find({
             "informacion.estado": true,
             "informacion.fecha": { $gte: fechaConsulta }
@@ -75,9 +73,7 @@ const getEventos = async (request, response) => {
 
 const getTalleres = async (request, response) => {
     try {
-        const fechaConsulta = new Date(); // Fecha de consulta actual
-        fechaConsulta.setUTCHours(0, 0, 0, 0)
-    
+        const fechaConsulta = getFechaConsulta();
         const talleres = await Taller.find({
             "informacion.estado": true,
             "informacion.fecha": { $gte: fechaConsulta }
@@ -144,6 +140,13 @@ const getActividad = async (request, response) => {
             error: error.message || error 
         });
     }
+};
+
+// Obtener la fecha actual en la zona horaria de México
+const getFechaConsulta = () => {
+    const fecha = moment.tz('America/Mexico_City').startOf('day').toDate();
+    fecha.setUTCHours(0, 0, 0, 0);
+    return fecha;
 };
 
 module.exports = { getRodadas, getEventos, getTalleres, getActividad };
