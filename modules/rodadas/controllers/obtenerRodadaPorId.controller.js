@@ -1,24 +1,23 @@
 const Rodada = require('../../../models/actividades/rodada.model');
 
-exports.getRodadaYRutaPorActividad = async (request, response) => {
-    const { actividadId } = request.params; // Obtener el id de la actividad desde los parámetros de la URL
+exports.getRodadaYRutaPorRodadaId = async (request, response) => {
+    const { rodadaId } = request.params; // Obtener el id de la rodada desde los parámetros de la URL
 
     try {
-        // Buscar la rodada que contiene la actividad específica
-        const rodada = await Rodada.findOne({ 'informacion._id': actividadId }).populate('ruta');
+        // Buscar la rodada por su ID
+        const rodada = await Rodada.findById(rodadaId).populate('ruta'); // Asegúrate de tener un campo 'ruta' como referencia en tu esquema
 
         if (!rodada) {
             return response.status(404).json({
-                message: 'No se encontró ninguna rodada con la actividad proporcionada'
+                message: 'No se encontró ninguna rodada con el ID proporcionado'
             });
         }
 
         // Obtener los IDs de la rodada y de la ruta
-        const rodadaId = rodada._id;
-        const rutaId = rodada.ruta._id;
+        const rutaId = rodada.ruta ? rodada.ruta._id : null; // Verificar si la ruta está presente
 
         response.status(200).json({
-            rodadaId: rodadaId,
+            rodadaId: rodada._id,
             rutaId: rutaId,
         });
     } catch (error) {
