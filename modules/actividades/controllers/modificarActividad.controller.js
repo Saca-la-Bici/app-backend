@@ -26,7 +26,6 @@ exports.patchTaller = [
     data.informacion.descripcion = data.informacion.descripcion.replace(/^"|"$/g, "");
     data.informacion.tipo = data.informacion.tipo.replace(/^"|"$/g, "");
 
-    console.log("esto es data: ", data)
     try {
         const imagenVieja = getImagenTaller(id);
         const updatedActivity = await modificarTaller(id, data);

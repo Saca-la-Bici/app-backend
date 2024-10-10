@@ -18,8 +18,6 @@ async function getImagenRodada(id){
 }
 
 async function modificarTaller(id, data) {
-    // Actualización del evento
-    console.log("Modelo antes de guardar:): ", id, data)
     const updatedEvent = await Taller.findByIdAndUpdate(id, data, { new: true });
     return updatedEvent;
 }
