@@ -11,7 +11,6 @@ const getImageFolder = require('../../../util/getImageFolder');
 const getRodadas = async (request, response) => {
     try {
         const fechaConsulta = getFechaConsulta();
-        console.log(fechaConsulta)
 
         const rodadas = await Rodada.find({
             "informacion.estado": true,
