@@ -8,22 +8,22 @@ const comentarioSchema = new Schema({
     },
     fotoPerfil: {
         type: String,
-        required: false
+        required: true
     },
     contenido: {
         type: String,
         minLength: 4,
-        maxLength: 500,
+        maxLength: 255,
         required: true
     },
     fechaCreacion: {
         type: Date,
         immutable: true,
-        default:() => Date.now()
+        default: () => Date.now()
     },
     fechaModificacion: {
         type: Date,
-        default:() => Date.now()
+        default: () => Date.now()
     },
     likes: {
         type: Number,
@@ -33,7 +33,12 @@ const comentarioSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Comentario',
         default: null
+    },
+    foro: {
+        type: Schema.Types.ObjectId,  // Referencia al foro relacionado
+        ref: 'Foro',  // Nombre del modelo de foro
+        required: true
     }
-})
+});
 
-module.exports = comentarioSchema;
+module.exports = mongoose.model('Comentario', comentarioSchema);
