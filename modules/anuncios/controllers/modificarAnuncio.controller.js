@@ -9,8 +9,8 @@ exports.patchAnnouncement = [
   uploadToS3(folder),
   async (request, response) => {
     const IDAnuncio = request.params.IDAnuncio;
-    const titulo = request.body.titulo.replace(/^"|"$/g, "");
-    const contenido = request.body.contenido.replace(/^"|"$/g, "");
+    const titulo = request.body.titulo;
+    const contenido = request.body.contenido;
     const imagenNueva = request.file ? request.file.filename : null;
     try {
       const imagenVieja = await Announcement.getImagen(IDAnuncio);
