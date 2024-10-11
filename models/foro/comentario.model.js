@@ -16,10 +16,15 @@ const comentarioSchema = new Schema({
         maxLength: 255,
         required: true
     },
+    foro: {
+        type: Schema.Types.ObjectId,  // Referencia al foro
+        ref: 'Foro',
+        required: true
+    },
     fechaCreacion: {
         type: Date,
-        immutable: true,
-        default: () => Date.now()
+        default: () => Date.now(),
+        immutable: true
     },
     fechaModificacion: {
         type: Date,
@@ -33,11 +38,6 @@ const comentarioSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Comentario',
         default: null
-    },
-    foro: {
-        type: Schema.Types.ObjectId,  // Referencia al foro relacionado
-        ref: 'Foro',  // Nombre del modelo de foro
-        required: true
     }
 });
 

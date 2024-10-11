@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const comentarioSchema = require('./comentario.model');
 
-// Definir el esquema de Foro
 const foroSchema = new Schema({
     titulo: {
         type: String,
@@ -12,22 +10,22 @@ const foroSchema = new Schema({
         type: String,
         required: true
     },
+    actividad: {
+        type: Schema.Types.ObjectId,
+        ref: 'Actividad',
+        required: true
+    },
+    comentarios: [{
+        type: Schema.Types.ObjectId,  // Referencia a los comentarios
+        ref: 'Comentario'
+    }],
     fechaCreacion: {
         type: Date,
-        default: () => Date.now()
-    },
-    comentarios: {
-        type: [comentarioSchema],
-        default: []
-    },
-    actividad: {
-        type: Schema.Types.ObjectId,  // Referencia a la actividad relacionada
-        ref: 'Actividad',  // Nombre del modelo de actividad
-        required: true
+        default: () => Date.now(),
+        immutable: true
     }
 }, {
     collection: 'Foros'
 });
 
-// Crear y exportar el modelo Foro
 module.exports = mongoose.model('Foro', foroSchema);
