@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 const usuarioSchema = new mongoose.Schema(
   {
     username: {
@@ -60,6 +61,11 @@ const usuarioSchema = new mongoose.Schema(
       type: [String],
       default: [], 
       required: false
+    },
+    estadoMedallas: {
+      type: [Boolean],
+      default: [], 
+      required: false
     }
   },
   {
@@ -67,7 +73,12 @@ const usuarioSchema = new mongoose.Schema(
   }
 );
 
+usuarioSchema.post('save', function(doc){
+  console.log("usuario registradooo, id: ", doc._id)
+})
+
 const Usuario = mongoose.model("Usuario", usuarioSchema);
+
 
 async function patchPerfil(firebaseUID, imagen, Username, nombre, tipoSangre, numeroEmergencia){
   try{
@@ -96,8 +107,14 @@ async function getImagen(firebaseUID){
 }
 
 async function deleteUser(firebaseUID){
-  await Usuario.findOneAndDelete({firebaseUID: firebaseUID});
+  // const res = 
+  await Usuario.findOneAndDelete({firebaseUID: firebaseUID})
+  // if(res){
+  //   return res.status(200).json({ message: 'Usuario eliminado correctamente'});
+  // }
+  // return res.status(404).json({ message: 'Error al eliminar usuario', error: error.message });
 }
+
 
 module.exports = {
   
