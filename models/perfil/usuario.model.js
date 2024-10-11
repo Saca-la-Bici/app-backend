@@ -60,6 +60,11 @@ const usuarioSchema = new mongoose.Schema(
       type: [String],
       default: [], 
       required: false
+    },
+    estadoMedallas:{
+      type: [Boolean],
+      default: {},
+      required: false 
     }
   },
   {
@@ -88,8 +93,6 @@ async function patchPerfil(firebaseUID, Username, nombre, tipoSangre, numeroEmer
     throw error;
   }
 }
-
-
 
 module.exports = {
   
