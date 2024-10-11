@@ -2,7 +2,7 @@ const Medalla = require('../../../models/medallas/medalla.model');
 const { Usuario } = require('../../../models/perfil/usuario.model');
 
 exports.consultarMedallas = async (req, res) => {
-    const firebaseUID = request.userUID.uid;
+    const firebaseUID = req.userUID.uid;
     try {
         // Busca el perfil del usuario por su firebaseUID
         const perfil = await Usuario.findOne({ firebaseUID });
