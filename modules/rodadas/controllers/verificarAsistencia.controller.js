@@ -8,9 +8,8 @@ function convertirTiempoADecimal(tiempo) {
     // Separar el texto en partes
     const partes = tiempo.split(' ');
     
-    // Obtener horas y minutos
-    const horas = parseInt(partes[0]); // Primer elemento es el número de horas
-    const minutos = parseInt(partes[2]); // Tercer elemento es el número de minutos
+    const horas = parseInt(partes[0]); 
+    const minutos = parseInt(partes[2]); 
 
     // Convertir minutos a horas (1 hora = 60 minutos)
     const horasDesdeMinutos = minutos / 60;
@@ -21,7 +20,6 @@ function convertirTiempoADecimal(tiempo) {
     return totalHoras;
 }
 
-// Controlador para actualizar la ubicación de una rodada
 exports.verificarAsistencia = async (request, response) => {
     try {
         const IDRodada = request.body.IDRodada;
@@ -65,6 +63,8 @@ exports.verificarAsistencia = async (request, response) => {
             usuario.kilometrosRecorridos += distanciaNum; 
             usuario.tiempoEnRecorrido += tiempoNum; 
 
+            actualizarMedallas(usuario);
+
             await usuario.save(); 
 
             response.status(200).json({ 
@@ -85,3 +85,26 @@ exports.verificarAsistencia = async (request, response) => {
         });
     }
 };
+
+function actualizarMedallas(usuario) {
+
+    const medallasCondiciones = [
+        { id: 1, criterio: usuario.rodadasCompletadas >= 5 }, // Asiste a 5 rodadas
+        { id: 2, criterio: usuario.rodadasCompletadas >= 20 }, // Asiste a 20 rodadas
+        { id: 3, criterio: usuario.rodadasCompletadas >= 50 }, // Asiste a 50 rodadas
+        { id: 4, criterio: usuario.kilometrosRecorridos >= 10 }, // Recorre 10 km
+        { id: 5, criterio: usuario.kilometrosRecorridos >= 50 }, // Recorre 50 km
+        { id: 6, criterio: usuario.kilometrosRecorridos >= 100 }, // Recorre 100 km
+        { id: 7, criterio: usuario.tiempoEnRecorrido >= 10 }, // Nivel principiante 10 horas
+        { id: 8, criterio: usuario.tiempoEnRecorrido >= 30 }, // Nivel intermedio 30 horas
+        { id: 9, criterio: usuario.tiempoEnRecorrido >= 60 }, // Nivel experto 60 horas
+    ];
+
+    // Actualizamos el estado de las medallas
+    medallasCondiciones.forEach(condicion => {
+        if (condicion.criterio) {
+            usuario.estadoMedallas[condicion.id - 1] = true; 
+            usuario.estadoMedallas[condicion.id + 8] = false; 
+        }
+    });
+}
