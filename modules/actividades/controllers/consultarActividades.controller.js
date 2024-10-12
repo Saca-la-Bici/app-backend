@@ -14,7 +14,7 @@ const getRodadas = async (request, response) => {
 
         const rodadas = await Rodada.find({
             "informacion.estado": true,
-            "informacion.fecha": { $gte: fechaConsulta }
+            "informacion.fecha_fin": { $gte: fechaConsulta }
         }).sort({ "informacion.fecha": 1 }).populate('ruta'); // Ordenar por fecha ascendente
 
         request.rodadas = rodadas.map(rodada => rodada.informacion).flat();
@@ -45,7 +45,7 @@ const getEventos = async (request, response) => {
         const fechaConsulta = getFechaConsulta();
         const eventos = await Evento.find({
             "informacion.estado": true,
-            "informacion.fecha": { $gte: fechaConsulta }
+            "informacion.fecha_fin": { $gte: fechaConsulta }
         }).sort({ "informacion.fecha": 1 }); // Ordenar por fecha ascendente
 
         request.eventos = eventos.map(evento => evento.informacion).flat();
@@ -76,7 +76,7 @@ const getTalleres = async (request, response) => {
         const fechaConsulta = getFechaConsulta();
         const talleres = await Taller.find({
             "informacion.estado": true,
-            "informacion.fecha": { $gte: fechaConsulta }
+            "informacion.fecha_fin": { $gte: fechaConsulta}
         }).sort({ "informacion.fecha": 1 }); // Ordenar por fecha ascendente
 
         request.talleres = talleres.map(taller => taller.informacion).flat();
@@ -144,9 +144,7 @@ const getActividad = async (request, response) => {
 
 // Obtener la fecha actual en la zona horaria de México
 const getFechaConsulta = () => {
-    const fecha = moment.tz('America/Mexico_City').startOf('day').toDate();
-    fecha.setUTCHours(0, 0, 0, 0);
-    return fecha;
+    return moment.tz('America/Mexico_City').subtract(6, 'hours').toDate(); 
 };
 
 module.exports = { getRodadas, getEventos, getTalleres, getActividad };

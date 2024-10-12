@@ -56,7 +56,11 @@ const actividadSchema = new mongoose.Schema ({
     usuariosInscritos: [{
         type: String,
         ref: 'Usuario' // Referencia al modelo de Usuario
-    }]
+    }],
+    fecha_fin: {
+        type: Date,
+        required: false
+    }
 });
 
 // Middleware para crear un foro vacío antes de guardar la actividad
