@@ -1,30 +1,39 @@
-const Rodada = require('./rodada.model');
 const Taller = require('./taller.model');
 const Evento = require('./evento.model');
+const Rodada = require('./rodada.model');
 
-async function encontrarEvento(id) {
-
-    // Encontrar el tipo de evento por colección
-    let event = await Rodada.findById(id);
-    if (event) return { model: Rodada, event };
-
-    event = await Taller.findById(id);
-    if (event) return { model: Taller, event };
-
-    event = await Evento.findById(id);
-    if (event) return { model: Evento, event };
-
-    
-    throw new Error('No se encontró ninguna actividad con este ID.');
+async function getImagenTaller(id){
+    const taller = await Taller.findById(id);
+    return taller.imagen;
 }
 
-async function modificarEvento(id, data) {
-    // Checa el tipo de modelo (Rodada, Taller, Evento)
-    const { model } = await encontrarEvento(id);
+async function getImagenEvento(id){
+    const evento = await Evento.findById(id);
+    return evento.imagen;
+}
 
-    // Actualización del evento
-    const updatedEvent = await model.findByIdAndUpdate(id, data, { new: true });
+async function getImagenRodada(id){
+    const rodada = await Rodada.findById(id);
+    return rodada.imagen;
+}
+
+async function modificarTaller(id, data) {
+    const updatedEvent = await Taller.findByIdAndUpdate(id, data, { new: true });
     return updatedEvent;
 }
 
-module.exports = { modificarEvento };
+async function modificarEvento(id, data) {
+    // Actualización del evento
+    const updatedEvent = await Evento.findByIdAndUpdate(id, data, { new: true });
+    return updatedEvent;
+}
+
+async function modificarRodada(id, data) {
+    // Actualización del evento
+    const updatedEvent = await Rodada.findByIdAndUpdate(id, data, { new: true });
+    return updatedEvent;
+}
+
+module.exports = { 
+    getImagenTaller, getImagenEvento, getImagenRodada,
+    modificarTaller, modificarEvento, modificarRodada };

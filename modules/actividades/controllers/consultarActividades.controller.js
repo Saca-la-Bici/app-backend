@@ -1,3 +1,4 @@
+const moment = require('moment-timezone');
 const Rodada = require('../../../models/actividades/rodada.model');
 const Evento = require('../../../models/actividades/evento.model');
 const Taller = require('../../../models/actividades/taller.model');
@@ -9,9 +10,12 @@ const getImageFolder = require('../../../util/getImageFolder');
 
 const getRodadas = async (request, response) => {
     try {
+        const fechaConsulta = getFechaConsulta();
+
         const rodadas = await Rodada.find({
-            "informacion.estado": true
-        }).populate('ruta');
+            "informacion.estado": true,
+            "informacion.fecha_fin": { $gte: fechaConsulta }
+        }).sort({ "informacion.fecha": 1 }).populate('ruta'); // Ordenar por fecha ascendente
 
         request.rodadas = rodadas.map(rodada => rodada.informacion).flat();
 
@@ -36,12 +40,13 @@ const getRodadas = async (request, response) => {
     }
 };
 
-
 const getEventos = async (request, response) => {
     try {
+        const fechaConsulta = getFechaConsulta();
         const eventos = await Evento.find({
-            "informacion.estado": true
-        });
+            "informacion.estado": true,
+            "informacion.fecha_fin": { $gte: fechaConsulta }
+        }).sort({ "informacion.fecha": 1 }); // Ordenar por fecha ascendente
 
         request.eventos = eventos.map(evento => evento.informacion).flat();
 
@@ -52,7 +57,6 @@ const getEventos = async (request, response) => {
         eventos.forEach((evento, index) => {
             evento.informacion = informacionImagen[index];
         });
-
 
         response.status(200).json({
             eventos: eventos,
@@ -69,9 +73,11 @@ const getEventos = async (request, response) => {
 
 const getTalleres = async (request, response) => {
     try {
+        const fechaConsulta = getFechaConsulta();
         const talleres = await Taller.find({
-            "informacion.estado": true
-        });
+            "informacion.estado": true,
+            "informacion.fecha_fin": { $gte: fechaConsulta}
+        }).sort({ "informacion.fecha": 1 }); // Ordenar por fecha ascendente
 
         request.talleres = talleres.map(taller => taller.informacion).flat();
 
@@ -93,7 +99,7 @@ const getTalleres = async (request, response) => {
             error
         });
     }
-}
+};
 
 const getActividad = async (request, response) => {
     const id = request.query.id;
@@ -134,6 +140,11 @@ const getActividad = async (request, response) => {
             error: error.message || error 
         });
     }
+};
+
+// Obtener la fecha actual en la zona horaria de México
+const getFechaConsulta = () => {
+    return moment.tz('America/Mexico_City').subtract(6, 'hours').toDate(); 
 };
 
 module.exports = { getRodadas, getEventos, getTalleres, getActividad };

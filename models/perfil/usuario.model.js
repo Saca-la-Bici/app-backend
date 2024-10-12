@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const usuarioSchema = new mongoose.Schema(
   {
     username: {
@@ -73,31 +72,21 @@ const usuarioSchema = new mongoose.Schema(
   }
 );
 
-// usuarioSchema.post('save', function(doc){
-//   console.log("usuario registradooo, id: ", doc._id)
-// })
-
-
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
-
 async function patchPerfil(firebaseUID, imagen, Username, nombre, tipoSangre, numeroEmergencia){
-  try{
-    const usuario = await Usuario.findOne({firebaseUID: firebaseUID})
-    if (usuario) {
-      usuario.imagen = imagen;
-      usuario.username = Username;
-      usuario.nombre = nombre
-      usuario.tipoSangre = tipoSangre;
-      usuario.numeroEmergencia = numeroEmergencia;
-      await usuario.save();
-      return usuario;
+  const usuario = await Usuario.findOne({firebaseUID: firebaseUID})
+  if (usuario) {
+    usuario.imagen = imagen;
+    usuario.username = Username;
+    usuario.nombre = nombre
+    usuario.tipoSangre = tipoSangre;
+    usuario.numeroEmergencia = numeroEmergencia;
+    await usuario.save();
+    return usuario;
     
-    } else {
-      throw new Error('Usuario no encontrado');
-     }
-  }catch (error) {
-    throw error;
+  } else {
+    throw new Error('Usuario no encontrado');
   }
 }
 
@@ -108,12 +97,7 @@ async function getImagen(firebaseUID){
 }
 
 async function deleteUser(firebaseUID){
-  // const res = 
   await Usuario.findOneAndDelete({firebaseUID: firebaseUID})
-  // if(res){
-  //   return res.status(200).json({ message: 'Usuario eliminado correctamente'});
-  // }
-  // return res.status(404).json({ message: 'Error al eliminar usuario', error: error.message });
 }
 
 

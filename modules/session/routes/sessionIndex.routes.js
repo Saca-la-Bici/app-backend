@@ -7,6 +7,7 @@ const getUserEmailRoute = require('./getUserEmail.routes');
 const perfilCompletoRoute = require('./perfilCompleto.routes');
 const getUsernameRoute = require('./getUsername.routes');
 const actualizarFCMRoute = require('./actualizarFCM.routes');
+const borrarFCMRoute = require('./borrarFCM.routes');
 
 router.use('/registrarUsuario', registrarUsuarioRoute);
 router.use('/rolPrivilegio', rolPrivilegioRoute);
@@ -14,5 +15,6 @@ router.use('/getUserEmail', getUserEmailRoute);
 router.use('/perfilCompleto', perfilCompletoRoute);
 router.use('/getUsername', getUsernameRoute);
 router.use('/actualizarTokenNotificacion', actualizarFCMRoute);
+router.use('/borrarTokenNotificacion', borrarFCMRoute);
 
 module.exports = router;
