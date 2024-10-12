@@ -5,7 +5,7 @@ const actividadSchema = new mongoose.Schema ({
     titulo: {
         type: String,
         minLength: 4,
-        maxLength: 200, 
+        maxLength: 51, 
         required: true
     }, 
     fecha: {
@@ -22,13 +22,13 @@ const actividadSchema = new mongoose.Schema ({
     },
     ubicacion: {
         type: String,
-        maxLength: 200, 
+        maxLength: 151, 
         required: true
     },
     descripcion: {
         type: String, 
         minLength: 4,
-        maxLength: 200,
+        maxLength: 451,
         required: true
     }, 
     estado: {
@@ -52,6 +52,14 @@ const actividadSchema = new mongoose.Schema ({
     foro: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Foro'
+    },
+    usuariosInscritos: [{
+        type: String,
+        ref: 'Usuario' // Referencia al modelo de Usuario
+    }],
+    fecha_fin: {
+        type: Date,
+        required: false
     }
 });
 
@@ -66,6 +74,7 @@ actividadSchema.pre('save', async function(next) {
         }
     }
     next();
+    
 });
 
-module.exports = actividadSchema;
+module.exports = actividadSchema

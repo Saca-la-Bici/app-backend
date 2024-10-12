@@ -37,13 +37,9 @@ exports.consultarMedallas = async (req, res) => {
 
     // Recupera las imágenes de S3
     const folder = "medals/";
-    const imagenesMedallas = await getImageFolder(MedallasActivas, folder);
-
-    // Añadir las URLs de las imágenes a las medallas activas
-    MedallasActivas.forEach((medalla, index) => {
-      medalla.imagen = imagenesMedallas[index];
-    });
-
+    req.medals = MedallasActivas; // Cambiar el nombre de la propiedad a `medals`
+    MedallasActivas.imagen = await getImageFolder(req, folder); // Usar `req` directamente
+    
     // Envía la respuesta con los detalles completos de las medallas activas
     return res.status(200).json({
       medallasActivas: MedallasActivas,

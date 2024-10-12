@@ -63,7 +63,7 @@ const usuarioSchema = new mongoose.Schema(
     },
     estadoMedallas: {
       type: [Boolean],
-      default: {},
+      default: [],
       required: false,
     },
   },
@@ -97,3 +97,36 @@ const Usuario = mongoose.model("Usuario", usuarioSchema);
 //   Usuario,
 //   patchPerfil,
 // };
+
+async function patchPerfil(
+  firebaseUID,
+  imagen,
+  Username,
+  nombre,
+  tipoSangre,
+  numeroEmergencia
+) {
+  const usuario = await Usuario.findOne({ firebaseUID: firebaseUID });
+  if (usuario) {
+    usuario.imagen = imagen;
+    usuario.username = Username;
+    usuario.nombre = nombre;
+    usuario.tipoSangre = tipoSangre;
+    usuario.numeroEmergencia = numeroEmergencia;
+    await usuario.save();
+    return usuario;
+  } else {
+    throw new Error("Usuario no encontrado");
+  }
+}
+
+async function getImagen(firebaseUID) {
+  const perfil = await Usuario.findOne({ firebaseUID: firebaseUID });
+  return perfil.imagen;
+}
+
+module.exports = {
+  Usuario,
+  patchPerfil,
+  getImagen,
+};

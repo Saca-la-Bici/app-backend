@@ -3,7 +3,8 @@ const Ruta = require('../../../models/ruta/ruta.model');
 exports.getRutas = async (req, res) => {
     console.log(req.permisos);
     try {
-        const rutas = await Ruta.find({});
+        // Solo obtener rutas activas 
+        const rutas = await Ruta.find({ estatus: 1 });
         
         // Devolver las rutas junto con los permisos del usuario
         res.status(200).json({
