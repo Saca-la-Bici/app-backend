@@ -63,13 +63,16 @@ exports.verificarAsistencia = async (request, response) => {
             usuario.kilometrosRecorridos += distanciaNum; 
             usuario.tiempoEnRecorrido += tiempoNum; 
 
-            actualizarMedallas(usuario);
+            let nuevaMedallaGanada = false;
+
+            nuevaMedallaGanada = actualizarMedallas(usuario);
 
             await usuario.save(); 
 
             response.status(200).json({ 
                 status: 200,
-                message: 'Asistencia verificada'
+                message: 'Asistencia verificada',
+                nuevaMedallaGanada: nuevaMedallaGanada
             });
         } else {
             response.status(400).json({ 
@@ -100,11 +103,16 @@ function actualizarMedallas(usuario) {
         { id: 9, criterio: usuario.tiempoEnRecorrido >= 60 }, // Nivel experto 60 horas
     ];
 
-    // Actualizamos el estado de las medallas
+    let nuevaMedallaGanada = false;
+
     medallasCondiciones.forEach(condicion => {
-        if (condicion.criterio) {
+        // Solo cambia el estado si es una nueva medalla
+        if (condicion.criterio && !usuario.estadoMedallas[condicion.id - 1]) {
             usuario.estadoMedallas[condicion.id - 1] = true; 
             usuario.estadoMedallas[condicion.id + 8] = false; 
+            nuevaMedallaGanada = true; 
         }
     });
+
+    return nuevaMedallaGanada;
 }
