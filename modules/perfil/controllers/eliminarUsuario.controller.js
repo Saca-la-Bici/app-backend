@@ -9,7 +9,7 @@ exports.deleteUser = async (request, response) => {
         const imagen = await Usuario.getImagen(firebaseUID)
         const usuario = await Usuario.deleteUser(firebaseUID);
         deleteImage(folder, imagen);
-        return response.status(204).json(usuario);
+        return response.status(204).json({message: "Usuario eliminado correctamente", usuario: usuario});
     } catch (error) {
         return response.status(404).json({ message: 'Error al eliminar usuario', error: error.message });
     }

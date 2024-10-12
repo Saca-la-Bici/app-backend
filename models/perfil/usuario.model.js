@@ -73,9 +73,10 @@ const usuarioSchema = new mongoose.Schema(
   }
 );
 
-usuarioSchema.post('save', function(doc){
-  console.log("usuario registradooo, id: ", doc._id)
-})
+// usuarioSchema.post('save', function(doc){
+//   console.log("usuario registradooo, id: ", doc._id)
+// })
+
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
