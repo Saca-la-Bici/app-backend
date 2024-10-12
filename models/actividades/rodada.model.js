@@ -30,6 +30,10 @@ const rodadaSchema = new Schema ({
     ubicacion: {
       type: [ubicacionSchema]
     },
+    codigoAsistencia: { 
+      type: Number,
+      required: false
+    },
   }, 
   {
     collection: 'Rodada'
