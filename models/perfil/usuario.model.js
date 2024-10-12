@@ -5,67 +5,67 @@ const usuarioSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
     nombre: {
       type: String,
-      required: false
+      required: false,
     },
     fechaNacimiento: {
       type: Date,
-      required: false
+      required: false,
     },
     tipoSangre: {
       type: String,
-      required: false
+      required: false,
     },
     imagen: {
       type: String,
-      required: false
+      required: false,
     },
     correoElectronico: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
     numeroEmergencia: {
-      type: String
+      type: String,
     },
     fechaRegistro: {
       type: Date,
       immutable: true,
-      default: Date.now
+      default: Date.now,
     },
     kilometrosRecorridos: {
       type: Number,
       default: 0,
-      required: false
+      required: false,
     },
     tiempoEnRecorrido: {
       type: Number,
       default: 0.0,
-      required: false
+      required: false,
     },
     rodadasCompletadas: {
       type: Number,
       default: 0,
-      required: false
+      required: false,
     },
     firebaseUID: {
       type: String,
       unique: true,
-      required: true
+      required: true,
     },
     fcmTokens: {
       type: [String],
-      default: [], 
-      required: false
+      default: [],
+      required: false,
     },
-    estadoMedallas:{
+    estadoMedallas: {
       type: [Boolean],
       default: {},
-      required: false 
-    }
+      required: false,
+    },
   },
   {
     collection: "Usuario",
@@ -74,29 +74,26 @@ const usuarioSchema = new mongoose.Schema(
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
+// async function patchPerfil(firebaseUID, Username, nombre, tipoSangre, numeroEmergencia){
+//   try{
+//     const usuario = await Usuario.findOne({firebaseUID: firebaseUID})
+//     if (usuario) {
+//       usuario.username = Username;
+//       usuario.nombre = nombre
+//       usuario.tipoSangre = tipoSangre;
+//       usuario.numeroEmergencia = numeroEmergencia;
 
-async function patchPerfil(firebaseUID, Username, nombre, tipoSangre, numeroEmergencia){
-  try{
-    const usuario = await Usuario.findOne({firebaseUID: firebaseUID})
-    if (usuario) {
-      usuario.username = Username;
-      usuario.nombre = nombre
-      usuario.tipoSangre = tipoSangre;
-      usuario.numeroEmergencia = numeroEmergencia;
-      
-      await usuario.save();
-      return usuario;
-    } else {
-      throw new Error('Usuario no encontrado');
-     }
-  }catch (error) {
-    throw error;
-  }
-}
+//       await usuario.save();
+//       return usuario;
+//     } else {
+//       throw new Error('Usuario no encontrado');
+//      }
+//   }catch (error) {
+//     throw error;
+//   }
+// }
 
-module.exports = {
-  
-  Usuario,
-  patchPerfil
-
-};
+// module.exports = {
+//   Usuario,
+//   patchPerfil,
+// };
