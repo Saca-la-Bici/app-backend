@@ -34,6 +34,11 @@ const rodadaSchema = new Schema ({
       type: Number,
       required: false
     },
+    usuariosVerificados: {
+      type: [String],
+      default: [],
+      required: false 
+    }
   }, 
   {
     collection: 'Rodada'
