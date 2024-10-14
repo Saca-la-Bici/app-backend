@@ -1,32 +1,25 @@
-const Comentario = require('../../../models/foro/comentario.model');
+const Comentario = require('../../../models/foro/foro.model');
+const Foro = require('../../../models/foro/foro.model');
 
 exports.publicarComentario = async (request, response) => {
-    const username = request.body.username;
-    const fotoPerfil = request.body.fotoPerfil;
-    const contenido = request.body.contenido;
+    const { actividadId } = request.params;
+    const { username, fotoPerfil, contenido, respuestaDe } = request.body;
 
     try {
-        if (!contenido || contenido.length < 4 || contenido.length > 500) {
-            return response.status(400).json({
-                code: 400,
-                msg: 'El contenido del comentario es inválido',
-                data: null
-            });
-        }
+        const nuevoComentario = await Comentario.create({
+            username,
+            fotoPerfil,
+            contenido,
+            respuestaDe
+        });
+        
+        await Foro.updateOne(
+            { actividad: actividadId },
+            { $push: { comentarios: nuevoComentario._id } }
+        );
 
-        const nuevoComentario = await Comentario.publicarComentario(username, fotoPerfil, contenido);
-      
-        return response.status(200).json({
-            code: 200,
-            msg: 'Comentario publicado exitosamente',
-            data: nuevoComentario
-        });
+        response.status(201).json(nuevoComentario);
     } catch (error) {
-        return response.status(500).json({
-            code: 500,
-            msg: 'Error al publicar el comentario',
-            error: error,
-            data: null
-        });
+        response.status(500).json({ message: 'Error al publicar el comentario', error: error.message });
     }
 };
