@@ -3,7 +3,8 @@ const Foro = require('../../../models/foro/foro.model');
 
 exports.crearForo = async (req, res) => {
     try {
-        const { titulo, descripcion, actividad } = req.body;
+        const { actividad } = req.params.idDeActividad;
+        const { titulo, descripcion } = req.body;
 
         // Validar que los campos obligatorios estén presentes
         if (!titulo || !descripcion || !actividad) {

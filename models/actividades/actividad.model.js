@@ -55,17 +55,4 @@ const actividadSchema = new mongoose.Schema ({
     }
 });
 
-// Middleware para crear un foro vacío antes de guardar la actividad
-actividadSchema.pre('save', async function(next) {
-    if (this.isNew) {
-        try {
-            const foro = await Foro.create({});
-            this.foro = foro._id;
-        } catch (error) {
-            return next(error);
-        }
-    }
-    next();
-});
-
 module.exports = actividadSchema;
