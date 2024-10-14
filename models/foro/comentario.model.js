@@ -28,7 +28,11 @@ const comentarioSchema = new Schema({
     },
     fechaModificacion: {
         type: Date,
+<<<<<<< HEAD
         default:  Date.now
+=======
+        default: Date.now
+>>>>>>> 1d2eaead6eb4ccffee2bfd50f8d6a096b102caa8
     },
     likes: {
         type: Number,
