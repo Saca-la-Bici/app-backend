@@ -28,4 +28,25 @@ const foroSchema = new Schema({
     collection: 'Foros'
 });
 
-module.exports = mongoose.model('Foro', foroSchema);
+Foro = mongoose.model('Foro', foroSchema);
+
+async function publicarComentario(actividadId, username, fotoPerfil, contenido, respuestaDe = null) {
+    const nuevoComentario = await Comentario.create({
+        username: username,
+        fotoPerfil: fotoPerfil,
+        contenido: contenido,
+        respuestaDe: respuestaDe
+});
+
+await Foro.updateOne(
+    { actividad: actividadId },
+    { $push: { comentarios: nuevoComentario._id } }
+);
+
+return nuevoComentario;
+};
+
+module.exports = {
+    Foro,
+    publicarComentario 
+}
