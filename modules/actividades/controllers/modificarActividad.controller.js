@@ -18,13 +18,14 @@ exports.patchTaller = [
     const data = request.body;
 
     data.informacion.imagen = request.file ? request.file.filename : null;
-    data.informacion.titulo = data.informacion.titulo.replace(/^"|"$/g, "");
-    data.informacion.fecha = data.informacion.fecha.replace(/^"|"$/g, "");
-    data.informacion.hora = data.informacion.hora.replace(/^"|"$/g, "");
-    data.informacion.duracion = data.informacion.duracion.replace(/^"|"$/g, "");
-    data.informacion.ubicacion = data.informacion.ubicacion.replace(/^"|"$/g, "");
-    data.informacion.descripcion = data.informacion.descripcion.replace(/^"|"$/g, "");
-    data.informacion.tipo = data.informacion.tipo.replace(/^"|"$/g, "");
+    data.informacion.personasInscritas = parseInt(data.informacion.personasInscritas);
+    data.informacion.estado = data.informacion.estado === 'true';
+
+    if (Array.isArray(data.usuariosInscritos)) {
+        data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => usuario.toString());
+    } else {
+        data.informacion.usuariosInscritos = [data.usuariosInscritos];
+    }
 
     try {
         const imagenVieja = getImagenTaller(id);
@@ -46,14 +47,15 @@ exports.patchEvento = [
         const data = request.body;
 
         data.informacion.imagen = request.file ? request.file.filename : null;
-        data.informacion.titulo = data.informacion.titulo.replace(/^"|"$/g, "");
-        data.informacion.fecha = data.informacion.fecha.replace(/^"|"$/g, "");
-        data.informacion.hora = data.informacion.hora.replace(/^"|"$/g, "");
-        data.informacion.duracion = data.informacion.duracion.replace(/^"|"$/g, "");
-        data.informacion.ubicacion = data.informacion.ubicacion.replace(/^"|"$/g, "");
-        data.informacion.descripcion = data.informacion.descripcion.replace(/^"|"$/g, "");
-        data.informacion.tipo = data.informacion.tipo.replace(/^"|"$/g, "");
-        
+        data.informacion.personasInscritas = parseInt(data.informacion.personasInscritas);
+        data.informacion.estado = data.informacion.estado === 'true';
+
+        if (Array.isArray(data.usuariosInscritos)) {
+            data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => usuario.toString());
+        } else {
+            data.informacion.usuariosInscritos = [data.usuariosInscritos];
+        }
+
         try {
             const imagenVieja = await getImagenEvento(id);
             const updatedActivity = await modificarEvento(id, data);
@@ -73,17 +75,17 @@ exports.patchRodada = [
     async (request, response) => {
         const id = request.query.id;
         const data = request.body;
-        data.informacion.imagen = request.file ? request.file.filename : null;
 
-        data.informacion.titulo = data.informacion.titulo.replace(/^"|"$/g, "");
-        data.informacion.fecha = data.informacion.fecha.replace(/^"|"$/g, "");
-        data.informacion.hora = data.informacion.hora.replace(/^"|"$/g, "");
-        data.informacion.duracion = data.informacion.duracion.replace(/^"|"$/g, "");
-        data.informacion.ubicacion = data.informacion.ubicacion.replace(/^"|"$/g, "");
-        data.informacion.descripcion = data.informacion.descripcion.replace(/^"|"$/g, "");
-        data.informacion.tipo = data.informacion.tipo.replace(/^"|"$/g, "");
-        data.ruta = data.ruta.replace(/^"|"$/g, "");
-    
+        data.informacion.imagen = request.file ? request.file.filename : null;
+        data.informacion.personasInscritas = parseInt(data.informacion.personasInscritas);
+        data.informacion.estado = data.informacion.estado === 'true';
+
+        if (Array.isArray(data.usuariosInscritos)) {
+            data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => usuario.toString());
+        } else {
+            data.informacion.usuariosInscritos = [data.usuariosInscritos];
+        }
+
         try {
             const imagenVieja = await getImagenRodada(id);
             const updatedActivity = await modificarRodada(id, data);
