@@ -65,7 +65,7 @@ exports.verificarAsistencia = async (request, response) => {
             });
         }
 
-        if (codigo === codigoAsistencia) {
+        if (codigo == codigoAsistencia) {
             usuario.rodadasCompletadas += 1; 
             usuario.kilometrosRecorridos += distanciaNum; 
             usuario.tiempoEnRecorrido += tiempoNum; 
