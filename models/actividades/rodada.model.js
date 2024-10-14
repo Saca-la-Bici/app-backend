@@ -32,6 +32,7 @@ const rodadaSchema = new Schema ({
     },
     codigoAsistencia: { 
       type: Number,
+      default: 0,
       required: false
     },
     usuariosVerificados: {
