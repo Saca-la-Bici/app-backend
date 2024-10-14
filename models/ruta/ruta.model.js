@@ -36,6 +36,10 @@ const rutaSchema = new mongoose.Schema({
         type: [coordenadaSchema],
         required: true
     },
+    estatus: {
+        type: Number,
+        required: true
+    },
 }, {
     collection: 'Rutas'
 });
