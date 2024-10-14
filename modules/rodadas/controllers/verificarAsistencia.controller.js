@@ -58,16 +58,27 @@ exports.verificarAsistencia = async (request, response) => {
             });
         }
 
-        if (codigo == codigoAsistencia) {
+        // Verificar si el usuario ya ha verificado asistencia a esta rodada
+        if (rodada.usuariosVerificados.includes(firebaseUID)) {
+            return response.status(400).json({ 
+                message: 'Asistencia ya verificada para esta rodada' 
+            });
+        }
+
+        if (codigo === codigoAsistencia) {
             usuario.rodadasCompletadas += 1; 
             usuario.kilometrosRecorridos += distanciaNum; 
             usuario.tiempoEnRecorrido += tiempoNum; 
+
+            // Agregar el UID del usuario al array de usuarios verificados
+            rodada.usuariosVerificados.push(firebaseUID);
 
             let nuevaMedallaGanada = false;
 
             nuevaMedallaGanada = actualizarMedallas(usuario);
 
             await usuario.save(); 
+            await rodada.save(); // Guardar los cambios en la rodada
 
             response.status(200).json({ 
                 status: 200,
@@ -88,6 +99,7 @@ exports.verificarAsistencia = async (request, response) => {
         });
     }
 };
+
 
 function actualizarMedallas(usuario) {
 
