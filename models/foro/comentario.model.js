@@ -8,22 +8,27 @@ const comentarioSchema = new Schema({
     },
     fotoPerfil: {
         type: String,
-        required: false
+        required: true
     },
     contenido: {
         type: String,
         minLength: 4,
-        maxLength: 500,
+        maxLength: 255,
+        required: true
+    },
+    foro: {
+        type: Schema.Types.ObjectId,  // Referencia al foro
+        ref: 'Foro',
         required: true
     },
     fechaCreacion: {
         type: Date,
-        immutable: true,
-        default: Date.now
+        default: () => Date.now(),
+        immutable: true
     },
     fechaModificacion: {
         type: Date,
-        default: Date.now
+        default: () => Date.now()
     },
     likes: {
         type: Number,
@@ -34,18 +39,6 @@ const comentarioSchema = new Schema({
         ref: 'Comentario',
         default: null
     }
-}, {
-    collection: 'Comentario'
 });
 
-const Comentario = mongoose.model('Comentario', comentarioSchema);
-
-async function eliminarComentario(idComentario){
-    const comentario = await Comentario.findByIdAndDelete(idComentario);
-    return comentario;
-}
-
-module.exports = {
-    Comentario,
-    eliminarComentario
-};
+module.exports = mongoose.model('Comentario', comentarioSchema);

@@ -28,9 +28,18 @@ const rodadaSchema = new Schema ({
         required: true
     },
     ubicacion: {
-      type: [ubicacionSchema],
-      default: [{ latitud: 0, longitud: 0 }]
+      type: [ubicacionSchema]
     },
+    codigoAsistencia: { 
+      type: Number,
+      default: 0,
+      required: false
+    },
+    usuariosVerificados: {
+      type: [String],
+      default: [],
+      required: false 
+    }
   }, 
   {
     collection: 'Rodada'

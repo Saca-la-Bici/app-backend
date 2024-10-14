@@ -9,9 +9,13 @@ const {
     uploadToS3
 } = require('../../../util/uploadImage');
 
-const folderEventos = 'activities/eventos/';
-const folderRodadas = 'activities/rodadas/';
-const folderTalleres = 'activities/talleres/';
+const folderEventos = 'eventos/';
+const folderRodadas = 'rodadas/';
+const folderTalleres = 'talleres/';
+
+function generarCodigoAsistencia() {
+    return Math.floor(1000 + Math.random() * 9000); 
+}
 
 exports.postRodada = [
     upload.single('file'),
@@ -29,6 +33,8 @@ exports.postRodada = [
         data.informacion.descripcion = data.informacion.descripcion.replace(/^"|"$/g, "");
         data.informacion.tipo = data.informacion.tipo.replace(/^"|"$/g, "");
         data.ruta = data.ruta.replace(/^"|"$/g, "");
+
+        data.codigoAsistencia = generarCodigoAsistencia();
         
         try {
             const registro = await postRodada(data);
