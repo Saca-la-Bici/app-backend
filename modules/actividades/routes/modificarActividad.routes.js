@@ -6,6 +6,8 @@ const verifyUserToken = require('../../../util/verifyUserToken');
 const modificarActividadController = require('../controllers/modificarActividad.controller');
 
 // Definir la ruta para modificar una actividad
-router.patch('/:id', verifyUserToken, modificarActividadController.patchModificarActividad);
+router.patch('/taller', verifyUserToken, modificarActividadController.patchTaller);
+router.patch('/evento', verifyUserToken, modificarActividadController.patchEvento);
+router.patch('/rodada', verifyUserToken, modificarActividadController.patchRodada);
 
 module.exports = router;
