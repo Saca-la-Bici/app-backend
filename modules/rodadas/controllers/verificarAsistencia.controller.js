@@ -61,6 +61,7 @@ exports.verificarAsistencia = async (request, response) => {
         // Verificar si el usuario ya ha verificado asistencia a esta rodada
         if (rodada.usuariosVerificados.includes(firebaseUID)) {
             return response.status(400).json({ 
+                status: 400,
                 message: 'Asistencia ya verificada para esta rodada' 
             });
         }
