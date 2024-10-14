@@ -2,13 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const foroSchema = new Schema({
-<<<<<<< HEAD
     comentarios: [{
         type: Schema.Types.ObjectId,
         ref: 'Comentario',
         default: []
-    }]
-=======
+    }],
     titulo: {
         type: String,
         required: true
@@ -31,9 +29,20 @@ const foroSchema = new Schema({
         default: () => Date.now(),
         immutable: true
     }
->>>>>>> feature/0.1.1/20-consultarForo
 }, {
     collection: 'Foros'
 });
 
-module.exports = mongoose.model('Foro', foroSchema);
+Foro = mongoose.model('Foro', foroSchema);
+
+async function eliminarComentario(idComentario) {
+    await Comentario.deleteMany({ respuestaDe: idComentario });
+
+    const comentarioEliminado = await Comentario.findByIdAndDelete(idComentario);
+    return comentarioEliminado;
+}
+
+module.exports = {
+    Foro,
+    eliminarComentario
+};
