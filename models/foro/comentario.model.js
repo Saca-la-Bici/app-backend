@@ -23,16 +23,12 @@ const comentarioSchema = new Schema({
     },
     fechaCreacion: {
         type: Date,
-        immutable: true,
-        default: Date.now
+        default: () => Date.now(),
+        immutable: true
     },
     fechaModificacion: {
         type: Date,
-<<<<<<< HEAD
-        default:  Date.now
-=======
-        default: Date.now
->>>>>>> 1d2eaead6eb4ccffee2bfd50f8d6a096b102caa8
+        default: () => Date.now()
     },
     likes: {
         type: Number,
@@ -43,23 +39,6 @@ const comentarioSchema = new Schema({
         ref: 'Comentario',
         default: null
     }
-}, {
-    collection: 'Comentario'
 });
 
-const Comentario = mongoose.model('Comentario', comentarioSchema);
-
-async function publicarComentario(username, fotoPerfil, contenido){
-    const nuevoComentario = await Comentario.create({
-        username: username,
-        fotoPerfil: fotoPerfil,
-        contenido: contenido
-    });
-    await nuevoComentario.save();
-    return nuevoComentario;
-}
-
-module.exports = {
-    Comentario,
-    publicarComentario
-};
+module.exports = mongoose.model('Comentario', comentarioSchema);
