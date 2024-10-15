@@ -28,7 +28,6 @@ exports.getRodadas = async (request, response) => {
             permisos: request.permisos
         });
     } catch (error) {
-        console.log(error.message);
         response.status(500).json({
             message: 'Error al obtener las rodadas',
             error: error.message
@@ -55,7 +54,6 @@ exports.getEventos = async (request, response) => {
             permisos: request.permisos
         });
     } catch (error) {
-        console.log(error.message);
         response.status(500).json({
             message: 'Error al obtener los eventos',
             error: error.message
@@ -84,7 +82,7 @@ exports.getTalleres = async (request, response) => {
     } catch (error) {
         response.status(500).json({
             message: 'Error al obtener los talleres',
-            error
+            error: error.message
         });
     }
 };
@@ -125,7 +123,7 @@ exports.getActividad = async (request, response) => {
     } catch (error) {
         response.status(500).json({ 
             message: 'Error al obtener la actividad', 
-            error: error.message || error 
+            error: error.message 
         });
     }
 };

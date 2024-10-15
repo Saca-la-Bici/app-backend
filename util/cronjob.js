@@ -5,8 +5,7 @@ const { actualizarEstadoActividades } = require('../models/actividades/consultar
 const borrarAnunciosCaducados = cron.schedule('0 0 * * *', async () => {
     try {
         const now = new Date();
-        const result = await Anuncio.deleteMany({ fechaCaducidad: { $lte: now } });
-        console.log(`Anuncios eliminados: ${result.deletedCount}`);
+        await Anuncio.deleteMany({ fechaCaducidad: { $lte: now } });
     } catch (error) {
         console.error('Error eliminando anuncios caducados:', error);
     }
@@ -16,7 +15,6 @@ const borrarAnunciosCaducados = cron.schedule('0 0 * * *', async () => {
 const actualizarEstadoActsCron = cron.schedule('0 0 * * *', async () => {
     try {
         await actualizarEstadoActividades();
-        console.log('Estado de las actividades actualizado exitosamente.');
     } catch (error) {
         console.error('Error actualizando estado de las actividades:', error);
     }
