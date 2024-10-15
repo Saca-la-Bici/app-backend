@@ -63,7 +63,26 @@ const usuarioSchema = new mongoose.Schema(
     },
     estadoMedallas: {
       type: [Boolean],
-      default: [],
+      default: [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+      ],
       required: false,
     },
   },
@@ -125,8 +144,13 @@ async function getImagen(firebaseUID) {
   return perfil.imagen;
 }
 
+async function deleteUser(firebaseUID) {
+  await Usuario.findOneAndDelete({ firebaseUID: firebaseUID });
+}
+
 module.exports = {
   Usuario,
   patchPerfil,
   getImagen,
+  deleteUser,
 };

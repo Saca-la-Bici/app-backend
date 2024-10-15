@@ -24,16 +24,14 @@ const announcementSchema = new mongoose.Schema({
     fechaCaducidad: {
         type: Date,
         default: function() {
-            return new Date(Date.now() + 2 * 24 * 60 * 60 * 1000); // 2 días después de la fecha actual
+            return new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 días después de la fecha actual
         }
     }
 }, {
     collection: "Anuncio",
 });
 
-
 const Anuncio = mongoose.model('Anuncio', announcementSchema);
-
 
 async function postAnnouncement(firebaseUID, titulo, contenido, imagen){
     const announcement = await Anuncio.create({
@@ -52,19 +50,15 @@ async function getAnnouncements(){
 }
 
 async function patchAnnouncement(IDAnuncio, titulo, contenido, imagen){
-    try {
-        const announcement = await Anuncio.findById(IDAnuncio);
-        if (announcement) {
-            announcement.titulo = titulo;
-            announcement.contenido = contenido;
-            announcement.imagen = imagen;
-            await announcement.save();
-            return announcement;
-        } else {
-            throw new Error('Anuncio no encontrado');
-        }
-    } catch (error) {
-        throw error;
+    const announcement = await Anuncio.findById(IDAnuncio);
+    if (announcement) {
+        announcement.titulo = titulo;
+        announcement.contenido = contenido;
+        announcement.imagen = imagen;
+        await announcement.save();
+        return announcement;
+    } else {
+        throw new Error('Anuncio no encontrado');
     }
 }
 

@@ -1,21 +1,17 @@
-const moment = require('moment-timezone');
-const Rodada = require('../../../models/actividades/rodada.model');
-const Evento = require('../../../models/actividades/evento.model');
-const Taller = require('../../../models/actividades/taller.model');
+const {
+    getRodadasQuery,
+    getEventosQuery,
+    getTalleresQuery
+} = require('../../../models/actividades/consultarActividades.model');
 const {
     consultarActividadIndividual
 } = require('../../../models/actividades/consultarActividadIndividual.model');
 const getImageFolder = require('../../../util/getImageFolder');
 
 
-const getRodadas = async (request, response) => {
+exports.getRodadas = async (request, response) => {
     try {
-        const fechaConsulta = getFechaConsulta();
-
-        const rodadas = await Rodada.find({
-            "informacion.estado": true,
-            "informacion.fecha_fin": { $gte: fechaConsulta }
-        }).sort({ "informacion.fecha": 1 }).populate('ruta'); // Ordenar por fecha ascendente
+        const rodadas = await getRodadasQuery();
 
         request.rodadas = rodadas.map(rodada => rodada.informacion).flat();
 
@@ -32,7 +28,6 @@ const getRodadas = async (request, response) => {
             permisos: request.permisos
         });
     } catch (error) {
-        console.log(error.message)
         response.status(500).json({
             message: 'Error al obtener las rodadas',
             error: error.message
@@ -40,13 +35,9 @@ const getRodadas = async (request, response) => {
     }
 };
 
-const getEventos = async (request, response) => {
+exports.getEventos = async (request, response) => {
     try {
-        const fechaConsulta = getFechaConsulta();
-        const eventos = await Evento.find({
-            "informacion.estado": true,
-            "informacion.fecha_fin": { $gte: fechaConsulta }
-        }).sort({ "informacion.fecha": 1 }); // Ordenar por fecha ascendente
+        const eventos = await getEventosQuery();
 
         request.eventos = eventos.map(evento => evento.informacion).flat();
 
@@ -63,7 +54,6 @@ const getEventos = async (request, response) => {
             permisos: request.permisos
         });
     } catch (error) {
-        console.log(error.message)
         response.status(500).json({
             message: 'Error al obtener los eventos',
             error: error.message
@@ -71,13 +61,9 @@ const getEventos = async (request, response) => {
     }
 };
 
-const getTalleres = async (request, response) => {
+exports.getTalleres = async (request, response) => {
     try {
-        const fechaConsulta = getFechaConsulta();
-        const talleres = await Taller.find({
-            "informacion.estado": true,
-            "informacion.fecha_fin": { $gte: fechaConsulta}
-        }).sort({ "informacion.fecha": 1 }); // Ordenar por fecha ascendente
+        const talleres = await getTalleresQuery();
 
         request.talleres = talleres.map(taller => taller.informacion).flat();
 
@@ -96,12 +82,12 @@ const getTalleres = async (request, response) => {
     } catch (error) {
         response.status(500).json({
             message: 'Error al obtener los talleres',
-            error
+            error: error.message
         });
     }
 };
 
-const getActividad = async (request, response) => {
+exports.getActividad = async (request, response) => {
     const id = request.query.id;
 
     try {
@@ -137,14 +123,7 @@ const getActividad = async (request, response) => {
     } catch (error) {
         response.status(500).json({ 
             message: 'Error al obtener la actividad', 
-            error: error.message || error 
+            error: error.message 
         });
     }
 };
-
-// Obtener la fecha actual en la zona horaria de México
-const getFechaConsulta = () => {
-    return moment.tz('America/Mexico_City').subtract(6, 'hours').toDate(); 
-};
-
-module.exports = { getRodadas, getEventos, getTalleres, getActividad };
