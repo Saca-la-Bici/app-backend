@@ -1,5 +1,6 @@
-const { Anuncio } = require('../models/otros/anuncio.model');
 const cron = require('node-cron');
+const { Anuncio } = require('../models/otros/anuncio.model');
+const { actualizarEstadoActividades } = require('../models/actividades/consultarActividades.model');
 
 const borrarAnunciosCaducados = cron.schedule('0 0 * * *', async () => {
     try {
@@ -11,4 +12,17 @@ const borrarAnunciosCaducados = cron.schedule('0 0 * * *', async () => {
     }
 });
 
-module.exports = borrarAnunciosCaducados;
+// Programar el cron job para que se ejecute cada día a las 23:00
+const actualizarEstadoActsCron = cron.schedule('0 0 * * *', async () => {
+    try {
+        await actualizarEstadoActividades();
+        console.log('Estado de las actividades actualizado exitosamente.');
+    } catch (error) {
+        console.error('Error actualizando estado de las actividades:', error);
+    }
+});
+
+module.exports = { 
+    borrarAnunciosCaducados, 
+    actualizarEstadoActsCron
+};
