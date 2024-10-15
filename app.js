@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const app = express();
 const port = process.env.PORT || 8080;
 
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+
 const bodyParser = require("body-parser");
 
 app.use(
@@ -38,6 +41,7 @@ const preguntasRoutes = require("./modules/preguntasFrecuentes/routes/preguntasI
 const reporteRoutes = require("./modules/reporte/routes/reporteIndex.routes");
 const rodadasRoutes = require("./modules/rodadas/routes/rodadasIndex.routes");
 const sessionRoutes = require("./modules/session/routes/sessionIndex.routes");
+const policiesRoutes = require("./modules/policies/routes/policiesIndex.routes");
 
 app.use("/actividades", actividadesRoutes);
 app.use("/anuncios", anunciosRoutes);
@@ -49,6 +53,7 @@ app.use("/preguntasFrecuentes", preguntasRoutes);
 app.use("/reporte", reporteRoutes);
 app.use("/rodadas", rodadasRoutes);
 app.use("/session", sessionRoutes);
+app.use("/politicasAplicacion", policiesRoutes);
 
 const verifyToken = require("./util/verifyUserToken");
 const verifyUserPermissions = require("./util/verifyUserPermissions");
