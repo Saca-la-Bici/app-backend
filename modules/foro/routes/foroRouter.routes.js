@@ -5,6 +5,6 @@ const verifyUserToken = require('../../../util/verifyUserToken');
 const ForoController  = require('../controllers/foroController.controller');
 
 router.post('/idDeActividad', verifyUserToken,ForoController.crearForo);
-router.get('/:idDeActividad', ForoController.obtenerForoPorIdDeActividad);
+router.get('/:idDeActividad', verifyUserToken,ForoController.obtenerForoPorIdDeActividad);
 
 module.exports = router;
