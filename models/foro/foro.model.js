@@ -2,30 +2,23 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const foroSchema = new Schema({
-    titulo: {
-        type: String,
-        required: true
-    },
-    descripcion: {
-        type: String,
-        required: true
-    },
     actividad: {
         type: Schema.Types.ObjectId,
         ref: 'Actividad',
         required: true
-    },
-    comentarios: [{
-        type: Schema.Types.ObjectId,  // Referencia a los comentarios
-        ref: 'Comentario'
-    }],
-    fechaCreacion: {
-        type: Date,
-        default: () => Date.now(),
-        immutable: true
     }
 }, {
-    collection: 'Foros'
+    collection: 'Foro'
 });
+
+// Método estático para crear un documento en la colección Foro
+foroSchema.statics.crearForo = async function(actividadId) {
+    const foroData = {
+        actividad: actividadId
+    };
+    const foro = await this.create(foroData);
+    await foro.save();
+    return foro;
+};
 
 module.exports = mongoose.model('Foro', foroSchema);

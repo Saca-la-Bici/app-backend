@@ -2,6 +2,7 @@ const moment = require('moment');
 const Rodada = require('./rodada.model');
 const Taller = require('./taller.model');
 const Evento = require('./evento.model');
+const Foro = require('../foro/foro.model'); 
 
 // Función para limpiar y concatenar fecha y hora, y sumar duración
 const procesarFechaHora = (fecha, hora, duracion) => {
@@ -34,6 +35,11 @@ async function postRodada(data) {
     }
     const rodada = await Rodada.create(data);
     await rodada.save();
+
+    // Crear un documento en la colección Foro 
+    await Foro.crearForo(rodada._id);
+    console.log("Foro creado para la rodada con ID:", rodada._id);
+
     return rodada;
 }
 
@@ -46,6 +52,10 @@ async function postTaller(data) {
 
     const taller = await Taller.create(data);
     await taller.save();
+
+    // Crear un documento en la colección Foro 
+    await Foro.crearForo(taller._id);
+
     return taller;
 }
 
@@ -57,6 +67,10 @@ async function postEvento(data) {
     }
     const evento = await Evento.create(data);
     await evento.save();
+
+    // Crear un documento en la colección Foro 
+    await Foro.crearForo(evento._id);
+
     return evento;
 }
 
