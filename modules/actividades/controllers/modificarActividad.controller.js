@@ -1,4 +1,5 @@
-const { getImagenTaller, getImagenEvento, getImagenRodada,
+const { reemplazarComillas, 
+    getImagenTaller, getImagenEvento, getImagenRodada,
     modificarTaller, modificarEvento, modificarRodada 
 } = require('../../../models/actividades/modificaActividad.model.js');
 
@@ -15,7 +16,9 @@ exports.patchTaller = [
   uploadToS3(folderTalleres),
   async (request, response) => {
     const id = request.query.id;
-    const data = request.body;
+    const rawData = request.body;
+
+    const data = reemplazarComillas(rawData);
 
     data.informacion.imagen = request.file ? request.file.filename : null;
     data.informacion.personasInscritas = parseInt(data.informacion.personasInscritas);
@@ -25,7 +28,7 @@ exports.patchTaller = [
         data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => usuario.toString());
     } else {
         data.informacion.usuariosInscritos = [data.usuariosInscritos];
-    }
+    }  
 
     try {
         const imagenVieja = getImagenTaller(id);
@@ -44,7 +47,9 @@ exports.patchEvento = [
     uploadToS3(folderEventos),
     async (request, response) => {
         const id = request.query.id;
-        const data = request.body;
+        const rawData = request.body;
+
+        const data = reemplazarComillas(rawData);
 
         data.informacion.imagen = request.file ? request.file.filename : null;
         data.informacion.personasInscritas = parseInt(data.informacion.personasInscritas);
@@ -74,7 +79,9 @@ exports.patchRodada = [
     uploadToS3(folderRodadas),
     async (request, response) => {
         const id = request.query.id;
-        const data = request.body;
+        const rawData = request.body;
+
+        const data = reemplazarComillas(rawData);
 
         data.informacion.imagen = request.file ? request.file.filename : null;
         data.informacion.personasInscritas = parseInt(data.informacion.personasInscritas);
