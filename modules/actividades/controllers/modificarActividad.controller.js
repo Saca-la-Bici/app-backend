@@ -25,11 +25,13 @@ exports.patchTaller = [
     data.informacion.estado = data.informacion.estado === 'true';
 
     if (Array.isArray(data.usuariosInscritos)) {
-        data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => usuario.toString());
+        data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => 
+            usuario.toString().replace(/^"|"$/g, "")
+        );
     } else {
         data.informacion.usuariosInscritos = [data.usuariosInscritos];
-    }  
-
+    }
+    
     try {
         const imagenVieja = getImagenTaller(id);
         const updatedActivity = await modificarTaller(id, data);
@@ -56,7 +58,9 @@ exports.patchEvento = [
         data.informacion.estado = data.informacion.estado === 'true';
 
         if (Array.isArray(data.usuariosInscritos)) {
-            data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => usuario.toString());
+            data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => 
+                usuario.toString().replace(/^"|"$/g, "")
+            );
         } else {
             data.informacion.usuariosInscritos = [data.usuariosInscritos];
         }
@@ -88,10 +92,12 @@ exports.patchRodada = [
         data.informacion.estado = data.informacion.estado === 'true';
 
         if (Array.isArray(data.usuariosInscritos)) {
-            data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => usuario.toString());
+            data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => 
+                usuario.toString().replace(/^"|"$/g, "")
+            );
         } else {
             data.informacion.usuariosInscritos = [data.usuariosInscritos];
-        }
+        }        
 
         try {
             const imagenVieja = await getImagenRodada(id);
