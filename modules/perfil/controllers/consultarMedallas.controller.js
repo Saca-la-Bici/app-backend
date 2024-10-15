@@ -39,7 +39,7 @@ exports.consultarMedallas = async (req, res) => {
     const folder = "medals/";
     req.medals = MedallasActivas; // Cambiar el nombre de la propiedad a `medals`
     MedallasActivas.imagen = await getImageFolder(req, folder); // Usar `req` directamente
-    
+
     // Envía la respuesta con los detalles completos de las medallas activas
     return res.status(200).json({
       medallasActivas: MedallasActivas,

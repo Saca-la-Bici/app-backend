@@ -24,4 +24,4 @@ const medallasSchema = new mongoose.Schema({
 
 const Medalla = mongoose.model('Medalla', medallasSchema);
 
-module.exports = Medalla;
+module.exports=Medalla;
