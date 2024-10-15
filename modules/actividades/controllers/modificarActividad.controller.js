@@ -88,6 +88,7 @@ exports.patchRodada = [
         const data = reemplazarComillas(rawData);
 
         data.informacion.imagen = request.file ? request.file.filename : null;
+        data.ruta = data.ruta.replace(/^"|"$/g, '');
         data.informacion.personasInscritas = parseInt(data.informacion.personasInscritas);
         data.informacion.estado = data.informacion.estado === 'true';
 
