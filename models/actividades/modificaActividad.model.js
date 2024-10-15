@@ -26,6 +26,21 @@ const procesarFechaHora = (fecha, hora, duracion) => {
     };
 };
 
+const reemplazarComillas = (data) => {
+    data.informacion.titulo = data.informacion.titulo.replace(/^"|"$/g, '');
+    data.informacion.fecha = data.informacion.fecha.replace(/^"|"$/g, '');
+    data.informacion.hora = data.informacion.hora.replace(/^"|"$/g, '');
+    data.informacion.ubicacion = data.informacion.ubicacion.replace(/^"|"$/g, '');
+    data.informacion.descripcion = data.informacion.descripcion.replace(/^"|"$/g, '');
+    data.informacion.duracion = data.informacion.duracion.replace(/^"|"$/g, '');
+    data.informacion.tipo = data.informacion.tipo.replace(/^"|"$/g, '');
+    data.informacion.foro = data.informacion.foro.replace(/^"|"$/g, '');
+    data.informacion.personasInscritas = data.informacion.personasInscritas.replace(/^"|"$/g, '');
+    data.informacion.estado = data.informacion.estado.replace(/^"|"$/g, '');
+
+    return data;
+}
+
 async function getImagenTaller(id){
     const taller = await Taller.findById(id);
     return taller.informacion.imagen;
@@ -75,5 +90,6 @@ async function modificarRodada(id, data) {
 }
 
 module.exports = { 
+    reemplazarComillas,
     getImagenTaller, getImagenEvento, getImagenRodada,
     modificarTaller, modificarEvento, modificarRodada };
