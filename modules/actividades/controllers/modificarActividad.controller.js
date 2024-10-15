@@ -18,19 +18,25 @@ exports.patchTaller = [
     const id = request.query.id;
     const rawData = request.body;
 
+    // Reemplazar comillas extras provenientes de la petición
     const data = reemplazarComillas(rawData);
 
+    // Ajustar los tipos de datos
     data.informacion.imagen = request.file ? request.file.filename : null;
     data.informacion.personasInscritas = parseInt(data.informacion.personasInscritas);
     data.informacion.estado = data.informacion.estado === 'true';
 
-    if (Array.isArray(data.usuariosInscritos)) {
-        data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => 
+    data.informacion.usuariosInscritos = [];
+
+    if (Array.isArray(request.body['usuariosInscritos'])) {
+        data.informacion.usuariosInscritos = request.body['usuariosInscritos'].map(usuario =>
             usuario.toString().replace(/^"|"$/g, "")
         );
-    } else {
-        data.informacion.usuariosInscritos = [data.usuariosInscritos];
-    }
+    } else if (request.body['usuariosInscritos']) {
+        data.informacion.usuariosInscritos.push(
+            request.body['usuariosInscritos'].toString().replace(/^"|"$/g, "")
+        );
+    }   
     
     try {
         const imagenVieja = getImagenTaller(id);
@@ -57,13 +63,17 @@ exports.patchEvento = [
         data.informacion.personasInscritas = parseInt(data.informacion.personasInscritas);
         data.informacion.estado = data.informacion.estado === 'true';
 
-        if (Array.isArray(data.usuariosInscritos)) {
-            data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => 
+        data.informacion.usuariosInscritos = [];
+
+        if (Array.isArray(request.body['usuariosInscritos'])) {
+            data.informacion.usuariosInscritos = request.body['usuariosInscritos'].map(usuario =>
                 usuario.toString().replace(/^"|"$/g, "")
             );
-        } else {
-            data.informacion.usuariosInscritos = [data.usuariosInscritos];
-        }
+        } else if (request.body['usuariosInscritos']) {
+            data.informacion.usuariosInscritos.push(
+                request.body['usuariosInscritos'].toString().replace(/^"|"$/g, "")
+            );
+        }   
 
         try {
             const imagenVieja = await getImagenEvento(id);
@@ -92,13 +102,17 @@ exports.patchRodada = [
         data.informacion.personasInscritas = parseInt(data.informacion.personasInscritas);
         data.informacion.estado = data.informacion.estado === 'true';
 
-        if (Array.isArray(data.usuariosInscritos)) {
-            data.informacion.usuariosInscritos = data.usuariosInscritos.map(usuario => 
+        data.informacion.usuariosInscritos = []; 
+
+        if (Array.isArray(request.body['usuariosInscritos'])) {
+            data.informacion.usuariosInscritos = request.body['usuariosInscritos'].map(usuario =>
                 usuario.toString().replace(/^"|"$/g, "")
             );
-        } else {
-            data.informacion.usuariosInscritos = [data.usuariosInscritos];
-        }        
+        } else if (request.body['usuariosInscritos']) {
+            data.informacion.usuariosInscritos.push(
+                request.body['usuariosInscritos'].toString().replace(/^"|"$/g, "")
+            );
+        }    
 
         try {
             const imagenVieja = await getImagenRodada(id);
