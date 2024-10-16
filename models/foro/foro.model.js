@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const comentarioSchema = require('./comentario.model');
 
 const foroSchema = new Schema({
     actividad: {
         type: Schema.Types.ObjectId,
         ref: 'Actividad',
         required: true
+    },
+    comentarios: {
+        type: [comentarioSchema],
+        default: [] // Inicializar como un array vacío
     }
 }, {
     collection: 'Foro'

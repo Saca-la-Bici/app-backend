@@ -19,12 +19,12 @@ const comentarioSchema = new Schema({
     },
     fechaCreacion: {
         type: Date,
-        default: () => getFechaConsulta(),
+        default: getFechaConsulta,
         immutable: true
     },
     fechaModificacion: {
         type: Date,
-        default: () => getFechaConsulta()
+        default: getFechaConsulta
     },
     likes: {
         type: Number,
@@ -35,8 +35,6 @@ const comentarioSchema = new Schema({
         ref: 'Comentario',
         default: null
     }
-}, {
-    collection: 'Comentario'
 });
 
-module.exports = mongoose.model('Comentario', comentarioSchema);
+module.exports = comentarioSchema;
