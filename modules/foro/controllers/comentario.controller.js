@@ -1,6 +1,8 @@
 const Comentario = require('../../../models/foro/comentario.model');
 const Foro = require('../../../models/foro/foro.model');
 
+
+
 exports.registrarComentario = async (req, res) => {
     try {
         const { foroId, username, contenido, respuestaDe } = req.body;
