@@ -15,13 +15,17 @@ exports.eliminarComentario = async (req, res) => {
             });
         }
 
+        // Encontrar todas las respuestas asociadas al comentario
+        const respuestas = await Comentario.find({ respuestaDe: comentarioId });
+
         // Eliminar todas las respuestas asociadas al comentario
         await Comentario.deleteMany({ respuestaDe: comentarioId });
 
-        // Eliminar la referencia del comentario en el arreglo de comentarios del foro
+        // Eliminar la referencia del comentario y sus respuestas en el arreglo de comentarios del foro
+        const idsAEliminar = [comentarioId, ...respuestas.map(respuesta => respuesta._id)];
         await Foro.updateOne(
-            { comentarios: comentarioId },
-            { $pull: { comentarios: comentarioId } }
+            { comentarios: { $in: idsAEliminar } },
+            { $pull: { comentarios: { $in: idsAEliminar } } }
         );
 
         return res.status(200).json({
