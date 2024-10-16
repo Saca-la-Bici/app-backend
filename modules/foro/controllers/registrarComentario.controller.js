@@ -1,11 +1,10 @@
 const Comentario = require('../../../models/foro/comentario.model');
 const Foro = require('../../../models/foro/foro.model');
 
-
-
 exports.registrarComentario = async (req, res) => {
     try {
-        const { foroId, username, contenido, respuestaDe } = req.body;
+        const {username, contenido, respuestaDe} = req.body;
+        const foroId = req.params.id;
         
         // Crear el comentario
         const nuevoComentario = new Comentario({
@@ -23,7 +22,7 @@ exports.registrarComentario = async (req, res) => {
             return res.status(404).json({ message: 'Foro no encontrado' });
         }
 
-        foro.comentarios.push(comentarioGuardado._id);
+        foro.comentarios.push(comentarioGuardado._id.toString());
         await foro.save();
 
         return res.status(201).json({
@@ -37,3 +36,4 @@ exports.registrarComentario = async (req, res) => {
         });
     }
 };
+

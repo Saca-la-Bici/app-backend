@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const comentarioSchema = require('./comentario.model');
+const Comentario = require('./comentario.model');
 
 const foroSchema = new Schema({
     actividad: {
@@ -8,10 +8,10 @@ const foroSchema = new Schema({
         ref: 'Actividad',
         required: true
     },
-    comentarios: {
-        type: [comentarioSchema],
-        default: [] // Inicializar como un array vacío
-    }
+    comentarios: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Comentario'
+    }]
 }, {
     collection: 'Foro'
 });
@@ -32,3 +32,17 @@ foroSchema.statics.buscarPorActividadId = async function(actividadId) {
 };
 
 module.exports = mongoose.model('Foro', foroSchema);
+
+// Función para consultar comentarios
+module.exports.consultarComentarios = async function (actividadId) {
+    try {
+        const foro = await this.findOne({ actividad: actividadId }).populate('comentarios').exec();
+        if (!foro) {
+            throw new Error('Foro no encontrado');
+        }
+        return foro.comentarios;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};

@@ -5,8 +5,8 @@ exports.obtenerForoPorIdDeActividad = async (req, res) => {
         // Obtener el ID de la actividad desde los parámetros de la solicitud
         const actividadId = req.params.id;
 
-        // Buscar el foro que corresponde a la actividad 
-        const foro = await Foro.buscarPorActividadId(actividadId);
+        // Buscar el foro que corresponde a la actividad y poblar los comentarios
+        const foro = await Foro.findOne({ actividad: actividadId }).populate('comentarios').exec();
 
         // Verificar si se encontró el foro
         if (!foro) {

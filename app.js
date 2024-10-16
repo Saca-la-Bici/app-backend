@@ -29,7 +29,8 @@ app.use(compression());
 
 // Conectar a la base de datos usando variables de entorno
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect('mongodb://localhost:27017/sacalabici')
+  //.connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Conectado a la base de datos de MongoDB en AWS EC2");
   })

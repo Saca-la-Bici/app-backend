@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { getFechaConsulta } = require('../actividades/consultarActividades.model');
+const moment = require('moment-timezone');
 
 const comentarioSchema = new Schema({
     username: {
@@ -17,14 +17,14 @@ const comentarioSchema = new Schema({
         maxLength: 255,
         required: true
     },
-    fechaCreacion: {
+    fecha: {
         type: Date,
-        default: getFechaConsulta,
+        default: () => moment.tz('America/Mexico_City').toDate(),
         immutable: true
     },
-    fechaModificacion: {
-        type: Date,
-        default: getFechaConsulta
+    modificacion: {
+        type: Boolean,
+        default: false
     },
     likes: {
         type: Number,
@@ -35,6 +35,32 @@ const comentarioSchema = new Schema({
         ref: 'Comentario',
         default: null
     }
+}, {
+    collection: 'Comentario'
 });
 
-module.exports = comentarioSchema;
+const Comentario = mongoose.model('Comentario', comentarioSchema);
+
+module.exports = Comentario;
+
+// Función para modificar comentario
+module.exports.modificarComentario = async function(IDComentario, contenido) {
+    try {
+        if (!mongoose.Types.ObjectId.isValid(IDComentario)) {
+            throw new Error('IDComentario no es válido');
+        }
+
+        const comentario = await Comentario.findById(IDComentario);
+        if (comentario) {
+            comentario.contenido = contenido;
+            comentario.modificacion = true;
+            await comentario.save();
+            return comentario;
+        } else {
+            throw new Error('Comentario no encontrado');
+        }
+    } catch (error) {
+        console.error(`Error al modificar el comentario: ${error.message}`);
+        throw error;
+    }
+};
