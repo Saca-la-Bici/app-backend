@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Foro = require('../foro/foro.model');
 
 const actividadSchema = new mongoose.Schema ({
     titulo: {
