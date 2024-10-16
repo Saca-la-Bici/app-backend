@@ -11,12 +11,6 @@ exports.modificarComentario = async (req, res) => {
         // Guardar el comentario
         const comentarioGuardado = await nuevoComentario.save();
 
-        // Añadir el comentario al foro
-        // const foro = await Foro.findById(foroId);
-        // if (!foro) {
-        //     return res.status(404).json({ message: 'Foro no encontrado' });
-        // }
-
         return res.status(201).json({
             message: 'Comentario registrado con éxito',
             comentario: comentarioGuardado
