@@ -33,7 +33,8 @@ const rodadaSchema = new Schema ({
     codigoAsistencia: { 
       type: Number,
       default: 0,
-      required: false
+      required: false,
+      immutable: true
     },
     usuariosVerificados: {
       type: [String],
