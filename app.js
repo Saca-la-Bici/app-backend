@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cronKmMes = require('./util/cronjobKmMes');
 const { 
   borrarAnunciosCaducados, 
   actualizarEstadoActsCron } = require('./util/cronjob');
@@ -21,6 +22,7 @@ app.use(
 app.use(bodyParser.json());
 
 // Iniciar los cron jobs
+cronKmMes.start();
 borrarAnunciosCaducados.start();
 actualizarEstadoActsCron.start();
 
