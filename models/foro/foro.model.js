@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Comentario = require('./comentario.model');
 
 const foroSchema = new Schema({
     actividad: {
