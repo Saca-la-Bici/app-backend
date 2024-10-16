@@ -1,5 +1,5 @@
 const Foro = require('../../../models/foro/foro.model');
-const {Usuario, getImagen} = require("../../../models/perfil/usuario.model");
+const {Usuario} = require("../../../models/perfil/usuario.model");
 const getUserImage = require("../../../util/getUserImage");
 
 exports.obtenerForoPorIdDeActividad = async (req, res) => {
@@ -19,12 +19,6 @@ exports.obtenerForoPorIdDeActividad = async (req, res) => {
             data: null
           });
         }
-
-        // Obtener la URL de la imagen del perfil
-        const imageProfile = perfil.imagen
-        ? await getUserImage(perfil._id.toHexString(), perfil.imagen)
-        : null;
-        perfil.imagen = imageProfile; 
 
         // Añadir la imagen de perfil a cada comentario
         for (let comentario of foro.comentarios) {
