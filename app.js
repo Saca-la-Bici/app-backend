@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cron = require('./util/cronjob');
+const cronKmMes = require('./util/cronjobKmMes');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -16,6 +17,7 @@ app.use(
 app.use(bodyParser.json());
 
 cron.start();
+cronKmMes.start();
 
 const compression = require("compression");
 app.use(compression());
