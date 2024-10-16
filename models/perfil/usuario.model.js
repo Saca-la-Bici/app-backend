@@ -68,7 +68,12 @@ const usuarioSchema = new mongoose.Schema(
         true, true, true, true, true, true, true, true, true
       ], 
       required: false
-    }
+    },
+    kilometrosMes: {
+      type: Number,
+      default: 0,
+      required: false
+    },
   },
   {
     collection: "Usuario",

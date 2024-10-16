@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const verifyToken = require("../../../util/verifyUserToken");
-
 // Importar el controlador que maneja la creación de actividades
 const consultarEstadisticasMesController = require("../controllers/consultarEstadisticasMes.controller");
 

@@ -1,23 +1,18 @@
+const Usuario = require("../../../models/perfil/usuario.model").Usuario;
 // Importar node-cron
 const cron = require('node-cron');
 
-// Variable para almacenar el estado de la alerta
-let alertaMensual = false;
-
 // Función para programar la tarea de cron que cambia el estado de la alerta
-exports.getEstadisticasMes = async (req, res) => {
+exports.getEstadisticasMes = async () => {
     // Tarea programada para ejecutarse el primer día de cada mes
-    cron.schedule('4 9 * * *', () => {
-        // Cambiar la alerta a true cada mes
-        alertaMensual = true;
-        console.log('Alerta mensual activada:', alertaMensual);
+    cron.schedule('30 23 * * *', async () => {
+        try {
+            // Reestablecer el campo a 0 de todos los usuarios
+            const result = await Usuario.updateMany({}, { $set: { kilometrosMes: 0 } });
+            console.log('Reinicio de los kilómetros mensuales');
+            console.log('Resultado de la actualización:', result);
+        } catch (err) {
+            console.error('Error al actualizar los kilómetros mensuales:', err);
+        }
     });
-
-    // Devolver el estado actual de la alerta cuando el frontend lo solicite
-    res.json({
-        alerta: alertaMensual,
-    });
-
-    // Después de devolver la alerta, opcionalmente puedes reiniciar el estado
-    alertaMensual = false; // Si quieres que se restablezca después de ser consultada
 };
