@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Foro = require('../../../models/foro/foro.model');
 
 exports.obtenerForoPorIdDeActividad = async (req, res) => {
@@ -6,10 +5,8 @@ exports.obtenerForoPorIdDeActividad = async (req, res) => {
         // Obtener el ID de la actividad desde los parámetros de la solicitud
         const actividadId = req.params.id;
 
-        // Buscar el foro que corresponde a la actividad y popular los comentarios
-        const foro = await Foro.findOne({ actividad: actividadId })
-                            .populate('comentarios')  // Poblar los comentarios
-                            .exec();
+        // Buscar el foro que corresponde a la actividad 
+        const foro = await Foro.buscarPorActividadId(actividadId);
 
         // Verificar si se encontró el foro
         if (!foro) {
@@ -23,3 +20,4 @@ exports.obtenerForoPorIdDeActividad = async (req, res) => {
         res.status(500).json({ mensaje: 'Error al obtener el foro', error: error.message });
     }
 };
+

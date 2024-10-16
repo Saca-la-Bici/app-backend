@@ -26,4 +26,9 @@ foroSchema.statics.crearForo = async function(actividadId) {
     return foro;
 };
 
+// Método estático para buscar un foro por el ID de la actividad
+foroSchema.statics.buscarPorActividadId = async function(actividadId) {
+    return await this.findOne({ actividad: actividadId }).exec();
+};
+
 module.exports = mongoose.model('Foro', foroSchema);
