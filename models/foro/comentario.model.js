@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { getFechaConsulta } = require('../models/actividades/consultarActividades.model');
+const { getFechaConsulta } = require('../actividades/consultarActividades.model');
 
 const comentarioSchema = new Schema({
     username: {
@@ -17,19 +17,14 @@ const comentarioSchema = new Schema({
         maxLength: 255,
         required: true
     },
-    foro: {
-        type: Schema.Types.ObjectId,  // Referencia al foro
-        ref: 'Foro',
-        required: true
-    },
     fechaCreacion: {
         type: Date,
-        default: () => getFechaConsulta(),
+        default: getFechaConsulta,
         immutable: true
     },
     fechaModificacion: {
         type: Date,
-        default: () => getFechaConsulta()
+        default: getFechaConsulta
     },
     likes: {
         type: Number,
@@ -40,8 +35,6 @@ const comentarioSchema = new Schema({
         ref: 'Comentario',
         default: null
     }
-}, {
-    collection: 'Comentario'
 });
 
-module.exports = mongoose.model('Comentario', comentarioSchema);
+module.exports = comentarioSchema;
