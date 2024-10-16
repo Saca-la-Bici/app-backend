@@ -68,7 +68,8 @@ exports.verificarAsistencia = async (request, response) => {
 
         if (codigo == codigoAsistencia) {
             usuario.rodadasCompletadas += 1; 
-            usuario.kilometrosRecorridos += distanciaNum; 
+            usuario.kilometrosRecorridos += distanciaNum;
+            usuario.kilometrosMes += distanciaNum;
             usuario.tiempoEnRecorrido += tiempoNum; 
 
             // Agregar el UID del usuario al array de usuarios verificados
