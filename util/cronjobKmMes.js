@@ -1,7 +1,10 @@
 const Usuario = require("../models/perfil/usuario.model").Usuario;
 const cron = require("node-cron");
 
-// Función para programar la tarea de cron que cambia el estado de la alerta
+/**
+ * Programa una tarea automática con cron que se ejecuta el primer día de cada mes a las 00:01.
+ * La tarea reestablece el campo `kilometrosMes` a 0 para todos los usuarios.
+ */
 exports.start = () => {
   // Tarea programada para ejecutarse el primer día de cada mes a las 00:01
   cron.schedule("1 0 1 * *", async () => {

@@ -12,12 +12,14 @@ const getAllRolesRoute = require("./getAllRoles.routes");
 const consultarUsuarioBuscadorRoute = require("./consultarUsuarioBuscador.routes");
 const consultarActividadesInscritasRoute = require("./consultarActividadesInscritas.routes");
 
-// Importar y usar las rutas en el enrutador principal del módulo
+/**
+ * Enrutador principal para las funcionalidades relacionadas con usuarios y perfiles.
+ */
+
 router.use("/consultar", consultarPerfilRoute);
 router.use("/modificar", modificarPerfilRoute);
 router.use("/eliminar", eliminarUsuarioRoute);
 
-//Importar y usar las rutas en el enrutador principal del módulo
 router.use("/consultarUsuarios", consultarUsuariosRoute);
 router.use("/buscarUsuarios", buscarUsuariosRoute);
 router.use("/modificarRol", modificarRolRoute)
