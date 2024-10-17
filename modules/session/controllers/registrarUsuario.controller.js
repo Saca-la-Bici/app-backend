@@ -2,6 +2,18 @@ const { Usuario } = require("../../../models/perfil/usuario.model");
 const Rol = require("../../../models/perfil/rol.model");
 const PoseeRol = require("../../../models/perfil/poseeRol.model"); // Modelo para la relación entre usuario y rol
 
+/**
+ * Controlador para registrar un nuevo usuario.
+ * 
+ * Esta función recibe los datos del usuario desde el cuerpo de la solicitud y realiza las siguientes acciones:
+ * - Verifica que los campos `username`, `correoElectronico` y `firebaseUID` estén presentes.
+ * - Comprueba si el usuario ya está registrado en la base de datos.
+ * - Si no está registrado, crea un nuevo usuario y le asigna el rol "Usuario".
+ * - Registra la relación entre el usuario y el rol en la tabla `PoseeRol`.
+ * 
+ * Si se produce un error en alguna parte del proceso, responde con un error 500.
+ */
+
 exports.registrarUsuario = async (request, response) => {
   try {
     // Extraer los datos del body

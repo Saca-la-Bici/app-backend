@@ -2,6 +2,16 @@ const {
     Usuario
 } = require('../../../models/perfil/usuario.model');
 
+/**
+ * Controlador para obtener el correo electrónico de un usuario.
+ * 
+ * Busca un usuario en la base de datos basado en el nombre de usuario proporcionado 
+ * en la consulta y devuelve su correo electrónico. 
+ * 
+ * - Si el nombre de usuario no se proporciona, se devuelve un error 400.
+ * - Si el usuario no se encuentra, se devuelve un error 404.
+ * - En caso de error en la base de datos, se devuelve un error 500.
+ */
 exports.getUserEmail = async (request, response) => { 
     const username = request.query.username;
 
