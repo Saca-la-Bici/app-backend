@@ -1,10 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-// Importen aquí los archivos de ruta del módulo
-// EJEMPLO: const registrarActividadRoute = require('./registrarActividad.routes');
+const registrarRutaRoute = require('./registrarRuta.routes');
+const modificarRutaRoute = require('./modificarRuta.routes');
+const eliminarRutaRoute = require('./eliminarRuta.routes');
+const consultarRutaRoute = require('./consultarMapa.routes');
 
-// Pongan la ruta que quieren usar y el archivo de la ruta de la funcionalidad
-// EJEMPLO router.use('/registrar', registrarActividadRoute);
+router.use('/consultarRutas', consultarRutaRoute);
+
+router.use('/', registrarRutaRoute);
+
+router.use('/', modificarRutaRoute);
+
+router.use('/', eliminarRutaRoute);
 
 module.exports = router;

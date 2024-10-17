@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const verifyUserToken = require('../../../util/verifyUserToken');
+const verifyUserPermissions = require('../../../util/verifyUserPermissions');
 
-// Importar el controlador que maneja la Funcionalidad que quieres
-// EJEMPLO: const registrarAnuncioController = require('../controllers/registrarAnuncio.controller');
+const consultarMapaController = require('../controllers/consultarMapa.controller');
 
-// Definir la ruta para la funcionalidad y la funcion del controlador
-// EJEMPLO: router.get('/', registrarActividadController.getPrueba);
+router.get('/',verifyUserToken, verifyUserPermissions,consultarMapaController.getRutas);
+
+router.get('/:id', verifyUserToken, verifyUserPermissions, consultarMapaController.getRuta);
 
 module.exports = router;
