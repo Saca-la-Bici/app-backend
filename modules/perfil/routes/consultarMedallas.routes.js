@@ -8,4 +8,4 @@ const verifyUserToken = require("../../../util/verifyUserToken");
 // Definir la ruta para crear una medalla
 router.get("/",verifyUserToken, consultarMedallasController.consultarMedallas);
 
-module.exports = router;
+module.exports=router;
