@@ -3,6 +3,19 @@ const Usuario = require("../../../models/perfil/usuario.model").Usuario;
 const Rol = require("../../../models/perfil/rol.model");
 const getUserImage = require("../../../util/getUserImage");
 
+/**
+ * Controlador para obtener los usuarios con roles.
+ * 
+ * Obtiene los usuarios con roles específicos y los devuelve paginados.
+ * 
+ * - Si no se proporciona un número de página, se establece en 1.
+ * - Si no se proporciona un límite de resultados, se establece en 10.
+ * - Si no se proporcionan roles, se devuelven todos los roles.
+ * - Si el usuario autenticado no tiene un rol válido, se devuelve un error 404.
+ * - Si no se encuentran usuarios con roles, se devuelve un error 404.
+ * - En caso de error en la base de datos, se devuelve un error 500.
+ */
+
 exports.getUsuarios = async (req, res) => {
   const { page, limit, roles } = req.query;
   const firebaseUID = req.userUID.uid;

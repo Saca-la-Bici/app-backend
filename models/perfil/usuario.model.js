@@ -1,5 +1,28 @@
 const mongoose = require("mongoose");
 
+/**
+ * Modelo de usuario para la colección "Usuario".
+ * 
+ * Este modelo representa la estructura de un usuario en la base de datos, 
+ * definiendo los campos necesarios y sus tipos de datos. Los campos incluyen:
+ * 
+ * - `username`: Nombre de usuario único y requerido.
+ * - `nombre`: Nombre del usuario (opcional).
+ * - `fechaNacimiento`: Fecha de nacimiento del usuario (opcional).
+ * - `tipoSangre`: Tipo de sangre del usuario (opcional).
+ * - `imagen`: URL de la imagen de perfil del usuario (opcional).
+ * - `correoElectronico`: Correo electrónico único y requerido.
+ * - `numeroEmergencia`: Número de contacto de emergencia (opcional).
+ * - `fechaRegistro`: Fecha de registro del usuario (inmutable, por defecto es la fecha actual).
+ * - `kilometrosRecorridos`: Total de kilómetros recorridos (por defecto 0, opcional).
+ * - `tiempoEnRecorrido`: Tiempo total en recorrido en horas (por defecto 0.0, opcional).
+ * - `rodadasCompletadas`: Total de rodadas completadas (por defecto 0, opcional).
+ * - `firebaseUID`: Identificador único de Firebase (único y requerido).
+ * - `fcmTokens`: Tokens de Firebase Cloud Messaging (por defecto vacío, opcional).
+ * - `estadoMedallas`: Estado de las medallas del usuario (por defecto un arreglo con valores booleanos, opcional).
+ * - `kilometrosMes`: Kilómetros recorridos en el mes actual (por defecto 0, opcional).
+ */
+
 const usuarioSchema = new mongoose.Schema(
   {
     username: {
@@ -122,6 +145,12 @@ const Usuario = mongoose.model("Usuario", usuarioSchema);
 //   patchPerfil,
 // };
 
+// Función para encontrar un usuario por firebaseUID y devolver firebaseUID y username
+async function findUserByFirebaseUID(firebaseUID) {
+  const usuario = await Usuario.findOne({ firebaseUID: firebaseUID }).select('username firebaseUID').lean();
+  return usuario;
+}
+
 async function patchPerfil(
   firebaseUID,
   imagen,
@@ -158,4 +187,5 @@ module.exports = {
   patchPerfil,
   getImagen,
   deleteUser,
+  findUserByFirebaseUID,
 };
