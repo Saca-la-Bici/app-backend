@@ -22,6 +22,6 @@ exports.eliminarUbicacion = async (req, res) => {
         });
     } catch (error) {
         console.error('Error al eliminar la ubicación:', error);
-        return res.status(500).json({ error: 'Error al eliminar la ubicación' });
-    }
+        return res.status(500).json({ error: 'Error al eliminar la ubicación'});
+}
 };

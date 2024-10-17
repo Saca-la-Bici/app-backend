@@ -7,4 +7,4 @@ const eliminarUbicacionController = require('../controllers/eliminarUbicacion.co
 // Ruta para eliminar la ubicación de una rodada existente
 router.delete('/:idRodada', verifyUserToken, verifyUserPermissions, eliminarUbicacionController.eliminarUbicacion);
 
-module.exports = router;
+module.exports=router;
