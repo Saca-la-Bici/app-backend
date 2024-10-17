@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const moment = require('moment-timezone');
 
 const comentarioSchema = new Schema({
-    username: {
+    firebaseUID: {
         type: String,
         required: true
     },
