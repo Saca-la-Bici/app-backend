@@ -6,6 +6,29 @@ const {
   borrarAnunciosCaducados, 
   actualizarEstadoActsCron } = require('./util/cronjob');
 
+  /**
+ * Servidor Express para la aplicación "Saca la Bici".
+ * 
+ * Este archivo configura y ejecuta el servidor web, incluyendo la conexión a la 
+ * base de datos de MongoDB y la inicialización de cron jobs. Los componentes 
+ * principales incluyen:
+ * 
+ * - Configuración de middleware: Se utiliza `body-parser` para manejar las 
+ *   solicitudes HTTP, y `compression` para optimizar las respuestas.
+ * - Rutas: Se importan y registran rutas específicas para diferentes módulos 
+ *   de la aplicación.
+ * - Manejo de autenticación: Se implementan funciones de verificación de 
+ *   tokens y permisos de usuario para proteger ciertos endpoints.
+ * - Manejo de errores: Se implementa un middleware para manejar rutas no 
+ *   encontradas (404).
+ * - Configuración de cron jobs: Se inician cron jobs para actualizar datos 
+ *   relacionados con kilómetros recorridos por mes y para borrar anuncios caducados.
+ * 
+ * La aplicación escucha en un puerto especificado en las variables de entorno 
+ * (por defecto, el puerto 8080) y se conecta a la base de datos MongoDB usando 
+ * la URI especificada en las variables de entorno.
+ */
+
 const app = express();
 const port = process.env.PORT || 8080;
 

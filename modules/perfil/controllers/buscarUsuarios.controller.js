@@ -2,6 +2,21 @@ const { Usuario } = require("../../../models/perfil/usuario.model");
 const PoseeRol = require("../../../models/perfil/poseeRol.model");
 const getUserImage = require("../../../util/getUserImage");
 
+/**
+ * Controlador para buscar usuarios basados en un criterio de búsqueda.
+ * 
+ * Busca usuarios en la base de datos basándose en el 
+ * nombre de usuario proporcionado en la consulta y opcionalmente filtra 
+ * por roles específicos. 
+ * 
+ * - Excluye al usuario autenticado de los resultados.
+ * - Si se proporciona un criterio de búsqueda, busca coincidencias en 
+ *   el nombre de usuario.
+ * - Si se proporcionan roles, solo devuelve usuarios que tengan esos 
+ *   roles específicos.
+ * - En caso de error en la base de datos, se devuelve un error 500.
+ */
+
 exports.searchUsuarios = async (req, res) => {
   const { query, roles } = req.query; // Obtener los parámetros de búsqueda y roles
 

@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const AWS = require("aws-sdk");
 
-// Configure AWS SDK
+// Configurar AWS SDK
 AWS.config.update({
   signatureVersion: "v4",
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -12,7 +12,7 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 
-// Configure Multer storage
+// Configurar Multer
 var storage = multer.diskStorage({
   destination: function (request, file, callback) {
     callback(null, "./bucket/");
@@ -27,35 +27,40 @@ var storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Middleware function
+// Middleware para subir imagenes al S3
 const uploadToS3 = (folder) => (request, res, next) => {
   if (!request.file) {
     console.error("No file uploaded");
     return next();
   }
 
+  // Leemos el archivo desde el sistema local
   fs.readFile(
     path.join(__dirname, ".././bucket", request.file.filename),
     (err, data) => {
       if (err) throw err;
+      // Convertimos el archivo a base64
       var base64data = new Buffer.from(data, "binary");
+      
+      // Configurar parametros para subir el archivo al S3
       const params = {
-        Bucket: process.env.AWS_BUCKET,
-        Key: folder + request.file.filename,
-        Body: base64data,
+        Bucket: process.env.AWS_BUCKET, //Nombre del bucket en S3
+        Key: folder + request.file.filename, // Ruta y nombre del archivo
+        Body: base64data, // Datos del archivo
       };
-
+      
+      // Subir el archivo al S3
       s3.upload(params, function (s3Err) {
         if (s3Err) throw s3Err;
 
+        // Eliminar el archivo del sistema local
         fs.unlink(
           path.join(__dirname, ".././bucket", request.file.filename),
           (err) => {
             if (err) {
               console.error("Error deleting local file:", err);
-              // We don't return here because the upload was successful
             }
-            next(); // Continue to the next middleware
+            next();
           }
         );
       });
