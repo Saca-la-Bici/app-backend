@@ -37,7 +37,7 @@ foroSchema.statics.consultarComentarios = async function (actividadId) {
         if (!foro) {
             throw new Error('Foro no encontrado');
         }
-        return foro.comentarios;
+        return { _id: foro._id, comentarios: foro.comentarios }; // Devolver el ID del foro y los comentarios
     } catch (error) {
         console.error(error);
         throw error;

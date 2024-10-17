@@ -7,7 +7,7 @@ exports.obtenerForoPorIdDeActividad = async (request, response) => {
         const actividadId = request.params.id;
 
         // Usar la función consultarComentarios para obtener los comentarios del foro
-        const comentarios = await Foro.consultarComentarios(actividadId);
+        const { _id: foroId, comentarios } = await Foro.consultarComentarios(actividadId);
 
         // Obtener los usuarios correspondientes a los firebaseUIDs
         const comentariosConUsuarios = await Promise.all(comentarios.map(async comentario => {
@@ -21,7 +21,7 @@ exports.obtenerForoPorIdDeActividad = async (request, response) => {
 
         // Crear la respuesta del foro con los comentarios que incluyen los usuarios
         const foroConComentarios = {
-            _id: Foro._id, 
+            idForo: foroId, 
             actividad: actividadId,
             comentarios: comentariosConUsuarios
         };
