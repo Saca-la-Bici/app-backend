@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const moment = require('moment-timezone');
+const { getFechaConsulta } = require('../actividades/consultarActividades.model');
 
 const comentarioSchema = new Schema({
-    username: {
+    firebaseUID: {
         type: String,
         required: true
     },
@@ -19,7 +19,7 @@ const comentarioSchema = new Schema({
     },
     fecha: {
         type: Date,
-        default: () => moment.tz('America/Mexico_City').toDate(),
+        default: getFechaConsulta,
         immutable: true
     },
     modificacion: {

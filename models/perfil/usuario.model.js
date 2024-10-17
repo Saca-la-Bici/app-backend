@@ -145,6 +145,12 @@ const Usuario = mongoose.model("Usuario", usuarioSchema);
 //   patchPerfil,
 // };
 
+// Función para encontrar un usuario por firebaseUID y devolver firebaseUID y username
+async function findUserByFirebaseUID(firebaseUID) {
+  const usuario = await Usuario.findOne({ firebaseUID: firebaseUID }).select('username firebaseUID').lean();
+  return usuario;
+}
+
 async function patchPerfil(
   firebaseUID,
   imagen,
@@ -181,4 +187,5 @@ module.exports = {
   patchPerfil,
   getImagen,
   deleteUser,
+  findUserByFirebaseUID,
 };

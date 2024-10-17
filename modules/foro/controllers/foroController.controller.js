@@ -1,23 +1,35 @@
 const Foro = require('../../../models/foro/foro.model');
+const { findUserByFirebaseUID } = require('../../../models/perfil/usuario.model'); 
 
-exports.obtenerForoPorIdDeActividad = async (req, res) => {
+exports.obtenerForoPorIdDeActividad = async (request, response) => {
     try {
         // Obtener el ID de la actividad desde los parámetros de la solicitud
-        const actividadId = req.params.id;
+        const actividadId = request.params.id;
 
-        // Buscar el foro que corresponde a la actividad y poblar los comentarios
-        const foro = await Foro.findOne({ actividad: actividadId }).populate('comentarios').exec();
+        // Usar la función consultarComentarios para obtener los comentarios del foro
+        const comentarios = await Foro.consultarComentarios(actividadId);
 
-        // Verificar si se encontró el foro
-        if (!foro) {
-            return res.status(404).json({ mensaje: 'No se encontró un foro para esta actividad' });
-        }
+        // Obtener los usuarios correspondientes a los firebaseUIDs
+        const comentariosConUsuarios = await Promise.all(comentarios.map(async comentario => {
+            const usuario = await findUserByFirebaseUID(comentario.firebaseUID);
+            return {
+                ...comentario.toObject(),
+                username: usuario ? usuario.username : null,
+                firebaseUID: usuario ? usuario.firebaseUID : comentario.firebaseUID
+            };
+        }));
 
-        // Enviar el foro encontrado como respuesta
-        res.status(200).json(foro);
+        // Crear la respuesta del foro con los comentarios que incluyen los usuarios
+        const foroConComentarios = {
+            _id: Foro._id, 
+            actividad: actividadId,
+            comentarios: comentariosConUsuarios
+        };
+
+        // Enviar el foro encontrado como responsepuesta
+        response.status(200).json(foroConComentarios);
     } catch (error) {
         // Manejar el error
-        res.status(500).json({ mensaje: 'Error al obtener el foro', error: error.message });
+        response.status(500).json({ mensaje: 'Error al obtener el foro', error: error.message });
     }
 };
-
