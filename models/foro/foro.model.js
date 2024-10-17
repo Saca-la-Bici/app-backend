@@ -30,10 +30,8 @@ foroSchema.statics.buscarPorActividadId = async function(actividadId) {
     return await this.findOne({ actividad: actividadId }).exec();
 };
 
-module.exports = mongoose.model('Foro', foroSchema);
-
 // Función para consultar comentarios
-module.exports.consultarComentarios = async function (actividadId) {
+foroSchema.statics.consultarComentarios = async function (actividadId) {
     try {
         const foro = await this.findOne({ actividad: actividadId }).populate('comentarios').exec();
         if (!foro) {
@@ -45,3 +43,5 @@ module.exports.consultarComentarios = async function (actividadId) {
         throw error;
     }
 };
+
+module.exports = mongoose.model('Foro', foroSchema);
